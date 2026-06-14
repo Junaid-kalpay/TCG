@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#FBF9F5;color:#1B2A4E;font-family:'Hanken Grotesk',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  ::selection{background:#1B2A4E;color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  input,textarea,button,select{font-family:inherit;}
+  button{white-space:nowrap;}
+  @keyframes tcgFadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+  @keyframes tcgFadeIn{from{opacity:0;}to{opacity:1;}}
+  @keyframes tcgSlide{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .tcg-tquote{animation:tcgSlide .5s ease both;}
+  ::-webkit-scrollbar{width:11px;height:11px;}
+  ::-webkit-scrollbar-thumb{background:#cfc6b4;border-radius:6px;border:3px solid #FBF9F5;}
+  @media (max-width:960px){
+    [data-desktop-nav]{display:none !important;}
+    [data-burger]{display:flex !important;}
+  }
+  @media (max-width:860px){
+    [data-intro-grid]{grid-template-columns:1fr !important;}
+    [data-contact-grid]{grid-template-columns:1fr !important;}
+    [data-footer-grid]{grid-template-columns:1fr 1fr !important;}
+    [data-sub-grid]{grid-template-columns:1fr !important;gap:32px !important;}
+    [data-sub-body]{border-left:none !important;padding-left:0 !important;}
+  }
+  @media (max-width:560px){
+    [data-form-grid]{grid-template-columns:1fr !important;}
+    [data-footer-grid]{grid-template-columns:1fr !important;}
+  }
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position:sticky;top:0;z-index:90;background:rgba(251,249,245,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #E8E2D6;">
+    <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,40px);height:84px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="#/home" onClick="{{ goHome }}" style="display:flex;align-items:center;cursor:pointer;flex-shrink:0;">
+        <img src="assets/tcg-logo.png" alt="Tax Consulting Group" style="height:42px;width:auto;display:block;" />
+      </a>
+
+      <!-- desktop nav -->
+      <nav style="display:flex;align-items:center;gap:clamp(18px,2.4vw,38px);" data-desktop-nav>
+        <a href="#/home" onClick="{{ goHome }}" style="font-size:14.5px;font-weight:500;letter-spacing:.01em;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.home }};transition:color .2s;" style-hover="color:#B08E5A;">Home</a>
+        <a href="#/services" onClick="{{ goServices }}" style="font-size:14.5px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.services }};transition:color .2s;" style-hover="color:#B08E5A;">Services</a>
+
+        <div onMouseEnter="{{ openKnowledge }}" onMouseLeave="{{ closeKnowledge }}" style="position:relative;">
+          <button onClick="{{ toggleKnowledge }}" style="font-size:14.5px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;background:none;border:none;border-bottom:2px solid {{ nav.knowledge }};display:flex;align-items:center;gap:7px;" style-hover="color:#B08E5A;">Knowledge
+            <span style="display:inline-block;width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);"></span>
+          </button>
+          <sc-if value="{{ knowledgeOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:14px;animation:tcgFadeIn .18s ease;">
+            <div style="position:relative;background:#fff;border:1px solid #ECE6DA;border-radius:4px;box-shadow:0 24px 60px -22px rgba(21,32,59,.34);padding:8px;min-width:288px;">
+              <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-left:1px solid #ECE6DA;border-top:1px solid #ECE6DA;"></div>
+              <a href="#/articles" onClick="{{ goArticles }}" style="display:block;padding:13px 16px;border-radius:3px;cursor:pointer;transition:background .18s;" style-hover="background:#F6F2EA;">
+                <div style="font-size:14.5px;font-weight:600;color:#1B2A4E;">Articles and technical updates</div>
+                <div style="font-size:12.5px;color:#8B8676;margin-top:2px;">Insight on current tax matters</div>
+              </a>
+              <a href="#/publications" onClick="{{ goPublications }}" style="display:block;padding:13px 16px;border-radius:3px;cursor:pointer;transition:background .18s;" style-hover="background:#F6F2EA;">
+                <div style="font-size:14.5px;font-weight:600;color:#1B2A4E;">Publications</div>
+                <div style="font-size:12.5px;color:#8B8676;margin-top:2px;">Guides, reports and briefings</div>
+              </a>
+              <a href="#/webinars" onClick="{{ goWebinars }}" style="display:block;padding:13px 16px;border-radius:3px;cursor:pointer;transition:background .18s;" style-hover="background:#F6F2EA;">
+                <div style="font-size:14.5px;font-weight:600;color:#1B2A4E;">Webinars and seminars</div>
+                <div style="font-size:12.5px;color:#8B8676;margin-top:2px;">Live and on-demand sessions</div>
+              </a>
+            </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <a href="#/testimonials" onClick="{{ goTestimonials }}" style="font-size:14.5px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.testimonials }};transition:color .2s;" style-hover="color:#B08E5A;">Testimonials</a>
+        <button onClick="{{ goContact }}" style="margin-left:6px;background:#1B2A4E;color:#fff;border:none;padding:13px 26px;border-radius:2px;font-size:13.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;transform:translateY(-1px);">Get in Touch</button>
+      </nav>
+
+      <!-- mobile burger -->
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px;" data-burger>
+        <span style="display:block;width:24px;height:2px;background:#1B2A4E;"></span>
+        <span style="display:block;width:24px;height:2px;background:#1B2A4E;"></span>
+        <span style="display:block;width:24px;height:2px;background:#1B2A4E;"></span>
+      </button>
+    </div>
+
+    <!-- mobile menu -->
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #E8E2D6;background:#FBF9F5;padding:14px clamp(20px,4vw,40px) 28px;animation:tcgFadeIn .2s ease;">
+        <a href="#/home" onClick="{{ goHome }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Home</a>
+        <a href="#/services" onClick="{{ goServices }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Services</a>
+        <button onClick="{{ toggleMobileKnowledge }}" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border:none;border-bottom:1px solid #ECE6DA;background:none;cursor:pointer;">Knowledge<span style="display:inline-block;width:8px;height:8px;border-right:1.6px solid #B08E5A;border-bottom:1.6px solid #B08E5A;transform:rotate(45deg);"></span></button>
+        <sc-if value="{{ mobileKnowledgeOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:4px 0 4px 14px;border-bottom:1px solid #ECE6DA;">
+            <a href="#/articles" onClick="{{ goArticles }}" style="display:block;padding:12px 4px;font-size:15px;color:#4A5163;cursor:pointer;">Articles and technical updates</a>
+            <a href="#/publications" onClick="{{ goPublications }}" style="display:block;padding:12px 4px;font-size:15px;color:#4A5163;cursor:pointer;">Publications</a>
+            <a href="#/webinars" onClick="{{ goWebinars }}" style="display:block;padding:12px 4px;font-size:15px;color:#4A5163;cursor:pointer;">Webinars and seminars</a>
+          </div>
+        </sc-if>
+        <a href="#/testimonials" onClick="{{ goTestimonials }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Testimonials</a>
+        <button onClick="{{ goContact }}" style="margin-top:18px;width:100%;background:#1B2A4E;color:#fff;border:none;padding:16px;border-radius:2px;font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;">Get in Touch</button>
+      </div>
+    </sc-if>
+  </header>
+
+  <main style="flex:1;">
+
+    <!-- ==================== HOME ==================== -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <!-- HERO -->
+      <section style="position:relative;background:#15203B;color:#fff;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.10) 1.3px,transparent 1.4px);background-size:22px 22px;opacity:.5;"></div>
+        <div style="position:absolute;top:-130px;right:-150px;width:560px;height:560px;border-radius:50%;border:1px solid rgba(176,142,90,.28);"></div>
+        <div style="position:absolute;top:-70px;right:-90px;width:440px;height:440px;border-radius:50%;background-image:radial-gradient(rgba(176,142,90,0.30) 1.6px,transparent 1.7px);background-size:26px 26px;opacity:.55;"></div>
+        <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(72px,11vw,148px) clamp(20px,4vw,40px) clamp(80px,11vw,150px);">
+          <div style="max-width:880px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:30px;" data-reveal>
+              <span style="width:34px;height:1px;background:#B08E5A;"></span>
+              <span style="font-size:12.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:#CDB68E;">Tax Consulting Group</span>
+            </div>
+            <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,5.6vw,70px);line-height:1.1;letter-spacing:-0.005em;margin:0 0 36px;color:#fff;text-wrap:balance;" data-reveal>Specialist Tax Partners to Accountancy Practices and Wealth Managers</h1>
+            <p style="font-size:clamp(17px,1.5vw,19.5px);line-height:1.78;color:rgba(255,255,255,0.80);max-width:760px;margin:0 0 40px;font-weight:300;" data-reveal>Tax Consulting Group (TCG) is one of the UK&rsquo;s leading independent firms of Chartered Tax Advisers, dedicated to supporting accountancy practices and wealth management firms in delivering specialist tax solutions to high-net-worth private clients, families and corporates across all areas of tax.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:16px;" data-reveal>
+              <button onClick="{{ goServices }}" style="background:#B08E5A;color:#15203B;border:none;padding:16px 32px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#c4a06b;transform:translateY(-2px);">Explore Our Services</button>
+              <button onClick="{{ goContact }}" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.45);padding:16px 32px;border-radius:2px;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="border-color:#fff;background:rgba(255,255,255,0.06);">Speak With a Tax Partner</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTRO / WHO WE ARE -->
+      <section style="background:#FBF9F5;">
+        <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,108px) clamp(20px,4vw,40px);display:grid;grid-template-columns:minmax(0,0.85fr) minmax(0,1.4fr);gap:clamp(36px,6vw,90px);align-items:start;" data-intro-grid>
+          <div data-reveal>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <span style="width:28px;height:1px;background:#B08E5A;"></span>
+              <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">Who We Are</span>
+            </div>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,3.2vw,40px);line-height:1.12;margin:0;color:#1B2A4E;">A specialist firm built around technical depth and discretion.</h2>
+          </div>
+          <div data-reveal>
+            <p style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0 0 26px;font-weight:400;">As one of the leading multi-office independent tax advisory firms, our team consists of highly experienced and renowned Chartered Tax Advisers including ex-Top 10 Partners and ex-HMRC inspectors.</p>
+            <p style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0 0 36px;font-weight:400;">With decades of specialist tax expertise, our team provides tax solutions on some of the most complex areas of UK and cross-border tax.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0;border-top:1px solid #E8E2D6;">
+              <div style="flex:1;min-width:150px;padding:22px 24px 8px 0;border-right:1px solid #E8E2D6;">
+                <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#1B2A4E;font-weight:600;">Chartered</div>
+                <div style="font-size:13px;color:#8B8676;margin-top:4px;letter-spacing:.02em;">Tax Advisers (CTA)</div>
+              </div>
+              <div style="flex:1;min-width:150px;padding:22px 24px 8px;border-right:1px solid #E8E2D6;">
+                <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#1B2A4E;font-weight:600;">Multi-office</div>
+                <div style="font-size:13px;color:#8B8676;margin-top:4px;letter-spacing:.02em;">Independent firm</div>
+              </div>
+              <div style="flex:1;min-width:150px;padding:22px 0 8px 24px;">
+                <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#1B2A4E;font-weight:600;">Partner-led</div>
+                <div style="font-size:13px;color:#8B8676;margin-top:4px;letter-spacing:.02em;">ex-Top 10 &amp; ex-HMRC</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section style="background:#F4F1EA;border-top:1px solid #E8E2D6;">
+        <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,40px);">
+          <div style="max-width:720px;margin-bottom:clamp(40px,5vw,64px);" data-reveal>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+              <span style="width:28px;height:1px;background:#B08E5A;"></span>
+              <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">What We Do</span>
+            </div>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Specialist Tax Advisory Services</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1px;background:#E2DBCC;border:1px solid #E2DBCC;" data-services-grid>
+            <sc-for list="{{ services }}" as="svc" hint-placeholder-count="7">
+              <div style="background:#FBF9F5;padding:clamp(28px,3vw,40px);transition:background .3s,transform .3s;cursor:default;position:relative;" style-hover="background:#fff;" data-reveal>
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;">
+                  <span style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#B08E5A;">{{ svc.n }}</span>
+                  <span style="flex:1;height:1px;background:#E8E2D6;"></span>
+                </div>
+                <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;line-height:1.24;margin:0 0 16px;color:#1B2A4E;">{{ svc.title }}</h3>
+                <p style="font-size:15px;line-height:1.72;color:#5b6072;margin:0;">{{ svc.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUBSCRIPTION CTA -->
+      <section style="position:relative;background:#1B2A4E;color:#fff;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1.2px,transparent 1.3px);background-size:24px 24px;"></div>
+        <div style="position:absolute;top:50%;right:-130px;transform:translateY(-50%);width:400px;height:400px;border-radius:50%;border:1px solid rgba(176,142,90,.20);"></div>
+        <div style="position:absolute;top:50%;right:-90px;transform:translateY(-50%);width:320px;height:320px;border-radius:50%;background-image:radial-gradient(rgba(176,142,90,0.26) 1.5px,transparent 1.6px);background-size:24px 24px;opacity:.5;"></div>
+        <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(52px,6.5vw,94px) clamp(20px,4vw,40px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(34px,5vw,76px);align-items:center;" data-sub-grid>
+          <div data-reveal>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+              <span style="width:28px;height:1px;background:#B08E5A;"></span>
+              <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#CDB68E;">For Accountancy Practices</span>
+            </div>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(29px,3.5vw,48px);line-height:1.1;margin:0 0 32px;color:#fff;">Tax Partner Subscription Service for Accountants</h2>
+            <button onClick="{{ goContact }}" style="background:#B08E5A;color:#15203B;border:none;padding:16px 38px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#c4a06b;transform:translateY(-2px);">Find Out More</button>
+          </div>
+          <div data-reveal data-sub-body style="border-left:1px solid rgba(255,255,255,0.16);padding-left:clamp(28px,4vw,54px);">
+            <p style="font-size:clamp(16px,1.35vw,18.5px);line-height:1.78;color:rgba(255,255,255,0.84);margin:0 0 22px;font-weight:300;">Our Tax Partner Subscription Service provides a dedicated service to accountancy practices requiring support on technical tax queries from their clients.</p>
+            <p style="font-size:clamp(16px,1.35vw,18.5px);line-height:1.78;color:rgba(255,255,255,0.84);margin:0;font-weight:300;">For a fixed monthly subscription, we provide hands on support to accountants by answering their clients&rsquo; technical tax queries, allowing firms to provide a value-added service to their clients and grow their practice.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS CAROUSEL -->
+      <section style="background:#FBF9F5;">
+        <div style="max-width:1100px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,40px);">
+          <div style="text-align:center;margin-bottom:clamp(36px,4vw,56px);" data-reveal>
+            <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;">
+              <span style="width:28px;height:1px;background:#B08E5A;"></span>
+              <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">In Their Words</span>
+              <span style="width:28px;height:1px;background:#B08E5A;"></span>
+            </div>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Testimonials</h2>
+          </div>
+
+          <div style="position:relative;background:#fff;border:1px solid #ECE6DA;border-radius:6px;padding:clamp(36px,5vw,72px);box-shadow:0 30px 70px -40px rgba(21,32,59,.28);min-height:300px;display:flex;flex-direction:column;justify-content:center;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:120px;line-height:.7;color:#EADFC7;position:absolute;top:34px;left:40px;user-select:none;">&ldquo;</span>
+            <div class="tcg-tquote" style="position:relative;z-index:1;text-align:center;max-width:760px;margin:0 auto;">
+              <sc-if value="{{ tHasQuote }}" hint-placeholder-val="{{ true }}">
+                <p style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(18px,1.9vw,24px);line-height:1.5;color:#27324d;margin:0 0 28px;font-style:italic;">{{ tQuote }}</p>
+              </sc-if>
+              <div style="width:40px;height:1px;background:#B08E5A;margin:0 auto 18px;"></div>
+              <div style="font-size:17px;font-weight:700;color:#1B2A4E;letter-spacing:.01em;">{{ tName }}</div>
+              <div style="font-size:14px;color:#8B8676;margin-top:5px;">{{ tTitle }}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:30px;gap:20px;flex-wrap:wrap;">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <sc-for list="{{ tDots }}" as="dot" hint-placeholder-count="9">
+                <button onClick="{{ dot.on }}" aria-label="Testimonial" style="{{ dot.style }}"></button>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <span style="font-size:13px;color:#8B8676;letter-spacing:.06em;margin-right:6px;">{{ tNum }}</span>
+              <button onClick="{{ tPrev }}" aria-label="Previous" style="width:48px;height:48px;border-radius:50%;border:1px solid #D8D0BF;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;" style-hover="border-color:#1B2A4E;background:#1B2A4E;">
+                <span style="display:inline-block;width:9px;height:9px;border-left:1.6px solid #1B2A4E;border-bottom:1.6px solid #1B2A4E;transform:rotate(45deg) translate(2px,-2px);"></span>
+              </button>
+              <button onClick="{{ tNext }}" aria-label="Next" style="width:48px;height:48px;border-radius:50%;border:1px solid #D8D0BF;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;" style-hover="border-color:#1B2A4E;background:#1B2A4E;">
+                <span style="display:inline-block;width:9px;height:9px;border-right:1.6px solid #1B2A4E;border-top:1.6px solid #1B2A4E;transform:rotate(45deg) translate(-2px,2px);"></span>
+              </button>
+            </div>
+          </div>
+          <div style="text-align:center;margin-top:30px;">
+            <button onClick="{{ goTestimonials }}" style="background:none;border:none;color:#1B2A4E;font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid #B08E5A;padding:6px 2px;transition:color .2s;" style-hover="color:#B08E5A;">View All Testimonials</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARTICLES & TECHNICAL UPDATES (placeholder, [TBC]) -->
+      <section style="background:#F4F1EA;border-top:1px solid #E8E2D6;">
+        <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,40px);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(36px,4vw,56px);" data-reveal>
+            <div style="max-width:640px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <span style="width:28px;height:1px;background:#B08E5A;"></span>
+                <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">Knowledge</span>
+              </div>
+              <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Articles and technical updates</h2>
+            </div>
+            <button onClick="{{ goArticles }}" style="background:none;border:1px solid #1B2A4E;color:#1B2A4E;padding:14px 26px;border-radius:2px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;white-space:nowrap;" style-hover="background:#1B2A4E;color:#fff;">View Knowledge Hub</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:14px;padding:18px 22px;background:#fff;border:1px dashed #C9BFA9;border-radius:5px;margin-bottom:30px;">
+            <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#B08E5A;padding:5px 10px;border-radius:3px;">Placeholder</span>
+            <span style="font-size:14.5px;color:#5b6072;">Content status: <strong style="color:#1B2A4E;">[TBC]</strong> &mdash; article cards below are placeholders for layout only.</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;" data-reveal>
+            <sc-for list="{{ articlePlaceholders }}" as="art" hint-placeholder-count="3">
+              <div style="background:#FBF9F5;border:1px solid #E8E2D6;border-radius:6px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:default;" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(21,32,59,.3);">
+                <div style="height:170px;background:#15203B;position:relative;overflow:hidden;">
+                  <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.12) 1.2px,transparent 1.3px);background-size:18px 18px;opacity:.6;"></div>
+                  <span style="position:absolute;left:18px;top:16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CDB68E;border:1px solid rgba(205,182,142,.45);padding:5px 9px;border-radius:3px;">{{ art.tag }}</span>
+                </div>
+                <div style="padding:26px 24px 28px;">
+                  <div style="font-size:12.5px;color:#8B8676;letter-spacing:.04em;margin-bottom:10px;">{{ art.date }}</div>
+                  <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.22;margin:0 0 12px;color:#1B2A4E;">{{ art.title }}</h3>
+                  <p style="font-size:14.5px;line-height:1.68;color:#5b6072;margin:0 0 18px;">{{ art.excerpt }}</p>
+                  <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#B08E5A;">[TBC]</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SERVICES PAGE ==================== -->
+    <sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="position:relative;background:#15203B;color:#fff;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
+        <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
+          <div style="font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#CDB68E;margin-bottom:18px;">Tax Consulting Group &nbsp;/&nbsp; Services</div>
+          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Our Specialist Tax Advisory Services</h1>
+          <p style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:720px;margin:26px 0 0;font-weight:300;">Specialist support across every area of UK and cross-border tax, delivered at partner level for accountancy practices, wealth managers and their clients.</p>
+        </div>
+      </section>
+
+      <section style="background:#FBF9F5;">
+        <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px);">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1px;background:#E2DBCC;border:1px solid #E2DBCC;">
+            <sc-for list="{{ services }}" as="svc" hint-placeholder-count="7">
+              <div style="background:#FBF9F5;padding:clamp(30px,3vw,44px);transition:background .3s;" style-hover="background:#fff;" data-reveal>
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;">
+                  <span style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:#B08E5A;">{{ svc.n }}</span>
+                  <span style="flex:1;height:1px;background:#E8E2D6;"></span>
+                </div>
+                <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:25px;line-height:1.22;margin:0 0 16px;color:#1B2A4E;">{{ svc.title }}</h2>
+                <p style="font-size:15.5px;line-height:1.72;color:#5b6072;margin:0;">{{ svc.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- approach placeholder -->
+          <div style="margin-top:clamp(48px,6vw,80px);background:#fff;border:1px solid #E8E2D6;border-radius:6px;padding:clamp(32px,4vw,56px);" data-reveal>
+            <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#B08E5A;padding:5px 10px;border-radius:3px;">Placeholder</span>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(26px,3vw,38px);line-height:1.12;margin:20px 0 16px;color:#1B2A4E;">Our approach to specialist advisory</h2>
+            <p style="font-size:16px;line-height:1.8;color:#5b6072;max-width:760px;margin:0;">This section is reserved for a fuller description of the firm&rsquo;s methodology, engagement model and team. Placeholder copy to be replaced with the final approved content. Structure is ready for narrative paragraphs, a short process outline and supporting credentials.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    </sc-if>
+
+    <!-- ==================== KNOWLEDGE PAGES (articles / publications / webinars) ==================== -->
+    <sc-if value="{{ showKnowledge }}" hint-placeholder-val="{{ false }}">
+      {{ knowledgePage }}
+    </sc-if>
+
+    <!-- ==================== TESTIMONIALS PAGE ==================== -->
+    <sc-if value="{{ isTestimonials }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="position:relative;background:#15203B;color:#fff;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
+        <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
+          <div style="font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#CDB68E;margin-bottom:18px;">Tax Consulting Group &nbsp;/&nbsp; Testimonials</div>
+          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;color:#fff;">Testimonials</h1>
+          <p style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:720px;margin:26px 0 0;font-weight:300;">The professional advisers, accountants and wealth managers we partner with, in their own words.</p>
+        </div>
+      </section>
+      <section style="background:#FBF9F5;">
+        <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px);">
+          <div style="columns:3 360px;column-gap:24px;">
+            <sc-for list="{{ testimonials }}" as="item" hint-placeholder-count="9">
+              <div style="break-inside:avoid;margin:0 0 24px;background:#fff;border:1px solid #ECE6DA;border-radius:6px;padding:32px 30px;box-shadow:0 16px 40px -34px rgba(21,32,59,.4);">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:54px;line-height:.4;color:#EADFC7;display:block;height:26px;">&ldquo;</span>
+                <sc-if value="{{ item.hasQuote }}" hint-placeholder-val="{{ true }}">
+                  <p style="font-size:15.5px;line-height:1.72;color:#3a4258;margin:0 0 22px;">{{ item.quote }}</p>
+                </sc-if>
+                <div style="width:34px;height:1px;background:#B08E5A;margin:0 0 16px;"></div>
+                <div style="font-size:16px;font-weight:700;color:#1B2A4E;">{{ item.name }}</div>
+                <div style="font-size:13.5px;color:#8B8676;margin-top:4px;">{{ item.title }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ==================== CONTACT PAGE ==================== -->
+    <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="position:relative;background:#15203B;color:#fff;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
+        <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
+          <div style="font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#CDB68E;margin-bottom:18px;">Tax Consulting Group &nbsp;/&nbsp; Contact</div>
+          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:820px;color:#fff;">Speak with a specialist tax partner</h1>
+          <p style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:680px;margin:26px 0 0;font-weight:300;">Tell us a little about your firm or your clients&rsquo; requirements and a member of our team will be in touch in confidence.</p>
+        </div>
+      </section>
+
+      <section style="background:#FBF9F5;">
+        <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px);display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.3fr);gap:clamp(36px,5vw,72px);align-items:start;" data-contact-grid>
+          <!-- details -->
+          <div data-reveal>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <span style="width:28px;height:1px;background:#B08E5A;"></span>
+              <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">Get in Touch</span>
+            </div>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(26px,3vw,38px);line-height:1.14;margin:0 0 28px;color:#1B2A4E;">Discreet, partner-level advice.</h2>
+            <div style="border-top:1px solid #E8E2D6;">
+              <div style="padding:20px 0;border-bottom:1px solid #E8E2D6;">
+                <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#8B8676;margin-bottom:7px;">Email</div>
+                <div style="font-size:16.5px;color:#1B2A4E;font-weight:500;">enquiries@example.co.uk</div>
+                <div style="font-size:12.5px;color:#B0A98F;margin-top:3px;">Placeholder</div>
+              </div>
+              <div style="padding:20px 0;border-bottom:1px solid #E8E2D6;">
+                <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#8B8676;margin-bottom:7px;">Telephone</div>
+                <div style="font-size:16.5px;color:#1B2A4E;font-weight:500;">+44 (0)00 0000 0000</div>
+                <div style="font-size:12.5px;color:#B0A98F;margin-top:3px;">Placeholder</div>
+              </div>
+              <div style="padding:20px 0;border-bottom:1px solid #E8E2D6;">
+                <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#8B8676;margin-bottom:7px;">Offices</div>
+                <div style="font-size:16.5px;color:#1B2A4E;font-weight:500;line-height:1.5;">Multi-office, United Kingdom</div>
+                <div style="font-size:12.5px;color:#B0A98F;margin-top:3px;">Placeholder addresses [TBC]</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- form -->
+          <div data-reveal>
+            <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fff;border:1px solid #ECE6DA;border-radius:8px;padding:clamp(40px,5vw,64px);text-align:center;box-shadow:0 30px 70px -42px rgba(21,32,59,.3);">
+                <div style="width:64px;height:64px;border-radius:50%;background:#1B2A4E;display:flex;align-items:center;justify-content:center;margin:0 auto 26px;">
+                  <span style="display:inline-block;width:22px;height:12px;border-left:2.5px solid #B08E5A;border-bottom:2.5px solid #B08E5A;transform:rotate(-45deg) translateY(-3px);"></span>
+                </div>
+                <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:32px;margin:0 0 14px;color:#1B2A4E;">Thank you</h2>
+                <p style="font-size:16px;line-height:1.7;color:#5b6072;max-width:440px;margin:0 auto 30px;">Your enquiry has been received. A member of the Tax Consulting Group team will be in touch with you shortly, in confidence.</p>
+                <button onClick="{{ resetForm }}" style="background:none;border:1px solid #1B2A4E;color:#1B2A4E;padding:13px 28px;border-radius:2px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#1B2A4E;color:#fff;">Send Another Enquiry</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+              <form onSubmit="{{ submit }}" noValidate="{{ true }}" style="background:#fff;border:1px solid #ECE6DA;border-radius:8px;padding:clamp(28px,4vw,48px);box-shadow:0 30px 70px -42px rgba(21,32,59,.3);">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;" data-form-grid>
+                  <div style="grid-column:1 / -1;">
+                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Full Name <span style="color:#B08E5A;">*</span></label>
+                    <input value="{{ fName }}" onInput="{{ onName }}" type="text" placeholder="Your full name" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;" />
+                    <sc-if value="{{ errNameShow }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#b4452f;margin-top:7px;">{{ errName }}</div></sc-if>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Email <span style="color:#B08E5A;">*</span></label>
+                    <input value="{{ fEmail }}" onInput="{{ onEmail }}" type="email" placeholder="you@firm.co.uk" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;" />
+                    <sc-if value="{{ errEmailShow }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#b4452f;margin-top:7px;">{{ errEmail }}</div></sc-if>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Phone</label>
+                    <input value="{{ fPhone }}" onInput="{{ onPhone }}" type="tel" placeholder="Optional" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;" />
+                  </div>
+                  <div style="grid-column:1 / -1;">
+                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Company</label>
+                    <input value="{{ fCompany }}" onInput="{{ onCompany }}" type="text" placeholder="Firm or organisation" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;" />
+                  </div>
+                  <div style="grid-column:1 / -1;">
+                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Message <span style="color:#B08E5A;">*</span></label>
+                    <textarea value="{{ fMessage }}" onInput="{{ onMessage }}" rows="5" placeholder="How can we help?" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;resize:vertical;transition:border-color .2s;font-family:inherit;" style-focus="border-color:#1B2A4E;"></textarea>
+                    <sc-if value="{{ errMessageShow }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#b4452f;margin-top:7px;">{{ errMessage }}</div></sc-if>
+                  </div>
+                </div>
+                <button type="submit" style="margin-top:26px;width:100%;background:#1B2A4E;color:#fff;border:none;padding:17px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;">Submit Enquiry</button>
+                <p style="font-size:12.5px;color:#9a937f;text-align:center;margin:16px 0 0;line-height:1.6;">Your enquiry is treated in the strictest confidence. No information is shared with third parties.</p>
+              </form>
+            </sc-if>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#11192E;color:rgba(255,255,255,0.72);">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,6vw,84px) clamp(20px,4vw,40px) 0;">
+      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1.1fr;gap:clamp(32px,4vw,56px);padding-bottom:clamp(40px,5vw,64px);" data-footer-grid>
+        <div>
+          <img src="assets/tcg-logo-white.png" alt="Tax Consulting Group" style="height:52px;width:auto;display:block;margin-bottom:22px;" />
+          <p style="font-size:14.5px;line-height:1.75;color:rgba(255,255,255,0.6);max-width:320px;margin:0;">One of the UK&rsquo;s leading independent firms of Chartered Tax Advisers, supporting accountancy practices and wealth managers with specialist tax solutions.</p>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#CDB68E;margin-bottom:20px;">Explore</div>
+          <a href="#/home" onClick="{{ goHome }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Home</a>
+          <a href="#/services" onClick="{{ goServices }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Services</a>
+          <a href="#/testimonials" onClick="{{ goTestimonials }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Testimonials</a>
+          <a href="#/contact" onClick="{{ goContact }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Contact Us</a>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#CDB68E;margin-bottom:20px;">Knowledge</div>
+          <a href="#/articles" onClick="{{ goArticles }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Articles and technical updates</a>
+          <a href="#/publications" onClick="{{ goPublications }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Publications</a>
+          <a href="#/webinars" onClick="{{ goWebinars }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Webinars and seminars</a>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#CDB68E;margin-bottom:20px;">Contact</div>
+          <div style="font-size:14.5px;line-height:1.7;color:rgba(255,255,255,0.6);">enquiries@example.co.uk<br/>+44 (0)00 0000 0000<br/><span style="font-size:12.5px;color:rgba(255,255,255,0.4);">Multi-office, United Kingdom</span></div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.12);padding:24px 0 30px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;">
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);">&copy; {{ year }} Tax Consulting Group. All rights reserved.</div>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+          <a href="#/home" onClick="{{ goHome }}" style="font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Privacy Policy</a>
+          <a href="#/home" onClick="{{ goHome }}" style="font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Terms of Use</a>
+          <a href="#/home" onClick="{{ goHome }}" style="font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SERVICES = [
+  { n:"01", title:"Private Wealth, IHT and Estate Planning", desc:"Specialist Inheritance Tax and estate planning services for high-net-worth private clients and families, including tax efficient succession planning strategies, generational wealth protection and family governance." },
+  { n:"02", title:"Property Tax", desc:"Real estate advisory services for property investors and developers, including portfolio restructuring, UK inbound and outbound tax efficient investment strategies, Stamp Duty Land Tax and capital allowances." },
+  { n:"03", title:"International Tax and Cross-Border Structuring", desc:"Specialist cross-border tax solutions and structuring for businesses and international private clients, covering global mobility, residency planning, FIG regime, Double Tax Treaties, Transfer Pricing and international tax regulatory compliance." },
+  { n:"04", title:"Corporate Transactions, Reorganisations and Reconstructions", desc:"Holistic tax advisory services across all aspects of corporate transactional matters, including M&A, company reorganisations, reconstructions and demergers." },
+  { n:"05", title:"Tax Efficient Investments", desc:"Tax efficient solutions for investors and private clients, including venture capital reliefs (EIS / SEIS), offshore bonds, QNUPS and QROPS." },
+  { n:"06", title:"Employee Ownership and Share Incentives", desc:"Employee and management incentives, equity rewards, HMRC approved employee share schemes, Employee Ownership Trusts (EOTs) and growth shares." },
+  { n:"07", title:"Intellectual Property and Innovation Tax Reliefs", desc:"Specialist innovation tax and intellectual property services for tech and IP intensive companies covering tax efficient IP structuring, R&D and patent box reliefs." }
+];
+
+const TESTIMONIALS = [
+  { name:"Helen Pennock", title:"Partner - Ryecroft Glenton", quote:"We have used TCG\u2019s services for complex corporate transactional matters involving our clients, with Zeeshan being our main point of contact. Zeeshan\u2019s thorough understanding of the tax legislation and his ability to apply it to practical scenarios is truly impressive. I would recommend any professional adviser looking for tax advisory support to use TCG\u2019s specialist tax services." },
+  { name:"Sarfraz Fayyaz", title:"Senior Partner \u2013 BizNav Chartered Accountants", quote:"As we have expanded across the UK, partnering with TCG on their Tax Partner Service has allowed us to provide a tax offering to a wide client base." },
+  { name:"Melanie O\u2019Connorr", title:"Director and Head of Tax \u2013 Hodge Bakshi Chartered Accountants", quote:"We have been using TCG\u2019s services for a number of years and has been a driving factor in helping us grow our tax advisory offering to our provare nd crpryae client base. I would " },
+  { name:"Sherad Dewedi", title:"Managing Partner \u2013 Shenward Chartered Accountants", quote:"" },
+  { name:"Dele Adesina", title:"Managing Partner \u2013 Carrick Wealth and Hekima International Private Office", quote:"We have been using TCG as our dedicated tax advisory partners on complex real estate, international tax and estate planning matters. They have been excellent at providing proactive and commercially driven tax advice to our clients." },
+  { name:"Ed Stittle", title:"Director \u2013 ESDG Accountancy", quote:"I have worked with TCG a number of times on complex tax matters where I have wanted a second opinion or an expert view. As a sole practitioner, TCG\u2019s Partner service is like having an in-house tax partner, providing an excellent level of service to both myself and the end client. TCG make complicated tax matters easy to understand. My clients tell me the same and enjoy their personal approach. I wholeheartedly recommend TCG to any accounting practice looking to upgrade their tax offering." },
+  { name:"Ashley Crimmins", title:"Mulberry Wealth Management", quote:"I have used TCG\u2019s services for estate planning matters regarding our high-net-worth clients. Zeeshan\u2019s in depth and practical knowledge of tax has been invaluable for our clients and I would highly recommend TCG as tax advisory partners for wealth planners and other professional advisers." },
+  { name:"Gina Evans", title:"Independent Financial Adviser \u2013 Blackstone Partners", quote:"I have used TCG\u2019s services for property tax matters." },
+  { name:"Thrasos Vassiliades", title:"Partner \u2013 EA Chartered Accountants", quote:"We have used the services of TCG across a range of complex tax matters for our clients, engaging them as outsourced tax partners to our firm. TCG\u2019s expertise and commercial approach to solving our clients\u2019 tax issues have been instrumental in us being able to provide specialist tax advisory services to our clients." }
+];
+
+const ARTICLE_PLACEHOLDERS = [
+  { tag:"Technical Update", date:"Date [TBC]", title:"Article heading to be confirmed", excerpt:"A short standfirst will sit here, summarising the technical update for readers. Placeholder text only." },
+  { tag:"Insight", date:"Date [TBC]", title:"Article heading to be confirmed", excerpt:"A short standfirst will sit here, summarising the technical update for readers. Placeholder text only." },
+  { tag:"Briefing", date:"Date [TBC]", title:"Article heading to be confirmed", excerpt:"A short standfirst will sit here, summarising the technical update for readers. Placeholder text only." }
+];
+
+const KNOWLEDGE_PAGES = {
+  articles: {
+    crumb: "Knowledge / Articles and technical updates",
+    heading: "Articles and technical updates",
+    intro: "Technical commentary and practical insight on developments across UK and cross-border tax.",
+    eyebrow: "Knowledge Hub",
+    cardTag: "Technical Update",
+    cardTitle: "Article heading to be confirmed",
+    cardExcerpt: "A short standfirst summarising the article will appear here once content is finalised. This is placeholder copy for layout purposes."
+  },
+  publications: {
+    crumb: "Knowledge / Publications",
+    heading: "Publications",
+    intro: "Guides, reports and briefings prepared by our specialist tax teams for professional advisers.",
+    eyebrow: "Knowledge Hub",
+    cardTag: "Publication",
+    cardTitle: "Publication title to be confirmed",
+    cardExcerpt: "A short description of the publication will appear here once content is finalised. This is placeholder copy for layout purposes."
+  },
+  webinars: {
+    crumb: "Knowledge / Webinars and seminars",
+    heading: "Webinars and seminars",
+    intro: "Live and on-demand sessions covering technical tax matters for accountants and wealth managers.",
+    eyebrow: "Knowledge Hub",
+    cardTag: "Webinar",
+    cardTitle: "Session title to be confirmed",
+    cardExcerpt: "Date, speakers and a short description of the session will appear here once content is finalised. Placeholder copy for layout purposes."
+  }
+};
+
+class Component extends DCLogic {
+  state = {
+    route: "home", menuOpen:false, knowledgeOpen:false, mobileKnowledgeOpen:false,
+    tIndex:0,
+    form:{ name:"", email:"", phone:"", company:"", message:"" },
+    errors:{}, submitted:false
+  };
+
+  _valid = ["home","services","articles","publications","webinars","testimonials","contact"];
+
+  _fromHash(){
+    let h = (window.location.hash || "").replace(/^#\/?/, "");
+    return this._valid.indexOf(h) >= 0 ? h : "home";
+  }
+
+  componentDidMount(){
+    this.setState({ route: this._fromHash() });
+    this._onHash = () => { this.setState({ route: this._fromHash(), menuOpen:false, knowledgeOpen:false, submitted:false }); window.scrollTo(0,0); };
+    window.addEventListener("hashchange", this._onHash);
+    this._initReveal();
+    this._timer = setInterval(() => { if (this.state.route === "home") this._advance(1); }, 7000);
+  }
+  componentDidUpdate(){ this._initReveal(); }
+  componentWillUnmount(){
+    window.removeEventListener("hashchange", this._onHash);
+    clearInterval(this._timer);
+    clearTimeout(this._safety);
+  }
+
+  _initReveal(){
+    try {
+      if (!this._io && typeof IntersectionObserver !== "undefined") {
+        this._io = new IntersectionObserver((es) => {
+          es.forEach(e => { if (e.isIntersecting) { e.target.style.opacity="1"; e.target.style.transform="none"; this._io.unobserve(e.target); } });
+        }, { threshold:0.08, rootMargin:"0px 0px -40px 0px" });
+      }
+      requestAnimationFrame(() => {
+        document.querySelectorAll("[data-reveal]:not([data-rev])").forEach(el => {
+          el.setAttribute("data-rev","1");
+          if (this._io) {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(22px)";
+            el.style.transition = "opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)";
+            this._io.observe(el);
+          }
+        });
+        clearTimeout(this._safety);
+        this._safety = setTimeout(() => {
+          document.querySelectorAll("[data-reveal]").forEach(el => { el.style.opacity="1"; el.style.transform="none"; });
+        }, 2600);
+      });
+    } catch(e) {}
+  }
+
+  navigate(route){
+    if (window.location.hash !== "#/" + route) window.location.hash = "#/" + route;
+    this.setState({ route, menuOpen:false, knowledgeOpen:false, mobileKnowledgeOpen:false, submitted:false });
+    window.scrollTo(0,0);
+  }
+  _advance(dir){
+    this.setState(s => { const n = TESTIMONIALS.length; return { tIndex: (s.tIndex + dir + n) % n }; });
+  }
+  setField(k,v){
+    this.setState(s => ({ form: Object.assign({}, s.form, { [k]: v }), errors: Object.assign({}, s.errors, { [k]: "" }) }));
+  }
+  submit(ev){
+    ev.preventDefault();
+    const f = this.state.form, e = {};
+    if (!f.name.trim()) e.name = "Please enter your full name.";
+    if (!f.email.trim()) e.email = "Please enter your email address.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = "Please enter a valid email address.";
+    if (!f.message.trim()) e.message = "Please enter a brief message.";
+    if (Object.keys(e).length) { this.setState({ errors:e }); return; }
+    this.setState({ submitted:true, errors:{} });
+    window.scrollTo(0,0);
+  }
+  resetForm(){ this.setState({ submitted:false, form:{ name:"", email:"", phone:"", company:"", message:"" }, errors:{} }); }
+
+  _knowledgeEl(key){
+    const p = KNOWLEDGE_PAGES[key];
+    const h = React.createElement;
+    const cards = [0,1,2,3,4,5].map(i => h("div", { key:i,
+      style:{ background:"#FBF9F5", border:"1px solid #E8E2D6", borderRadius:"6px", overflow:"hidden", transition:"transform .3s, box-shadow .3s" } },
+      h("div", { style:{ height:"150px", background:"#15203B", position:"relative", overflow:"hidden" } },
+        h("div", { style:{ position:"absolute", inset:0, backgroundImage:"radial-gradient(rgba(255,255,255,0.12) 1.2px,transparent 1.3px)", backgroundSize:"18px 18px", opacity:.6 } }),
+        h("span", { style:{ position:"absolute", left:"18px", top:"16px", fontSize:"11px", fontWeight:700, letterSpacing:".1em", textTransform:"uppercase", color:"#CDB68E", border:"1px solid rgba(205,182,142,.45)", padding:"5px 9px", borderRadius:"3px" } }, p.cardTag)
+      ),
+      h("div", { style:{ padding:"24px 24px 28px" } },
+        h("div", { style:{ fontSize:"12.5px", color:"#8B8676", letterSpacing:".04em", marginBottom:"10px" } }, "Date [TBC]"),
+        h("h3", { style:{ fontFamily:"'Cormorant Garamond',serif", fontWeight:600, fontSize:"22px", lineHeight:1.22, margin:"0 0 12px", color:"#1B2A4E" } }, p.cardTitle),
+        h("p", { style:{ fontSize:"14.5px", lineHeight:1.68, color:"#5b6072", margin:"0 0 18px" } }, p.cardExcerpt),
+        h("span", { style:{ fontSize:"13px", fontWeight:600, letterSpacing:".04em", textTransform:"uppercase", color:"#B08E5A" } }, "[TBC]")
+      )
+    ));
+    return h("div", null,
+      h("section", { style:{ position:"relative", background:"#15203B", color:"#fff", overflow:"hidden" } },
+        h("div", { style:{ position:"absolute", inset:0, backgroundImage:"radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px)", backgroundSize:"22px 22px", opacity:.5 } }),
+        h("div", { style:{ position:"relative", maxWidth:"1240px", margin:"0 auto", padding:"clamp(60px,7vw,104px) clamp(20px,4vw,40px)" } },
+          h("div", { style:{ fontSize:"12.5px", letterSpacing:".2em", textTransform:"uppercase", color:"#CDB68E", marginBottom:"18px" } }, p.crumb),
+          h("h1", { style:{ fontFamily:"'Cormorant Garamond',serif", fontWeight:500, fontSize:"clamp(34px,5vw,62px)", lineHeight:1.06, margin:0, color:"#fff" } }, p.heading),
+          h("p", { style:{ fontSize:"clamp(16px,1.4vw,19px)", lineHeight:1.8, color:"rgba(255,255,255,0.78)", maxWidth:"720px", margin:"26px 0 0", fontWeight:300 } }, p.intro)
+        )
+      ),
+      h("section", { style:{ background:"#FBF9F5" } },
+        h("div", { style:{ maxWidth:"1240px", margin:"0 auto", padding:"clamp(56px,7vw,96px) clamp(20px,4vw,40px)" } },
+          h("div", { style:{ display:"flex", alignItems:"center", gap:"14px", padding:"16px 20px", background:"#fff", border:"1px dashed #C9BFA9", borderRadius:"5px", marginBottom:"32px" } },
+            h("span", { style:{ fontSize:"11px", fontWeight:700, letterSpacing:".1em", textTransform:"uppercase", color:"#fff", background:"#B08E5A", padding:"5px 10px", borderRadius:"3px" } }, "Placeholder"),
+            h("span", { style:{ fontSize:"14.5px", color:"#5b6072" } }, "This page uses placeholder cards. Final content is to be confirmed [TBC].")
+          ),
+          h("div", { style:{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))", gap:"24px" } }, cards)
+        )
+      )
+    );
+  }
+
+  renderVals(){
+    const r = this.state.route;
+    const t = TESTIMONIALS[this.state.tIndex] || TESTIMONIALS[0];
+    const active = "#B08E5A", off = "transparent";
+    const dots = TESTIMONIALS.map((x,i) => ({
+      on: () => this.setState({ tIndex:i }),
+      style: "width:" + (i===this.state.tIndex ? "30px" : "9px") + ";height:9px;border-radius:999px;border:none;cursor:pointer;padding:0;transition:all .4s ease;background:" + (i===this.state.tIndex ? "#B08E5A" : "rgba(27,42,78,0.20)")
+    }));
+    const f = this.state.form, er = this.state.errors;
+    const isKnowledge = (r==="articles" || r==="publications" || r==="webinars");
+    return {
+      route:r,
+      isHome:r==="home", isServices:r==="services",
+      isArticles:r==="articles", isPublications:r==="publications", isWebinars:r==="webinars",
+      isTestimonials:r==="testimonials", isContact:r==="contact",
+      showKnowledge:isKnowledge,
+      knowledgePage: isKnowledge ? this._knowledgeEl(r) : null,
+      menuOpen:this.state.menuOpen, knowledgeOpen:this.state.knowledgeOpen, mobileKnowledgeOpen:this.state.mobileKnowledgeOpen,
+      nav: {
+        home: r==="home" ? active : off,
+        services: r==="services" ? active : off,
+        knowledge: isKnowledge ? active : off,
+        testimonials: r==="testimonials" ? active : off
+      },
+      goHome:()=>this.navigate("home"), goServices:()=>this.navigate("services"),
+      goArticles:()=>this.navigate("articles"), goPublications:()=>this.navigate("publications"),
+      goWebinars:()=>this.navigate("webinars"), goTestimonials:()=>this.navigate("testimonials"),
+      goContact:()=>this.navigate("contact"),
+      toggleMenu:()=>this.setState(s=>({menuOpen:!s.menuOpen})),
+      openKnowledge:()=>this.setState({knowledgeOpen:true}),
+      closeKnowledge:()=>this.setState({knowledgeOpen:false}),
+      toggleKnowledge:()=>this.setState(s=>({knowledgeOpen:!s.knowledgeOpen})),
+      toggleMobileKnowledge:()=>this.setState(s=>({mobileKnowledgeOpen:!s.mobileKnowledgeOpen})),
+      services:SERVICES, testimonials:TESTIMONIALS.map(x=>({ name:x.name, title:x.title, quote:x.quote, hasQuote: !!x.quote })), articlePlaceholders:ARTICLE_PLACEHOLDERS,
+      tName:t.name, tTitle:t.title, tQuote:t.quote, tHasQuote: !!t.quote,
+      tNum:(this.state.tIndex+1) + " / " + TESTIMONIALS.length,
+      tNext:()=>this._advance(1), tPrev:()=>this._advance(-1), tDots:dots,
+      fName:f.name, fEmail:f.email, fPhone:f.phone, fCompany:f.company, fMessage:f.message,
+      onName:(e)=>this.setField("name",e.target.value),
+      onEmail:(e)=>this.setField("email",e.target.value),
+      onPhone:(e)=>this.setField("phone",e.target.value),
+      onCompany:(e)=>this.setField("company",e.target.value),
+      onMessage:(e)=>this.setField("message",e.target.value),
+      errName:er.name||"", errEmail:er.email||"", errMessage:er.message||"",
+      errNameShow:!!er.name, errEmailShow:!!er.email, errMessageShow:!!er.message,
+      submit:(e)=>this.submit(e), submitted:this.state.submitted, notSubmitted:!this.state.submitted,
+      resetForm:()=>this.resetForm(),
+      year: new Date().getFullYear()
+    };
+  }
+}
+</script>
+</body>
+</html>
