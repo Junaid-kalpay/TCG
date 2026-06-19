@@ -12,9 +12,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
+  @font-face{
+    font-family:"DashFix";
+    src:local("Arial"),local("Helvetica"),local("Helvetica Neue");
+    unicode-range:U+002D, U+2010, U+2011, U+2012, U+2013, U+2014, U+2212;
+  }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{margin:0;background:#FBF9F5;color:#1B2A4E;font-family:'Hanken Grotesk',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  body{margin:0;background:#FBF9F5;color:#1B2A4E;font-family:'DashFix','Hanken Grotesk',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
   ::selection{background:#1B2A4E;color:#fff;}
   a{color:inherit;text-decoration:none;}
   input,textarea,button,select{font-family:inherit;}
@@ -49,6 +54,10 @@
   @media (max-width:560px){
     [data-team-grid]{grid-template-columns:1fr !important;}
     [data-svc-grid]{grid-template-columns:1fr !important;}
+    [data-svc-megamenu]{grid-template-columns:1fr !important;grid-auto-flow:row !important;}
+    [data-pub-card]{grid-template-columns:1fr !important;}
+    [data-pub-cover]{min-height:200px !important;}
+    [data-pub-body]{padding:clamp(24px,5vw,32px) !important;}
     [data-footer-legalrow]{flex-direction:column !important;align-items:flex-start !important;gap:14px !important;}
     [data-footer-reginfo]{flex-direction:column !important;align-items:flex-start !important;gap:12px !important;}
     [data-footer-reginfo] p[style*="nowrap"]{white-space:normal !important;}
@@ -84,11 +93,11 @@
           </button>
           <sc-if value="{{ servicesOpen }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:14px;animation:tcgFadeIn .18s ease;z-index:6;">
-            <div style="position:relative;background:#fff;border:1px solid #ECE6DA;border-radius:4px;box-shadow:0 24px 60px -22px rgba(21,32,59,.34);padding:10px;width:560px;max-width:80vw;">
+            <div style="position:relative;background:#fff;border:1px solid #ECE6DA;border-radius:4px;box-shadow:0 24px 60px -22px rgba(21,32,59,.34);padding:14px;width:760px;max-width:88vw;">
               <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-left:1px solid #ECE6DA;border-top:1px solid #ECE6DA;"></div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,auto);grid-auto-flow:column;gap:4px;" data-svc-megamenu="">
                 <sc-for list="{{ servicesDropdown }}" as="svc" hint-placeholder-count="9">
-                  <a onClick="{{ svc.go }}" style="display:block;padding:11px 14px;border-radius:3px;cursor:pointer;font-size:13.5px;font-weight:500;line-height:1.35;color:#2c3450;transition:background .18s,color .18s;" style-hover="background:#F6F2EA;color:#B08E5A;">{{ svc.title }}</a>
+                  <a onClick="{{ svc.go }}" style="display:flex;align-items:center;min-height:52px;padding:12px 16px;border-radius:3px;cursor:pointer;font-size:13.5px;font-weight:500;line-height:1.32;color:#2c3450;transition:background .18s,color .18s;" style-hover="background:#F6F2EA;color:#B08E5A;">{{ svc.title }}</a>
                 </sc-for>
               </div>
             </div>
@@ -110,11 +119,11 @@
               <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-left:1px solid #ECE6DA;border-top:1px solid #ECE6DA;"></div>
               <a href="#/publications" onClick="{{ goPublications }}" style="display:block;padding:13px 16px;border-radius:3px;cursor:pointer;transition:background .18s;" style-hover="background:#F6F2EA;">
                 <div style="font-size:14.5px;font-weight:600;color:#1B2A4E;">Publications</div>
-                <div style="font-size:12.5px;color:#8B8676;margin-top:2px;">Guides, reports and briefings</div>
+                
               </a>
               <a href="#/articles" onClick="{{ goArticles }}" style="display:block;padding:13px 16px;border-radius:3px;cursor:pointer;transition:background .18s;" style-hover="background:#F6F2EA;">
                 <div style="font-size:14.5px;font-weight:600;color:#1B2A4E;">Articles and technical updates</div>
-                <div style="font-size:12.5px;color:#8B8676;margin-top:2px;">Insight on current tax matters</div>
+                
               </a>
             </div>
             </div>
@@ -170,11 +179,8 @@
         <div style="position:absolute;top:-70px;right:-90px;width:440px;height:440px;border-radius:50%;background-image:radial-gradient(rgba(176,142,90,0.30) 1.6px,transparent 1.7px);background-size:26px 26px;opacity:.55;"></div>
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(72px,11vw,148px) clamp(20px,4vw,40px) clamp(80px,11vw,150px);">
           <div style="max-width:880px;">
-            <div style="display:flex;align-items:center;gap:14px;margin-bottom:30px;" data-reveal="">
-              <span style="width:34px;height:1px;background:#B08E5A;"></span>
-              <span style="font-size:12.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:#CDB68E;">Tax Consulting Group</span>
-            </div>
-            <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,5.6vw,70px);line-height:1.1;letter-spacing:-0.005em;margin:0 0 36px;color:#fff;text-wrap:balance;" data-reveal="">Specialist Tax Partners to Professional Advisers, Private Clients and Corporates</h1>
+            
+            <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,5.6vw,70px);line-height:1.1;letter-spacing:-0.005em;margin:0 0 36px;color:#fff;text-wrap:balance;" data-reveal="">Specialist Tax Partners to Professional Advisers, Private Clients and Corporates</h1>
             <p class="tcg-just" style="font-size:clamp(17px,1.5vw,19.5px);line-height:1.78;color:rgba(255,255,255,0.80);max-width:760px;margin:0 0 40px;font-weight:300;" data-reveal=""></p><div style="text-align:justify;"><span style="font-size: 18.156px;">Tax Consulting Group (TCG) is one of the UK’s leading independent firms of Chartered Tax Advisers, dedicated to delivering specialist tax solutions to high &amp; ultra-high-net-worth private clients, families and corporates across complex areas of UK and international tax.</span></div><div><span style="font-size: 18.156px;"><br></span></div><div style="text-align:justify;"><span style="font-size: 18.156px;">We partner with professional advisers, including accountancy practices, wealth managers, family offices, private banks, fiduciaries and law firms, to provide expert tax advisory services to clients.</span></div><p></p>
             <div style="display:flex;flex-wrap:wrap;gap:16px;" data-reveal="">
               <button onClick="{{ goServices }}" style="background:#B08E5A;color:#15203B;border:none;padding:16px 32px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#c4a06b;transform:translateY(-2px);">Explore Our Services</button>
@@ -192,30 +198,14 @@
               <span style="width:28px;height:1px;background:#B08E5A;"></span>
               <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">Who We Are</span>
             </div>
-            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,3.2vw,40px);line-height:1.12;margin:0;color:#1B2A4E;">A specialist tax advisory firm with industry-led technical expertise</h2>
+            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,3.2vw,40px);line-height:1.12;margin:0;color:#1B2A4E;">A specialist tax advisory firm with industry-led technical expertise</h2>
           </div>
           <div data-reveal="">
             <p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0 0 26px;font-weight:400;"></p><div style="text-align:justify;font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;">As one of the leading independent tax advisory firms, our team consists of highly experienced and renowned Chartered Tax Advisers, including ex-Top 10 Partners and published tax authors.&nbsp;</div><p></p><p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0;font-weight:400;"></p><div style="text-align:justify;"><span style="font-size: clamp(17px, 1.4vw, 20px);">With decades of combined specialist tax expertise, we deliver tax solutions on some of the most complex areas of UK and cross-border tax.</span></div><p></p>
           </div>
         </div>
         <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,40px) clamp(64px,8vw,100px);" data-reveal="">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:#E8E2D6;border:1px solid #E8E2D6;border-radius:6px;overflow:hidden;">
-            <div style="background:#FBF9F5;padding:clamp(26px,2.4vw,34px);">
-              
-              <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,1.8vw,24px);line-height:1.18;color:#1B2A4E;font-weight:600;margin-bottom:10px;">Multi-office presence</div>
-              <div style="font-size:14.5px;line-height:1.6;color:#5b6072;">Office locations in London, Birmingham, Manchester and Dubai</div>
-            </div>
-            <div style="background:#FBF9F5;padding:clamp(26px,2.4vw,34px);">
-              
-              <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,1.8vw,24px);line-height:1.18;color:#1B2A4E;font-weight:600;margin-bottom:10px;">Independent partners to professional advisers</div>
-              <div style="font-size:14.5px;line-height:1.6;color:#5b6072;">Specialist independent tax partners to accountancy practices, wealth managers, family offices, private banks and lawyers</div>
-            </div>
-            <div style="background:#FBF9F5;padding:clamp(26px,2.4vw,34px);">
-              
-              <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,1.8vw,24px);line-height:1.18;color:#1B2A4E;font-weight:600;margin-bottom:10px;">Published tax authors</div>
-              <div style="font-size:14.5px;line-height:1.6;color:#5b6072;">Published authors for Bloomsbury, professional press and various tax publications</div>
-            </div>
-          </div>
+          <p class="tcg-just" style="font-size: clamp(17px,1.4vw,20px); line-height: 1.8; color: #384058; margin: 0; font-weight: 400; text-align: center">With office locations in London, Birmingham, Manchester and Dubai, we serve clients across the UK and internationally and have developed strong cross-border collaborations with partner firms across Europe, GCC, US and Southeast Asia.</p>
         </div>
       </section>
 
@@ -228,16 +218,16 @@
               <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">What We Do</span>
               <span style="width:28px;height:1px;background:#B08E5A;"></span>
             </div>
-            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Specialist Tax Advisory Services</h2>
+            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Specialist Tax Advisory Services</h2>
           </div>
           <div data-reveal="" data-svc-grid="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
             <sc-for list="{{ services }}" as="svc" hint-placeholder-count="9">
               <div style="background:#fff;border:1px solid #E8E2D6;border-radius:8px;padding:clamp(28px,2.6vw,38px);display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s;" style-hover="box-shadow:0 22px 50px -32px rgba(21,32,59,.34);transform:translateY(-4px);">
                 <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
-                  <span style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#B08E5A;line-height:1;">{{ svc.n }}</span>
+                  <span style="font-family:'DashFix','Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#B08E5A;line-height:1;">{{ svc.n }}</span>
                   <span style="flex:1;height:1px;background:#E8E2D6;"></span>
                 </div>
-                <h3 onClick="{{ svc.go }}" style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.26;margin:0 0 14px;color:#1B2A4E;cursor:pointer;transition:color .2s;align-self:flex-start;" style-hover="color:#B08E5A;">{{ svc.title }}</h3>
+                <h3 onClick="{{ svc.go }}" style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.26;margin:0 0 14px;color:#1B2A4E;cursor:pointer;transition:color .2s;align-self:flex-start;" style-hover="color:#B08E5A;">{{ svc.title }}</h3>
                 <p class="tcg-just" style="font-size:14.5px;line-height:1.7;color:#5b6072;margin:0 0 20px;">{{ svc.desc }}</p>
                 <a onClick="{{ svc.go }}" style="margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#B08E5A;cursor:pointer;transition:gap .2s;" style-hover="gap:12px;">Find Out More
                   <span style="display:inline-block;width:6px;height:6px;border-right:1.6px solid #B08E5A;border-top:1.6px solid #B08E5A;transform:rotate(45deg);"></span>
@@ -257,14 +247,14 @@
               <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">WHAT DO OUR CLIENTS SAY</span>
               <span style="width:28px;height:1px;background:#B08E5A;"></span>
             </div>
-            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Testimonials</h2>
+            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Testimonials</h2>
           </div>
 
           <div data-tst-swipe="" onMouseEnter="{{ tPause }}" onMouseLeave="{{ tResume }}" style="position:relative;background:#fff;border:1px solid #ECE6DA;border-radius:6px;padding:clamp(36px,5vw,72px);box-shadow:0 30px 70px -40px rgba(21,32,59,.28);min-height:300px;display:flex;flex-direction:column;justify-content:center;touch-action:pan-y;">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:120px;line-height:.7;color:#EADFC7;position:absolute;top:34px;left:40px;user-select:none;">“</span>
+            <span style="font-family:'DashFix','Cormorant Garamond',serif;font-size:120px;line-height:.7;color:#EADFC7;position:absolute;top:34px;left:40px;user-select:none;">“</span>
             <div class="tcg-tquote" key="{{ tName }}" style="position:relative;z-index:1;text-align:center;max-width:760px;margin:0 auto;">
               <sc-if value="{{ tHasQuote }}" hint-placeholder-val="{{ true }}">
-                <p style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(18px,1.9vw,24px);line-height:1.5;color:#27324d;margin:0 0 28px;font-style:italic;">{{ tQuote }}</p>
+                <p style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(18px,1.9vw,24px);line-height:1.5;color:#27324d;margin:0 0 28px;font-style:italic;">{{ tQuote }}</p>
               </sc-if>
               <div style="width:40px;height:1px;background:#B08E5A;margin:0 auto 18px;"></div>
               <div style="font-size:17px;font-weight:700;color:#1B2A4E;letter-spacing:.01em;">{{ tName }}</div>
@@ -300,7 +290,7 @@
                 <span style="width:28px;height:1px;background:#B08E5A;"></span>
                 <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">Knowledge</span>
               </div>
-              <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Articles and technical updates</h2>
+              <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Articles and technical updates</h2>
             </div>
             <button onClick="{{ goArticles }}" style="background:none;border:1px solid #1B2A4E;color:#1B2A4E;padding:14px 26px;border-radius:2px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;white-space:nowrap;" style-hover="background:#1B2A4E;color:#fff;">View Knowledge Hub</button>
           </div>
@@ -310,11 +300,11 @@
               <div onClick="{{ art.go }}" role="link" tabindex="0" style="background:#FBF9F5;border:1px solid #E8E2D6;border-radius:6px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer;display:flex;flex-direction:column;" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(21,32,59,.3);">
                 <div style="position:relative;height:180px;background:#15203B;overflow:hidden;">
                   <div role="img" aria-label="{{ art.title }}" style="position:absolute;inset:0;background-image:url('{{ art.img }}');background-size:cover;background-position:center;"></div>
-                  <span style="position:absolute;left:18px;top:16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CDB68E;background:rgba(21,32,59,0.72);border:1px solid rgba(205,182,142,.45);padding:5px 9px;border-radius:3px;">{{ art.tag }}</span>
+                  
                 </div>
                 <div style="padding:26px 24px 28px;flex:1;display:flex;flex-direction:column;">
                   <div style="font-size:12.5px;color:#8B8676;letter-spacing:.04em;margin-bottom:10px;">{{ art.date }}</div>
-                  <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.26;margin:0 0 12px;color:#1B2A4E;">{{ art.title }}</h3>
+                  <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.26;margin:0 0 12px;color:#1B2A4E;">{{ art.title }}</h3>
                   <p class="tcg-just" style="font-size:14.5px;line-height:1.68;color:#5b6072;margin:0 0 18px;">{{ art.excerpt }}</p>
                   <span style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#B08E5A;">Read More
                     <span style="display:inline-block;width:7px;height:7px;border-right:1.6px solid #B08E5A;border-top:1.6px solid #B08E5A;transform:rotate(45deg);"></span>
@@ -346,7 +336,7 @@
               <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#15203B;background:#B08E5A;padding:5px 10px;border-radius:3px;">Placeholder</span>
             </sc-if>
           </div>
-          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.6vw,58px);line-height:1.06;margin:0;max-width:1000px;color:#fff;">{{ serviceTitle }}</h1>
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.6vw,58px);line-height:1.06;margin:0;max-width:1000px;color:#fff;">{{ serviceTitle }}</h1>
           <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.80);max-width:820px;margin:26px 0 0;font-weight:300;">{{ serviceIntro }}</p>
         </div>
       </section>
@@ -388,7 +378,7 @@
             <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#CDB68E;">Speak With a Specialist</span>
             <span style="width:28px;height:1px;background:#B08E5A;"></span>
           </div>
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,3.6vw,46px);line-height:1.1;margin:0 0 30px;color:#fff;">Discuss your requirements with our team</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,3.6vw,46px);line-height:1.1;margin:0 0 30px;color:#fff;">Discuss your requirements with our team</h2>
           <button onClick="{{ goContact }}" style="background:#B08E5A;color:#15203B;border:none;padding:17px 42px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#c4a06b;transform:translateY(-2px);">Contact Us Now</button>
         </div>
       </section>
@@ -403,7 +393,7 @@
         <div style="position:absolute;top:-120px;right:-140px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
           
-          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Meet Our Team of Senior Industry Experts</h1>
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Meet Our Senior Experts</h1>
           
         </div>
       </section>
@@ -417,7 +407,7 @@
                   <div role="img" aria-label="{{ person.name }}" style="position:absolute;inset:0;background-image:url('{{ person.img }}');background-size:cover;background-position:50% 18%;background-repeat:no-repeat;"></div>
                 </div>
                 <div style="padding:22px 22px 24px;flex:1;display:flex;flex-direction:column;">
-                  <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.2;margin:0;color:#1B2A4E;">{{ person.name }}</h3>
+                  <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.2;margin:0;color:#1B2A4E;">{{ person.name }}</h3>
                   <div style="margin-top:16px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#B08E5A;">Read Bio
                     <span style="display:inline-block;width:7px;height:7px;border-right:1.6px solid #B08E5A;border-top:1.6px solid #B08E5A;transform:rotate(45deg);"></span>
                   </div>
@@ -439,8 +429,8 @@
         <div style="position:absolute;top:-130px;right:-150px;width:520px;height:520px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
         <div style="position:absolute;top:-80px;right:-100px;width:400px;height:400px;border-radius:50%;background-image:radial-gradient(rgba(176,142,90,0.26) 1.5px,transparent 1.6px);background-size:24px 24px;opacity:.5;"></div>
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
-          <div style="font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#CDB68E;margin-bottom:18px;">Tax Consulting Group &nbsp;/&nbsp; Professional Advisers</div>
-          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:960px;color:#fff;">Professional Advisers</h1>
+          
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:960px;color:#fff;">Professional Advisers</h1>
           <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.80);max-width:860px;margin:26px 0 0;font-weight:300;">Specialist Tax Partner and Consultancy Support for Professional Advisers, including Accountancy Practices, Wealth Managers, Family Offices, Private Banks and Law Firms.</p>
         </div>
       </section>
@@ -460,11 +450,11 @@
             <div style="background:#1B2A4E;color:#fff;border-radius:8px;padding:clamp(30px,3vw,42px);position:relative;overflow:hidden;">
               <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1.2px,transparent 1.3px);background-size:22px 22px;"></div>
               <div style="position:relative;">
-                <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2vw,26px);line-height:1.22;margin:0 0 26px;color:#fff;">Why do professional advisers use our services?</h2>
+                <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2vw,26px);line-height:1.22;margin:0 0 26px;color:#fff;">Why do professional advisers use our services?</h2>
                 <div>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);">
                     <span style="flex:0 0 auto;margin-top:7px;width:7px;height:7px;background:#B08E5A;transform:rotate(45deg);"></span>
-                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To assist with tax specialist areas where they don&rsquo;t have an in-house resource</span>
+                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To assist with tax specialist areas where they don’t have an in-house resource</span>
                   </div>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);">
                     <span style="flex:0 0 auto;margin-top:7px;width:7px;height:7px;background:#B08E5A;transform:rotate(45deg);"></span>
@@ -472,7 +462,7 @@
                   </div>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);">
                     <span style="flex:0 0 auto;margin-top:7px;width:7px;height:7px;background:#B08E5A;transform:rotate(45deg);"></span>
-                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To ensure that clients stay with them and don&rsquo;t move to larger practices that may have in-house tax departments</span>
+                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To ensure that clients stay with them and don’t move to larger practices that may have in-house tax departments</span>
                   </div>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);">
                     <span style="flex:0 0 auto;margin-top:7px;width:7px;height:7px;background:#B08E5A;transform:rotate(45deg);"></span>
@@ -498,9 +488,9 @@
         <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
         <div style="position:absolute;top:-120px;right:-140px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
-          <div style="font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#CDB68E;margin-bottom:18px;">Knowledge and Insights &nbsp;/&nbsp; Articles and technical updates</div>
-          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Articles and technical updates</h1>
-          <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:760px;margin:24px 0 0;font-weight:300;">Technical commentary and practical insight on developments across UK and cross-border tax, written for accountants, wealth managers and other professional advisers.</p>
+          
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Articles and technical updates</h1>
+          <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:760px;margin:24px 0 0;font-weight:300;">Technical commentary and practical insight on developments across UK and cross-border tax</p>
         </div>
       </section>
 
@@ -515,7 +505,7 @@
                 </div>
                 <div style="padding:28px 26px 30px;flex:1;display:flex;flex-direction:column;">
                   <div style="font-size:12.5px;color:#8B8676;letter-spacing:.04em;margin-bottom:10px;">{{ art.date }}</div>
-                  <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;line-height:1.26;margin:0 0 14px;color:#1B2A4E;">{{ art.title }}</h2>
+                  <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:23px;line-height:1.26;margin:0 0 14px;color:#1B2A4E;">{{ art.title }}</h2>
                   <p class="tcg-just" style="font-size:14.5px;line-height:1.7;color:#5b6072;margin:0 0 20px;">{{ art.excerpt }}</p>
                   <span style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#B08E5A;">Read More
                     <span style="display:inline-block;width:7px;height:7px;border-right:1.6px solid #B08E5A;border-top:1.6px solid #B08E5A;transform:rotate(45deg);"></span>
@@ -544,7 +534,7 @@
             <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CDB68E;border:1px solid rgba(205,182,142,.45);padding:5px 10px;border-radius:3px;">{{ articleTag }}</span>
             <span style="font-size:13.5px;color:rgba(255,255,255,0.7);letter-spacing:.03em;">{{ articleDate }}</span>
           </div>
-          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,4.4vw,54px);line-height:1.08;margin:0;color:#fff;">{{ articleTitle }}</h1>
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,4.4vw,54px);line-height:1.08;margin:0;color:#fff;">{{ articleTitle }}</h1>
         </div>
       </section>
 
@@ -562,9 +552,44 @@
     </div>
     </sc-if>
 
-    <!-- ==================== KNOWLEDGE PAGES (publications) ==================== -->
-    <sc-if value="{{ showKnowledge }}" hint-placeholder-val="{{ false }}">
-      {{ knowledgePage }}
+    <!-- ==================== PUBLICATIONS PAGE ==================== -->
+    <sc-if value="{{ isPublications }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="position:relative;background:#15203B;color:#fff;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
+        <div style="position:absolute;top:-120px;right:-140px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
+        <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
+          
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Publications</h1>
+          <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:760px;margin:24px 0 0;font-weight:300;">Specialist Publications written for Bloomsbury</p>
+        </div>
+      </section>
+
+      <section style="background:#FBF9F5;">
+        <div style="max-width:1100px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px);display:flex;flex-direction:column;gap:28px;">
+          <sc-for list="{{ publications }}" as="pub" hint-placeholder-count="2">
+            <a href="{{ pub.url }}" target="_blank" rel="noopener noreferrer" style="display:grid;grid-template-columns:200px 1fr;gap:clamp(24px,3vw,44px);background:#fff;border:1px solid #E8E2D6;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;align-items:stretch;" style-hover="transform:translateY(-4px);box-shadow:0 30px 64px -38px rgba(21,32,59,.42);" data-pub-card="">
+              <div role="img" aria-label="{{ pub.title }}" style="background:#15203B;background-image:url('{{ pub.img }}');background-size:cover;background-position:center;min-height:280px;" data-pub-cover=""></div>
+              <div style="padding:clamp(28px,3vw,40px) clamp(28px,3vw,40px) clamp(28px,3vw,40px) 0;display:flex;flex-direction:column;" data-pub-body="">
+                <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#B08E5A;margin-bottom:14px;">{{ pub.publisher }}</span>
+                <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(24px,2.6vw,32px);line-height:1.14;margin:0 0 8px;color:#1B2A4E;">{{ pub.title }}</h2>
+                <div style="font-size:15px;color:#5b6072;margin-bottom:18px;">{{ pub.authorLabel }}: <span style="color:#1B2A4E;font-weight:600;">{{ pub.author }}</span></div>
+                
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 28px;border-top:1px solid #E8E2D6;padding-top:20px;margin-top:auto;">
+                  <div><div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8B8676;margin-bottom:4px;">Edition</div><div style="font-size:14.5px;color:#1B2A4E;font-weight:500;">{{ pub.edition }}</div></div>
+                  <div><div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8B8676;margin-bottom:4px;">Format</div><div style="font-size:14.5px;color:#1B2A4E;font-weight:500;">{{ pub.format }}</div></div>
+                  <div><div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8B8676;margin-bottom:4px;">Published</div><div style="font-size:14.5px;color:#1B2A4E;font-weight:500;">{{ pub.published }}</div></div>
+                  <div><div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8B8676;margin-bottom:4px;">ISBN</div><div style="font-size:14.5px;color:#1B2A4E;font-weight:500;">{{ pub.isbn }}</div></div>
+                </div>
+                <span style="margin-top:22px;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#B08E5A;">View on Bloomsbury Professional
+                  <span style="display:inline-block;width:7px;height:7px;border-right:1.6px solid #B08E5A;border-top:1.6px solid #B08E5A;transform:rotate(45deg);"></span>
+                </span>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </section>
+    </div>
     </sc-if>
 
     <!-- ==================== PRIVACY & COOKIES POLICY PAGE ==================== -->
@@ -574,9 +599,9 @@
         <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
         <div style="position:absolute;top:-120px;right:-140px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
         <div style="position:relative;max-width:1040px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
-          <div style="font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#CDB68E;margin-bottom:18px;">Tax Consulting Group &nbsp;/&nbsp; Legal</div>
-          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Privacy and Cookies Policy</h1>
-          <p style="font-size:clamp(15px,1.3vw,17.5px);line-height:1.75;color:rgba(255,255,255,0.78);max-width:760px;margin:24px 0 0;font-weight:300;">This policy explains how Tax Consulting Group Limited collects, uses and protects your personal data, and how we use cookies on our website. This version was last updated on [date to be confirmed].</p>
+          
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Privacy and Cookies Policy</h1>
+          
           <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:34px;">
             <button onClick="{{ goPrivacy }}" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.32);padding:11px 22px;border-radius:2px;font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;border-color:#B08E5A;color:#15203B;">Privacy Policy</button>
             <button onClick="{{ goCookies }}" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.32);padding:11px 22px;border-radius:2px;font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;border-color:#B08E5A;color:#15203B;">Cookies Policy</button>
@@ -593,13 +618,13 @@
               <span style="width:36px;height:1px;background:#B08E5A;"></span>
               <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">Part One</span>
             </div>
-            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:0 0 28px;color:#1B2A4E;">Privacy Policy</h2>
+            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:0 0 28px;color:#1B2A4E;">Privacy Policy</h2>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Introduction</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Introduction</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Tax Consulting Group Limited ("we", "us" or "our") is committed to protecting and respecting your privacy. This privacy policy sets out the basis on which any personal data we collect from you, or that you provide to us, will be processed by us. Please read the following carefully to understand our views and practices regarding your personal data and how we will treat it.</p>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">This privacy policy is provided in a layered format. It is important that you read this policy together with any other privacy notice we may provide on specific occasions when we are collecting or processing personal data about you, so that you are fully aware of how and why we are using your data.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Who we are and how to contact us</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Who we are and how to contact us</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Tax Consulting Group Limited is the controller and is responsible for your personal data. If you have any questions about this privacy policy, including any requests to exercise your legal rights, please contact us using the details set out below.</p>
             <div style="background:#fff;border:1px solid #E8E2D6;border-radius:6px;padding:24px 26px;margin:0 0 16px;">
               <div style="font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#B08E5A;margin-bottom:12px;">Contact details</div>
@@ -607,13 +632,13 @@
             </div>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">You have the right to make a complaint at any time to the Information Commissioner's Office (ICO), the UK supervisory authority for data protection issues (www.ico.org.uk). We would, however, appreciate the chance to deal with your concerns before you approach the ICO, so please contact us in the first instance.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Changes to this policy and your duty to inform us of changes</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Changes to this policy and your duty to inform us of changes</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We keep this privacy policy under regular review. It is important that the personal data we hold about you is accurate and current. Please keep us informed if your personal data changes during your relationship with us.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Third-party links</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Third-party links</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Our website may include links to third-party websites, plug-ins and applications. Clicking on those links or enabling those connections may allow third parties to collect or share data about you. We do not control these third-party websites and are not responsible for their privacy statements. When you leave our website, we encourage you to read the privacy policy of every website you visit.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">The data we collect about you</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">The data we collect about you</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Personal data, or personal information, means any information about an individual from which that person can be identified. It does not include data where the identity has been removed (anonymous data). We may collect, use, store and transfer different kinds of personal data about you, which we have grouped together as follows:</p>
             <ul style="margin:0 0 16px;padding-left:22px;color:#3a4258;font-size:15.5px;line-height:1.85;">
               <li><strong style="color:#1B2A4E;">Identity Data</strong> including first name, last name, title and similar identifiers.</li>
@@ -625,26 +650,26 @@
             </ul>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We also collect, use and share Aggregated Data such as statistical or demographic data for any purpose. Aggregated Data may be derived from your personal data but is not considered personal data in law as this data does not directly or indirectly reveal your identity.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">How your personal data is collected</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">How your personal data is collected</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We use different methods to collect data from and about you, including through direct interactions (for example, when you contact us, instruct us to provide services, or correspond with us by post, phone or email), automated technologies or interactions (such as cookies and server logs as you interact with our website), and third parties or publicly available sources.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">How we use your personal data</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">How we use your personal data</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We will only use your personal data when the law allows us to. Most commonly, we will use your personal data where we need to perform the contract we are about to enter into or have entered into with you, where it is necessary for our legitimate interests (and your interests and fundamental rights do not override those interests), or where we need to comply with a legal or regulatory obligation.</p>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Generally, we do not rely on consent as a legal basis for processing your personal data, other than in relation to sending direct marketing communications to you. You have the right to withdraw consent to marketing at any time by contacting us.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Disclosures of your personal data</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Disclosures of your personal data</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We may share your personal data with third parties where required to provide our services or comply with our legal obligations, including professional advisers, service providers who provide IT and system administration services, and regulators and other authorities. We require all third parties to respect the security of your personal data and to treat it in accordance with the law. We do not allow our third-party service providers to use your personal data for their own purposes and only permit them to process your personal data for specified purposes and in accordance with our instructions.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">International transfers</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">International transfers</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Whenever we transfer your personal data out of the UK, we ensure a similar degree of protection is afforded to it by ensuring at least one appropriate safeguard is in place, in accordance with applicable data protection law.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Data security</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Data security</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or disclosed. In addition, we limit access to your personal data to those employees, agents, contractors and other third parties who have a business need to know. They will only process your personal data on our instructions and they are subject to a duty of confidentiality. We have put in place procedures to deal with any suspected personal data breach and will notify you and any applicable regulator of a breach where we are legally required to do so.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Data retention</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Data retention</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We will only retain your personal data for as long as reasonably necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, regulatory, tax, accounting or reporting requirements. To determine the appropriate retention period, we consider the amount, nature and sensitivity of the personal data, the potential risk of harm from unauthorised use or disclosure, the purposes for which we process it, and applicable legal, regulatory and professional requirements.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Your legal rights</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Your legal rights</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 14px;">Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to:</p>
             <ul style="margin:0 0 16px;padding-left:22px;color:#3a4258;font-size:15.5px;line-height:1.85;">
               <li>Request access to your personal data.</li>
@@ -666,12 +691,12 @@
               <span style="width:36px;height:1px;background:#B08E5A;"></span>
               <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">Part Two</span>
             </div>
-            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:0 0 28px;color:#1B2A4E;">Cookies Policy</h2>
+            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:0 0 28px;color:#1B2A4E;">Cookies Policy</h2>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">What are cookies?</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">What are cookies?</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Our website uses cookies to distinguish you from other users of our website. A cookie is a small file of letters and numbers that we store on your browser or the hard drive of your device if you agree. Cookies help us to provide you with a good experience when you browse our website and also allow us to improve it.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">The cookies we use</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">The cookies we use</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 14px;">We use the following types of cookies:</p>
             <ul style="margin:0 0 16px;padding-left:22px;color:#3a4258;font-size:15.5px;line-height:1.85;">
               <li><strong style="color:#1B2A4E;">Strictly necessary cookies.</strong> These are required for the operation of our website and cannot be switched off in our systems.</li>
@@ -681,10 +706,10 @@
             </ul>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Please note that third parties (including, for example, providers of external analytics services) may also use cookies, over which we have no control. These cookies are likely to be analytical or performance cookies or targeting cookies.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">How to control cookies</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">How to control cookies</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">You can block cookies by activating the setting on your browser that allows you to refuse the setting of all or some cookies. However, if you use your browser settings to block all cookies (including essential cookies) you may not be able to access all or parts of our website. Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit www.aboutcookies.org or www.allaboutcookies.org.</p>
 
-            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Changes to our use of cookies</h3>
+            <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.25;margin:36px 0 12px;color:#1B2A4E;">Changes to our use of cookies</h3>
             <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Any changes we may make to our use of cookies in the future will be posted on this page. Please check back frequently to see any updates or changes.</p>
 
             
@@ -702,8 +727,8 @@
         <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
         <div style="position:absolute;top:-120px;right:-140px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
         <div style="position:relative;max-width:1040px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
-          <div style="font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#CDB68E;margin-bottom:18px;">Tax Consulting Group &nbsp;/&nbsp; Legal</div>
-          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Terms and Conditions</h1>
+          
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Terms and Conditions</h1>
         </div>
       </section>
 
@@ -712,47 +737,47 @@
 
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">This page (and the documents it refers to) tells you the terms of use on which you may use our website www.taxconsulting.co.uk (our site), whether as a guest or a registered user. Please read these terms of use carefully before you start to use the site. By using our site, you accept these terms of use and agree to abide by them. If you do not agree to these terms of use, please do not use our site.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">ABOUT US</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">ABOUT US</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">www.taxconsulting.co.uk is a site operated by Tax Consulting Group Limited (“we” or “us”). We are registered in England and Wales under company number 13638298. Our registered office address is 13 Hanover Square, Mayfair, London, England, W1S 1HN and our email address is enquiries@taxconsulting.co.uk. Our VAT registration number is 393 6553 60.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">OUR SITE</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">OUR SITE</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We allow access to our site on a temporary basis and we reserve the right to withdraw, restrict or change our site at any time and without notice. We will not be liable if for any reason our site is unavailable at any time or if the content is changed or out of date.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">You must treat as confidential any user identification code, password or other security feature in relation to our site. If, in our opinion, you are not complying with these terms of use, we have the right to disable any such code, password or feature at any time.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">You must comply with the provisions of our Acceptable Use Policy when using our site.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">It is your responsibility that anyone who accesses our site through your internet connection is aware of these terms and complies with them.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">VARIATIONS</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">VARIATIONS</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We may revise these terms of use at any time by amending this page or by provisions or notices published elsewhere on our site.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">INTELLECTUAL PROPERTY RIGHTS</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">INTELLECTUAL PROPERTY RIGHTS</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We are the owner or the licensee of all intellectual property rights in our site and the material published on it. Those works are protected by copyright laws and treaties around the world. All such rights are reserved.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">You must not use any part of the materials on our site for commercial purposes without a licence from us or our licensors. You may not reproduce in any format (including on another website) any part of our site (including content, images, designs, look and feel) without our prior written consent.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">If, in our opinion, you are in breach of these provisions, your right to use our site will cease immediately and you must either return or destroy (as required by us) any copies of the materials you have made.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">RELIANCE ON INFORMATION AND LINKS</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">RELIANCE ON INFORMATION AND LINKS</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">The contents of our site (including links to other sites and resources provided by third parties) are for information only, and we shall not be liable for any use of, or reliance on, such materials. It shall be your own responsibility to ensure that any products, services or information available through this website meet your specific requirements.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">INFORMATION ABOUT YOU AND YOUR VISITS TO OUR SITE</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">INFORMATION ABOUT YOU AND YOUR VISITS TO OUR SITE</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We process information about you in accordance with our Privacy Policy. By using our site, you consent to such processing and you warrant that all data provided by you is accurate.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">LINKING TO OUR SITE</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">LINKING TO OUR SITE</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">You may link to our home page only if you have first obtained our written consent and provided that you do so in a way that is fair and legal and does not damage our reputation or take advantage of it. We reserve the right to withdraw linking permission without notice.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">The website from which you are linking must comply in all respects with our Acceptable Use Policy and must be owned by you.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">You must not link in such a way as to suggest any form of association, approval or endorsement on our part where none exists.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Our site must not be framed on any other site, nor may you create a link to any part of our site other than the home page.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">If you wish to make any use of material on our site other than that set out above, please address your request to enquiries@taxconsulting.co.uk.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">UPLOADING MATERIAL TO OUR SITE</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">UPLOADING MATERIAL TO OUR SITE</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">When you upload material to our site, or make contact with other users of our site, you must comply with our Acceptable Use Policy. If you upload material in breach of our Acceptable Use Policy and we suffer loss as a result, you will reimburse us for such loss.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Any material you upload to our site will be considered non-confidential and non-proprietary and we have the right to use, copy, distribute and disclose it to third parties. If any third party claims that any material posted or uploaded by you to our site violates their intellectual property rights, or their right to privacy, we have the right to disclose your identity to them.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We will not be responsible, or liable to any third party, for the content or accuracy of any materials posted by you or any other user of our site.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We have the right to remove any material or posting you make on our site if, in our opinion, such material does not comply with the content standards set out in our Acceptable Use Policy.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">VIRUSES, HACKING AND OTHER OFFENCES</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">VIRUSES, HACKING AND OTHER OFFENCES</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">You must not misuse our site by knowingly introducing any material which is malicious or technologically harmful. You must not attempt to gain unauthorised access to our site, the server on which our site is stored or any server, computer or database connected to our site. You must not attack our site via a denial-of-service attack or a distributed denial-of service attack.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">By failing to comply with this provision, you would commit a criminal offence and your right to use our site will cease immediately and we will report your actions to the relevant authorities.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">OUR LIABILITY</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">OUR LIABILITY</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">The material displayed on our site is provided without any guarantees, conditions or warranties as to its accuracy. To the extent permitted by law, we hereby expressly exclude:</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">All conditions, warranties and other terms which might otherwise be implied by statute, common law or the law of equity.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">Any liability for any direct, indirect or consequential loss or damage incurred by any user in connection with our site or in connection with the use, inability to use, or results of the use of our site, any websites linked to it and any materials posted on it (whether by us or a third party), including, without limitation any liability for:</p>
@@ -768,11 +793,11 @@
           </ul>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">This does not affect any liability which cannot be excluded or limited under applicable law.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">JURISDICTION AND APPLICABLE LAW</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">JURISDICTION AND APPLICABLE LAW</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">The English courts will have exclusive jurisdiction over any claim arising from, or related to, a visit to our site.</p>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">These terms of use and any dispute or claim arising out of or in connection with them or their subject matter or formation (including non-contractual disputes or claims) shall be governed by and construed in accordance with the law of England and Wales.</p>
 
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">VARIATIONS</h2>
+          <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:40px 0 14px;color:#1B2A4E;">VARIATIONS</h2>
           <p class="tcg-just" style="font-size:15.5px;line-height:1.78;color:#3a4258;margin:0 0 16px;">We may revise these terms of use at any time by amending this page. You are expected to check this page from time to time to take notice of any changes we made, as they are binding on you. Some of the provisions contained in these terms of use may also be superseded by provisions or notices published elsewhere on our site.</p>
 
         </div>
@@ -786,9 +811,9 @@
       <section style="position:relative;background:#15203B;color:#fff;overflow:hidden;">
         <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
-          <div style="font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#CDB68E;margin-bottom:18px;">Tax Consulting Group &nbsp;/&nbsp; Contact</div>
-          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:820px;color:#fff;">Speak with a specialist tax partner</h1>
-          <p style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:680px;margin:26px 0 0;font-weight:300;">Tell us a little about your firm or your clients’ requirements and a member of our team will be in touch in confidence.</p>
+          
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:820px;color:#fff;">Speak With Our Specialist Team</h1>
+          <p style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:680px;margin:26px 0 0;font-weight:300;">Contact us with your enquiry and a member of our team will be in touch.</p>
         </div>
       </section>
 
@@ -800,7 +825,7 @@
               <span style="width:28px;height:1px;background:#B08E5A;"></span>
               <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">Get in Touch</span>
             </div>
-            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(26px,3vw,38px);line-height:1.14;margin:0 0 28px;color:#1B2A4E;">Discreet, partner-level advice.</h2>
+            
             <div style="border-top:1px solid #E8E2D6;">
               <div style="padding:20px 0;border-bottom:1px solid #E8E2D6;">
                 <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#8B8676;margin-bottom:7px;">Email</div>
@@ -841,7 +866,7 @@
                 <div style="width:64px;height:64px;border-radius:50%;background:#1B2A4E;display:flex;align-items:center;justify-content:center;margin:0 auto 26px;">
                   <span style="display:inline-block;width:22px;height:12px;border-left:2.5px solid #B08E5A;border-bottom:2.5px solid #B08E5A;transform:rotate(-45deg) translateY(-3px);"></span>
                 </div>
-                <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:32px;margin:0 0 14px;color:#1B2A4E;">Thank you</h2>
+                <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:32px;margin:0 0 14px;color:#1B2A4E;">Thank you</h2>
                 <p style="font-size:16px;line-height:1.7;color:#5b6072;max-width:440px;margin:0 auto 30px;">Your enquiry has been received. A member of the Tax Consulting Group team will be in touch with you shortly, in confidence.</p>
                 <button onClick="{{ resetForm }}" style="background:none;border:1px solid #1B2A4E;color:#1B2A4E;padding:13px 28px;border-radius:2px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#1B2A4E;color:#fff;">Send Another Enquiry</button>
               </div>
@@ -890,10 +915,9 @@
     <div onClick="{{ closeMember }}" style="position:fixed;inset:0;z-index:120;background:rgba(17,25,46,0.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:clamp(16px,5vh,72px) clamp(16px,4vw,40px);overflow-y:auto;animation:tcgFadeIn .2s ease;">
       <div onClick="{{ stopProp }}" style="position:relative;width:100%;max-width:760px;background:#FBF9F5;border:1px solid #ECE6DA;border-radius:10px;overflow:hidden;box-shadow:0 50px 110px -40px rgba(10,16,32,.7);animation:tcgScaleIn .3s cubic-bezier(.2,.7,.2,1) both;">
         <button onClick="{{ closeMember }}" aria-label="Close" style="position:absolute;top:18px;right:18px;z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.12);color:#fff;cursor:pointer;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .2s;" style-hover="background:rgba(255,255,255,0.25);">×</button>
-        <div style="display:grid;grid-template-columns:220px 1fr;" data-modal-grid="">
-          <div role="img" aria-label="{{ teamMemberName }}" style="position:relative;background:#E9E4D8;min-height:260px;background-image:url('{{ teamMemberImg }}');background-size:cover;background-position:50% 18%;background-repeat:no-repeat;"></div>
+        <div data-modal-grid="">
           <div style="padding:clamp(28px,3.4vw,44px);">
-            <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.4vw,38px);line-height:1.12;margin:0 0 24px;color:#1B2A4E;">{{ teamMemberName }}</h2>
+            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.4vw,38px);line-height:1.12;margin:0 0 24px;color:#1B2A4E;">{{ teamMemberName }}</h2>
 
             <div style="font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#B08E5A;margin-bottom:14px;">Biography</div>
             <sc-for list="{{ teamBio }}" as="para" hint-placeholder-count="3">
@@ -959,7 +983,7 @@
         </div>
       </div>
       <div style="padding:4px 0 24px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;" data-footer-reginfo="">
-        <p style="font-size:12.5px;line-height:1.7;color:rgba(255,255,255,0.42);margin:0;max-width:900px;"><strong style="color:rgba(255,255,255,0.6);font-weight:700;">Tax Consulting Group is the trading name for Tax Consulting Group Limited</strong>, a company registered in England and Wales with company number 13638298 whose registered office address is 13 Hanover Square, Mayfair, London, England, W1S 1HN.</p>
+        <p style="font-size:12.5px;line-height:1.7;color:rgba(255,255,255,0.42);margin:0;max-width:900px;"><strong style="color:rgba(255,255,255,0.6);font-weight:700;"><span style="font-weight: normal;">Tax Consulting Group is the trading name for Tax Consulting Group Limited</span></strong>, a company registered in England and Wales with company number 13638298 whose registered office address is 13 Hanover Square, Mayfair, London, England, W1S 1HN.</p>
         <p style="font-size:12.5px;line-height:1.7;color:rgba(255,255,255,0.6);margin:0;font-weight:700;white-space:nowrap;">VAT registration number: 393 6553 60</p>
       </div>
     </div>
@@ -969,7 +993,7 @@
 <script type="text/x-dc" data-dc-script>
 const SERVICES = [
   { n:"1", slug:"private-wealth-inheritance-tax-estate-planning", title:"Private Wealth, Inheritance Tax (IHT) and Estate Planning",
-    desc:"Specialist Inheritance Tax (IHT) and estate planning services for high-net-worth private clients and families, including tax efficient succession planning strategies, generational wealth protection and family governance.",
+    desc:"Specialist Inheritance Tax (IHT) and estate planning services for high & ultra-high-net-worth private clients and families, including tax efficient succession planning strategies, generational wealth protection and family governance.",
     intro:"Strategic generational planning that safeguards family wealth and business legacy for future generations.",
     paras:[
       "We provide strategic planning and advisory services to families and high-net-worth individuals to manage their IHT exposures. We build strong relationships with clients and understand their objectives to provide commercially driven generational planning and family governance advice, ensuring family wealth is passed to the next generation tax efficiently.",
@@ -983,7 +1007,7 @@ const SERVICES = [
     areas:["Tax efficient succession planning","Wealth preservation strategies and family governance","Family Investment Companies","Trust advisory","Family buyouts","Will planning","Family office support"] },
 
   { n:"2", slug:"property-tax", title:"Property Tax",
-    desc:"Real estate tax advisory services for property investors and developers, including portfolio restructuring, UK inbound and outbound tax efficient investment strategies, Stamp Duty Land Tax and capital allowances.",
+    desc:"Property tax advisory services for property investors and developers, including portfolio restructuring, UK inbound and outbound tax efficient investment strategies, Stamp Duty Land Tax and capital allowances.",
     intro:"Commercially driven tax advisory services for investors and developers across all areas of land and property",
     paras:[
       "We advise property owners, developers and investors across all aspects of property taxation matters. We are one of the leading experts in the field and our CEO Zeeshan Khilji is the author of Bloomsbury’s Property Tax Planning, one of the leading publications in the area.",
@@ -996,7 +1020,7 @@ const SERVICES = [
     areas:["Property portfolio structuring","Real estate and M&A","International structuring","Stamp Duty Land Tax","VAT and property","Capital allowances"] },
 
   { n:"3", slug:"international-tax-cross-border-structuring", title:"International Tax and Cross-Border Structuring",
-    desc:"Specialist cross-border tax solutions and structuring for businesses and international private clients, covering global mobility, residency planning, FIG regime, Double Tax Treaty Advice, Transfer Pricing and international tax regulatory compliance.",
+    desc:"Specialist cross-border tax solutions and structuring advice for businesses and international private clients, covering global mobility, residency planning, FIG regime, Double Tax Treaty Advice, Transfer Pricing and international tax regulatory compliance.",
     intro:"Specialist international tax advisory and cross-border structuring services for internationally mobile families and entrepreneurs",
     paras:[
       "With global mobility on the rise and more high net worth families and entrepreneurs transitioning into multi-jurisdictional private wealth and corporate set ups, demand for technically strong and commercial cross border tax advice has grown significantly.",
@@ -1021,7 +1045,7 @@ const SERVICES = [
     areas:["Statutory and non-statutory demergers","Share for share exchanges and group structures","HMRC clearance applications","M&A and deal structuring","Buy side and sell side tax due diligence","Management buyouts","Company Purchase of Own Shares","Tax efficient exit planning strategies"] },
 
   { n:"5", slug:"tax-efficient-investments", title:"Tax Efficient Investments",
-    desc:"Tax efficient investment solutions for investors and private clients, including venture capital reliefs, offshore bonds, QNUPS and QROPS.",
+    desc:"Tax efficient investment solutions for investors and private clients, including venture capital reliefs and qualifying overseas pension schemes.",
     intro:"Tax efficient investment solutions for investors and private clients",
     paras:[
       "Tax efficient investments allow private clients and investors to benefit from tax reliefs by investing in certain qualifying investments.",
@@ -1047,7 +1071,7 @@ const SERVICES = [
     areas:["Enterprise Management Incentive (EMI) scheme","Share Incentive Plan (SIP)","Save as you Earn (SAYE)","Company Share Option Plan (CSOP)","Ongoing support post share incentive structure implementation","Employee ownership trusts","Growth shares","Share valuations","Employment related securities annual reporting"] },
 
   { n:"7", slug:"intellectual-property-innovation-tax-reliefs", title:"Intellectual Property and Innovation Tax Reliefs",
-    desc:"Specialist innovation tax and intellectual property services for tech and IP intensive companies covering tax efficient IP structuring, R&D and patent box reliefs.",
+    desc:"Specialist innovation tax and intellectual property services for tech and IP intensive companies including tax efficient IP structuring, R&D and patent box reliefs.",
     intro:"Specialist R&D, Patent Box and intellectual property relief and structuring services for tech driven and IP intensive companies.",
     paras:[
       "Innovation tax reliefs, particularly Research & Development (R&D) and Patent Box reliefs, provide generous incentives for businesses investing in intellectual property and innovation.",
@@ -1061,7 +1085,7 @@ const SERVICES = [
     areas:["Tax efficient Intellectual Property structuring","IP holding companies and group structures","R&D claim preparation and submission","Patent Box claims","HMRC enquiries support","Second opinions and reviews","Workshops and training for accountants and their clients"] },
 
   { n:"8", slug:"tax-dispute-resolution", title:"Tax Dispute Resolution",
-    desc:"Specialist support with HMRC enquiries, compliance checks and voluntary disclosures from a tax dispute resolution team consisting of ex-HMRC inspectors.",
+    desc:"Specialist support with HMRC enquiries, compliance checks and voluntary disclosures from an experienced tax dispute resolution team.",
     intro:"Specialist support with HMRC enquiries, compliance checks and voluntary disclosures from an experienced tax dispute resolution team.",
     paras:[
       "We aim to provide a coordinated personal approach to resolving tax enquires and disputes with HMRC for individuals, businesses and professionals. We work closely with our clients, understanding the issues relevant to their specific situation and work with them to provide the best advice and solutions to resolve those issues.",
@@ -1073,7 +1097,7 @@ const SERVICES = [
     areas:["HMRC enquiries","Voluntary disclosures to HMRC","Let Property Campaign and the Worldwide Disclosure Facility","General investigations support"] },
 
   { n:"9", slug:"vat-advisory", title:"VAT Advisory",
-    desc:"Expert VAT advisory, health checks, HMRC VAT enquiries and investigation support services.",
+    desc:"Expert advisory services to businesses across all areas of VAT.",
     intro:"Practical VAT advice to help businesses manage VAT risks.",
     paras:[
       "VAT is one of the more complex areas of tax law and keeping up to date with the constantly changing VAT legislation and guidance can be challenging for businesses. Our VAT experts provide practical advice and guidance to businesses to navigate the complex world of VAT.",
@@ -1085,55 +1109,55 @@ const SERVICES = [
     areas:["VAT and partial exemption","VAT and charities","Land and property","VAT implications of buying or selling a Business","VAT health checks","VAT enquiry support"] }
 ];
 const TEAM = [
-  { name:"Zeeshan Khilji CTA", img:"assets/team/zeeshan-khilji.jpg", bio:[
+  { name:"Zeeshan Khilji CTA", img:"assets/team/zeeshan-khilji.png", bio:[
     `Zeeshan is a Chartered Tax Adviser and published tax author, having spent majority of his career working for Big Four and Top 10 firms.`,
     `Zeeshan specialises in advising high & ultra-high-net-worth private clients, families and corporates on private wealth structuring, IHT, real estate, international tax, corporate reorganisations and reconstructions. He also has a strong background in M&A tax from his time at the Big Four.`,
-    `Zeeshan is the author of Bloomsbury's Property Tax Planning and co-author of Taxation of Intellectual Property publications. He particularly enjoys working with other professional advisers, including accountancy practices and wealth managers, to support them with delivering specialist tax services to their clients.`,
+    `Zeeshan is the author of Bloomsbury's Property Tax Planning and co-author of Taxation of Intellectual Property publications. He particularly enjoys working with other professional advisers to support them with delivering specialist tax services to their clients.`,
     `Zeeshan has an extensive network of professional advisers across Europe, GCC and Asia who he regularly collaborates with on international advisory and structuring matters.`
   ] },
-  { name:"John Kavanagh CTA ATT", img:"assets/team/john-kavanagh.jpg", bio:[
+  { name:"John Kavanagh CTA ATT", img:"assets/team/john-kavanagh.png", bio:[
     `John has 40 years of experience in all aspects of UK and international tax, advising a wide range of clients from private individuals, owner managed businesses, publicly owned groups, trustees, executors and a Fortune 100 bank.`,
     `John worked initially for HMRC and then spent 7 years with Deloitte, where he qualified as a Chartered Tax Adviser. He subsequently took up positions as a specialist Tax Partner in a Top 10 accountancy firm and as a board director of a City Tax boutique.`,
     `As well as being a Chartered Tax Adviser, John is also a member of the Association of Taxation Technicians.`,
     `John has written on many occasions for the professional press, in titles such as Taxation, Tax Journal, the Journal of International Taxation and Accountancy, and for specialist websites such as Taxationweb.`
   ] },
-  { name:"Duncan Meredith CTA", img:"assets/team/duncan-meredith.jpg", bio:[
+  { name:"Duncan Meredith CTA", img:"assets/team/duncan-meredith.png", bio:[
     `Duncan has over 40 years of experience as a tax adviser. He trained and worked for Big 4 firms, as well as mid-tier and independent firms, with a focus on family & owner-managed businesses and individuals. Duncan has written many articles for the press and lectures on tax topics.`,
     `Duncan is particularly well known amongst his clients for explaining complex issues in an easily understood manner.`
   ] },
-  { name:"Ken Moody CTA ATT", img:"assets/team/ken-moody.jpg", bio:[
+  { name:"Ken Moody CTA ATT", img:"assets/team/ken-moody.png", bio:[
     `Ken is a Chartered Tax Adviser and member of the Association of Tax Technicians, with over 40 years' experience of advising on the holistic tax affairs of owner-managed businesses and private clients, encompassing a very broad range of personal and corporate tax issues.`,
     `Ken is a published tax author and was awarded the Fellowship of the CIOT in 2011 for his work "Employment-Related Securities and Unlisted Companies", published by Spiramus. He also contributes regular articles to professional journals including Tax Insider and also worked as an examiner for the CIOT for several years.`
   ] },
-  { name:"Tim Mallon CTA", img:"assets/team/tim-mallon.jpg", bio:[
+  { name:"Tim Mallon CTA", img:"assets/team/tim-mallon.png", bio:[
     `Tim is a Chartered Tax Adviser with over 35 years of specialist tax advisory experience covering all areas of direct taxes. Tim is a former Chair of the North East England branch of the Chartered Institute of Taxation. He is well known amongst clients and other professional advisers for his clear, practical advice.`
   ] },
   { name:"Andrew McKenna CTA ATT CEDR", img:"assets/team/andrew-mckenna.png", bio:[
     `Andrew has over 25 years' experience in dealing with tax disputes, including working for HMRC as an Investigator for 17 years and consequently within the tax profession assisting individuals, businesses, trustees and other professionals to resolve tax disputes and enquiries.`,
     `Andrew is a Chartered Tax Advisor (CTA) and member of the CIOT Taxes Administration Sub-Committee. He also a CEDR (Centre for Effective Dispute Resolution) accredited meditator with experience of using ADR (Alternative Dispute Resolution) to move contentious HMRC cases to settlement without litigation.`
   ] },
-  { name:"Pankaj Bakshi CTA", img:"assets/team/pankaj-bakshi.jpg", bio:[
+  { name:"Pankaj Bakshi CTA", img:"assets/team/pankaj-bakshi.png", bio:[
     `Pankaj is a Big Four trained Chartered Tax Adviser, bringing more than 40 years of extensive specialist experience.`,
     `Pankaj has significant expertise in advising directors and shareholders of family-owned businesses, high-growth enterprises, and high-net-worth individuals on a wide range of taxation matters.`,
     `With a strong track record spanning four decades, Pankaj works closely with clients to develop strategies that align with their commercial objectives, including business structuring for long-term growth, tax efficient structuring, wealth preservation and succession planning.`
   ] },
-  { name:"Hilary Bevan CTA", img:"assets/team/hilary-bevan.jpg", bio:[
+  { name:"Hilary Bevan CTA", img:"assets/team/hilary-bevan.png", bio:[
     `Hilary is a Chartered Tax Adviser and a VAT specialist with twenty years of experience working in accountancy and tax. Hilary has built up extensive technical knowledge over her years in practice and provides VAT advice on a range of topics. Hilary is passionate about VAT and delivers regular talks and presentations on the subject.`
   ] },
-  { name:"Adam Garrad MRICS ATT", img:"assets/team/adam-garrad.jpg", bio:[
+  { name:"Adam Garrad MRICS ATT", img:"assets/team/adam-garrad.png", bio:[
     `Adam is a Top 10 trained tax qualified chartered surveyor with 30 years' experience in all aspects of property related capital allowances and associated tax reliefs.`,
     `Working throughout the UK, Adam provides capital allowances expertise to clients ranging from large London based property companies to individuals investing in commercial property.`
   ] }
 ];
 const TESTIMONIALS = [
   { name:"Ed Stittle", title:"Director \u2013 ESDG Accountancy", quote:"We have worked with TCG a number of times on complex tax matters where we have wanted a second opinion or an expert view. TCG\u2019s Partner service is like having an in-house tax partner, providing an excellent level of service to both myself and the end client. TCG make complicated tax matters easy to understand. My clients tell me the same and enjoy their personal approach. I wholeheartedly recommend TCG to any accounting practice looking to upgrade their tax offering." },
-  { name:"Melanie O\u2019Connor", title:"Director and Head of Tax \u2013 Hodge Bakshi Chartered Accountants", quote:"We have been using TCG\u2019s specialist tax services for a number of years across areas such as IHT planning, property tax, corporate reorganisations and reconstructions. Partnering with TCG and their senior team, consisting of experts across multiple areas of tax, has allowed us to grow our tax function and provide specialist tax services to our clients across the UK." },
+  { name:"Melanie O\u2019Connor", title:"Director and Head of Tax \u2013 Hodge Bakshi Chartered Accountants", quote:"We have used TCG\u2019s services for complex transactional tax matters involving our clients. I have been very impressed with the team\u2019s thorough understanding of the tax legislation and application to practical structuring scenarios for our clients. I would highly recommend professional advisers requiring tax advisory support to use TCG\u2019s specialist tax services." },
   { name:"Helen Pennock", title:"Partner \u2013 Ryecroft Glenton", quote:"We have used TCG\u2019s services for complex transactional tax matters involving our clients. I have been very impressed with the team\u2019s thorough understanding of the tax legislation and its application to practical structuring scenarios for our clients. I would highly recommend professional advisers requiring tax advisory support to use TCG\u2019s specialist tax services." },
-  { name:"Sarfraz Fayyaz", title:"Senior Partner \u2013 BizNav Chartered Accountants", quote:"Partnering with TCG has been instrumental to our expansion as a firm and has allowed us to grow our tax offering to a wider client base across the UK and overseas. With our ambitious growth plans, we look forward to continuing our partnership with TCG to provide specialist tax services to our clients across all areas of tax." },
+  { name:"Sarfraz Fayyaz", title:"Senior Partner \u2013 BizNav Chartered Accountants", quote:"Partnering with TCG has been instrumental to our expansion as a firm and has allowed us to grow our tax offering to a wider client base across the UK and overseas. With our ambitious growth plans, we look forward to continuing our partnership with TCG to provide specialist tax services to our clients across multiple areas of tax." },
   { name:"Dele Adesina", title:"Managing Partner \u2013 Carrick Wealth and Hekima International Private Office", quote:"We use TCG\u2019s services as our dedicated tax advisory partners on complex real estate, international tax and estate planning matters. They have been excellent at providing proactive and commercial tax advice to our clients." },
   { name:"Sherad Dewedi", title:"Managing Partner \u2013 Shenward LLP", quote:"We have been using TCG\u2019s services for complex tax advisory projects for our clients, which has allowed us to grow our tax function across multiple office locations." },
-  { name:"Ashley Crimmins", title:"Mulberry Wealth Management", quote:"I have used TCG\u2019s services for IHT and estate planning matters. The team\u2019s in depth and practical tax knowledge has been invaluable for our clients and I would highly recommend TCG as tax advisory partners for wealth managers and other professional advisers." },
-  { name:"Gina Evans", title:"Independent Financial Adviser \u2013 Blackstone Partners", quote:"I have been collaborating with Zeeshan and his team at TCG for a number of years, particularly in relation to complex property tax matters for my clients. I have been very impressed with the quality of service I have received from the team over the years and would strongly recommend them to financial advisers requiring tax advisory services for their clients." },
+  { name:"Ashley Crimmins", title:"Mulberry Wealth Management", quote:"I have used TCG\u2019s services for IHT and estate planning matters. The team\u2019s in depth and practical tax knowledge has been invaluable for our clients and I would highly recommend TCG as tax advisory partners for professional advisers." },
+  { name:"Gina Evans", title:"Independent Financial Adviser \u2013 Blackstone Partners", quote:"I have been collaborating with Zeeshan and his team at TCG for a number of years, particularly in relation to complex property tax matters for my clients. I have been very impressed with the quality of service I have received from the team over the years and would strongly recommend them to professional advisers requiring tax advisory services for their clients." },
   { name:"Thrasos Vassiliades", title:"Partner \u2013 EA Chartered Accountants", quote:"We have used the services of TCG across a range of complex tax matters for our clients, engaging them as outsourced tax partners to our firm. TCG\u2019s expertise and commercial approach to solving our clients\u2019 tax issues has allowed our firm to provide high-quality specialist tax advisory services to our clients across multiple areas of tax." }
 ];
 
@@ -1239,6 +1263,21 @@ const KNOWLEDGE_PAGES = {
     cardExcerpt: "Date, speakers and a short description of the session will appear here once content is finalised. Placeholder copy for layout purposes."
   }
 };
+
+const PUBLICATIONS = [
+  { title:"Property Tax Planning", authorLabel:"Author", author:"Zeeshan Khilji",
+    publisher:"Bloomsbury Professional", format:"Paperback", edition:"17th Edition",
+    published:"29 February 2024", isbn:"9781526526250",
+    img:"assets/publications/property-tax-planning.png",
+    url:"https://www.bloomsburyprofessional.com/uk/tax/property-taxes/",
+    desc:"Now in its 17th Edition, this book has been updated to cover the many significant changes to the tax treatment of UK property in recent years." },
+  { title:"Taxation of Intellectual Property", authorLabel:"Authors", author:"Julian Hickey and Zeeshan Khilji",
+    publisher:"Bloomsbury Professional", format:"Paperback", edition:"5th Edition",
+    published:"24 October 2024", isbn:"9781526524942",
+    img:"assets/publications/taxation-of-intellectual-property.png",
+    url:"https://www.bloomsburyprofessional.com/uk/taxation-of-intellectual-property-9781526524942/",
+    desc:"This specialist title analyses the approach of the UK tax regime towards intellectual property assets, following the life-cycle of intellectual property from creation to disposal." }
+];
 
 class Component extends DCLogic {
   state = {
@@ -1381,7 +1420,7 @@ class Component extends DCLogic {
     this._timer = setTimeout(() => {
       if (this.state.route === "home" && !this._tPaused) this._advance(1);
       else this._scheduleAutoplay();
-    }, 4000);
+    }, 10000);
   }
   _advance(dir){
     this.setState(s => { const n = TESTIMONIALS.length; return { tIndex: (s.tIndex + dir + n) % n }; });
@@ -1502,8 +1541,9 @@ class Component extends DCLogic {
       serviceAreasLabel: sd ? sd.areasLabel : "",
       serviceAreas: sd ? sd.areas.map(a => ({ text:a })) : [],
       serviceIsPlaceholder: !!(sd && sd.placeholder),
-      showKnowledge: r==="publications",
-      knowledgePage: r==="publications" ? this._knowledgeEl(r) : null,
+      showKnowledge: false,
+      knowledgePage: null,
+      publications: PUBLICATIONS,
       menuOpen:this.state.menuOpen, knowledgeOpen:this.state.knowledgeOpen, mobileKnowledgeOpen:this.state.mobileKnowledgeOpen,
       servicesOpen:this.state.servicesOpen, mobileServicesOpen:this.state.mobileServicesOpen, servicesDropdown,
       nav: {
