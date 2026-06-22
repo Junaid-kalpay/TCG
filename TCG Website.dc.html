@@ -130,7 +130,7 @@
           </sc-if>
         </div>
 
-        <button onClick="{{ goContact }}" style="margin-left:4px;background:#1B2A4E;color:#fff;border:none;padding:13px 24px;border-radius:2px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;transform:translateY(-1px);">Get In Touch</button>
+        <button onClick="{{ goContact }}" style="margin-left:4px;background:#1B2A4E;color:#fff;border:none;padding:13px 24px;border-radius:2px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;transform:translateY(-1px);">CONTACT US</button>
       </nav>
 
       <!-- mobile burger -->
@@ -403,7 +403,9 @@
             <sc-for list="{{ team }}" as="person" hint-placeholder-count="9">
               <button onClick="{{ person.open }}" style="text-align:left;background:#fff;border:1px solid #E8E2D6;border-radius:8px;overflow:hidden;cursor:pointer;padding:0;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s;" style-hover="transform:translateY(-5px);box-shadow:0 26px 56px -34px rgba(21,32,59,.4);">
                 <div style="position:relative;aspect-ratio:4 / 5;background:#E9E4D8;overflow:hidden;">
-                  <div role="img" aria-label="{{ person.name }}" style="position:absolute;inset:0;background-image:url('{{ person.img }}');background-size:cover;background-position:50% 18%;background-repeat:no-repeat;"></div>
+                  <sc-if value="{{ person.img }}" hint-placeholder-val="{{ false }}">
+                    <img src="{{ person.img }}" alt="{{ person.name }}" loading="lazy" decoding="async" width="640" height="800" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block;">
+                  </sc-if>
                 </div>
                 <div style="padding:22px 22px 24px;flex:1;display:flex;flex-direction:column;">
                   <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.2;margin:0;color:#1B2A4E;">{{ person.name }}</h3>
@@ -910,7 +912,7 @@
   <sc-if value="{{ showMember }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeMember }}" style="position:fixed;inset:0;z-index:120;background:rgba(17,25,46,0.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:clamp(16px,5vh,72px) clamp(16px,4vw,40px);overflow-y:auto;animation:tcgFadeIn .2s ease;">
       <div onClick="{{ stopProp }}" style="position:relative;width:100%;max-width:760px;background:#FBF9F5;border:1px solid #ECE6DA;border-radius:10px;overflow:hidden;box-shadow:0 50px 110px -40px rgba(10,16,32,.7);animation:tcgScaleIn .3s cubic-bezier(.2,.7,.2,1) both;">
-        <button onClick="{{ closeMember }}" aria-label="Close" style="position:absolute;top:18px;right:18px;z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.12);color:#fff;cursor:pointer;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .2s;" style-hover="background:rgba(255,255,255,0.25);">×</button>
+        <button onClick="{{ closeMember }}" aria-label="Close biography" style="position:absolute;top:16px;right:16px;z-index:3;width:46px;height:46px;border-radius:50%;border:1px solid #E2DBCC;background:#fff;color:#1B2A4E;cursor:pointer;font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 2px 10px -4px rgba(21,32,59,.3);" style-hover="background:#1B2A4E;color:#fff;border-color:#1B2A4E;">×</button>
         <div data-modal-grid="">
           <div style="padding:clamp(28px,3.4vw,44px);">
             <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.4vw,38px);line-height:1.12;margin:0 0 24px;color:#1B2A4E;">{{ teamMemberName }}</h2>
@@ -1096,42 +1098,42 @@ const SERVICES = [
     areas:["VAT and partial exemption","VAT and charities","Land and property","VAT implications of buying or selling a Business","VAT health checks","VAT enquiry support"] }
 ];
 const TEAM = [
-  { name:"Zeeshan Khilji CTA", img:"assets/team/zeeshan-khilji.png", bio:[
+  { name:"Zeeshan Khilji CTA", img:"assets/team/zeeshan-khilji.webp", bio:[
     `Zeeshan is TCG’s CEO and a Chartered Tax Adviser and published tax author, having spent majority of his career working for Big Four and Top 10 firms.`,
     `Zeeshan specialises in advising high & ultra-high-net-worth private clients, families and corporates on private wealth structuring, IHT, real estate, cross-border tax, corporate transactions and reorganisations.`,
     `Zeeshan is the author of Bloomsbury’s Property Tax Planning and co-author of Taxation of Intellectual Property publications. He particularly enjoys working with other professional advisers to support them with delivering specialist tax advisory services to their clients.`,
     `Zeeshan has an extensive network of professional advisers across Europe, Middle East, US and Southeast Asia, who he regularly partners with on international tax advisory projects.`
   ] },
-  { name:"John Kavanagh CTA ATT", img:"assets/team/john-kavanagh.png", bio:[
-    `John has 40 years of experience in all aspects of UK and international tax, advising a wide range of clients from private individuals, owner managed businesses, publicly owned groups, trustees, executors and a Fortune 100 bank.`,
+  { name:"John Kavanagh CTA ATT", img:"assets/team/john-kavanagh.webp", bio:[
+    `John has over 35 years of experience in all aspects of UK and international tax, advising a wide range of clients from private individuals, owner managed businesses, publicly owned groups, trustees, executors and a Fortune 100 bank.`,
     `John worked initially for HMRC and then spent 7 years with Deloitte, where he qualified as a Chartered Tax Adviser. He subsequently took up positions as a specialist Tax Partner in a Top 10 accountancy firm and as a board director of a City Tax boutique.`,
     `As well as being a Chartered Tax Adviser, John is also a member of the Association of Taxation Technicians.`,
     `John has written on many occasions for the professional press, in titles such as Taxation, Tax Journal, the Journal of International Taxation and Accountancy, and for specialist websites such as Taxationweb.`
   ] },
-  { name:"Ken Moody CTA ATT", img:"assets/team/ken-moody.png", bio:[
-    `Ken is a Chartered Tax Adviser and member of the Association of Tax Technicians, with over 40 years' experience of advising on the holistic tax affairs of companies and private clients, encompassing a very broad range of personal and corporate tax issues.`,
+  { name:"Ken Moody CTA ATT", img:"assets/team/ken-moody.webp", bio:[
+    `Ken is a Chartered Tax Adviser and member of the Association of Tax Technicians, with over 35 years' experience of advising on the holistic tax affairs of companies and private clients, encompassing a very broad range of personal and corporate tax issues.`,
     `Ken is a published tax author and was awarded the Fellowship of the CIOT in 2011 for his work "Employment-Related Securities and Unlisted Companies", published by Spiramus. He also contributes regular articles to professional journals including Tax Insider and also worked as an examiner for the CIOT for several years.`
   ] },
-  { name:"Duncan Meredith CTA", img:"assets/team/duncan-meredith.png", bio:[
-    `Duncan has over 40 years of experience as a tax adviser. He trained and worked for Big 4 firms, as well as mid-tier and independent firms, with a focus on owner-managed businesses, families and high-net-worth private clients. Duncan has written many articles for the press and lectures on tax topics.`,
+  { name:"Duncan Meredith CTA", img:"assets/team/duncan-meredith.webp", bio:[
+    `Duncan has over 30 years of experience as a tax adviser. He trained and worked for Big 4 firms, as well as mid-tier and independent firms, with a focus on owner-managed businesses, families and high-net-worth private clients. Duncan has written many articles for the press and lectures on tax topics.`,
     `Duncan is particularly well known amongst his clients for explaining complex issues in an easily understood manner.`
   ] },
-  { name:"Andrew McKenna CTA ATT CEDR", img:"assets/team/andrew-mckenna.png", bio:[
+  { name:"Andrew McKenna CTA ATT CEDR", img:"assets/team/andrew-mckenna.webp", bio:[
     `Andrew has over 25 years' experience in dealing with tax disputes, including working for HMRC as an Investigator for 17 years and as a Tax Partner for a Top 10 firm, assisting individuals, businesses, trustees and other professionals to resolve tax disputes and enquiries.`,
     `Andrew is a Chartered Tax Advisor (CTA) and member of the CIOT Taxes Administration Sub-Committee. He also a CEDR (Centre for Effective Dispute Resolution) accredited meditator with experience of using ADR (Alternative Dispute Resolution) to move contentious HMRC cases to settlement without litigation.`
   ] },
-  { name:"Tim Mallon CTA", img:"assets/team/tim-mallon.png", bio:[
+  { name:"Tim Mallon CTA", img:"assets/team/tim-mallon.webp", bio:[
     `Tim is a Chartered Tax Adviser with over 35 years of specialist tax advisory experience covering all areas of direct taxes. Tim is a former Chair of the North East England branch of the Chartered Institute of Taxation. He is well known amongst clients and other professional advisers for his clear and practical advice.`
   ] },
-  { name:"Pankaj Bakshi CTA", img:"assets/team/pankaj-bakshi.png", bio:[
+  { name:"Pankaj Bakshi CTA", img:"assets/team/pankaj-bakshi.webp", bio:[
     `Pankaj is a Big Four trained Chartered Tax Adviser, bringing more than 40 years of extensive specialist experience.`,
     `Pankaj has significant expertise in advising family-owned and owner-managed businesses, high-growth enterprises, and high-net-worth private clients on a wide range of tax matters.`,
     `With a strong track record spanning four decades, Pankaj works closely with clients to develop strategies that align with their commercial objectives, including business structuring for long-term growth, tax efficient structuring, wealth preservation and succession planning.`
   ] },
-  { name:"Hilary Bevan CTA", img:"assets/team/hilary-bevan.png", bio:[
+  { name:"Hilary Bevan CTA", img:"assets/team/hilary-bevan.webp", bio:[
     `Hilary is a Chartered Tax Adviser and a VAT specialist with twenty years of experience working in accountancy and tax. Hilary has built up extensive technical knowledge over her years in practice and provides VAT advice on a range of topics. Hilary is passionate about VAT and delivers regular talks and presentations on the subject.`
   ] },
-  { name:"Adam Garrad MRICS ATT", img:"assets/team/adam-garrad.png", bio:[
+  { name:"Adam Garrad MRICS ATT", img:"assets/team/adam-garrad.webp", bio:[
     `Adam is a Top 10 trained tax qualified chartered surveyor with 30 years' experience in all aspects of property related capital allowances and associated tax reliefs.`,
     `Working throughout the UK, Adam provides capital allowances expertise to clients ranging from large London based property companies to individuals investing in commercial property.`
   ] }
@@ -1305,12 +1307,15 @@ class Component extends DCLogic {
 
     this._onResize = () => this._measureSvc();
     window.addEventListener("resize", this._onResize);
+    this._onKey = (e) => { if (e.key === "Escape" && this.state.teamSelected != null) this.closeMember(); };
+    window.addEventListener("keydown", this._onKey);
     requestAnimationFrame(() => requestAnimationFrame(() => { this._measureSvc(); this._initSwipe(); }));
   }
   componentDidUpdate(){ this._initReveal(); this._measureSvc(); }
   componentWillUnmount(){
     window.removeEventListener("hashchange", this._onHash);
     window.removeEventListener("resize", this._onResize);
+    window.removeEventListener("keydown", this._onKey);
     clearTimeout(this._timer);
     clearTimeout(this._safety);
   }
