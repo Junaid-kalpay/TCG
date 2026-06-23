@@ -51,9 +51,14 @@
   @media (max-width:900px){
     [data-team-grid]{grid-template-columns:1fr 1fr !important;}
   }
+  @media (max-width:767px){
+    [data-svc-grid]{display:flex !important;grid-template-columns:none !important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:16px !important;padding:4px 20px 10px;margin-left:-20px;margin-right:-20px;scrollbar-width:none;}
+    [data-svc-grid]::-webkit-scrollbar{display:none;}
+    [data-svc-card]{flex:0 0 84%;scroll-snap-align:center;}
+    [data-svc-mobnav]{display:flex !important;}
+  }
   @media (max-width:560px){
     [data-team-grid]{grid-template-columns:1fr !important;}
-    [data-svc-grid]{grid-template-columns:1fr !important;}
     [data-svc-megamenu]{grid-template-columns:1fr !important;grid-auto-flow:row !important;}
     [data-pub-card]{grid-template-columns:1fr !important;}
     [data-pub-cover]{min-height:200px !important;}
@@ -162,7 +167,7 @@
             <a href="#/articles" onClick="{{ goArticles }}" style="display:block;padding:12px 4px;font-size:15px;color:#4A5163;cursor:pointer;">News, articles and technical updates</a>
           </div>
         </sc-if>
-        <button onClick="{{ goContact }}" style="margin-top:18px;width:100%;background:#1B2A4E;color:#fff;border:none;padding:16px;border-radius:2px;font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;">Get In Touch</button>
+        <button onClick="{{ goContact }}" style="margin-top:18px;width:100%;background:#1B2A4E;color:#fff;border:none;padding:16px;border-radius:2px;font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;">Contact Us</button>
       </div>
     </sc-if>
   </header>
@@ -221,7 +226,7 @@
           </div>
           <div data-reveal="" data-svc-grid="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
             <sc-for list="{{ services }}" as="svc" hint-placeholder-count="9">
-              <div style="background:#fff;border:1px solid #E8E2D6;border-radius:8px;padding:clamp(28px,2.6vw,38px);display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s;" style-hover="box-shadow:0 22px 50px -32px rgba(21,32,59,.34);transform:translateY(-4px);">
+              <div data-svc-card="" style="background:#fff;border:1px solid #E8E2D6;border-radius:8px;padding:clamp(28px,2.6vw,38px);display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s;" style-hover="box-shadow:0 22px 50px -32px rgba(21,32,59,.34);transform:translateY(-4px);">
                 <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
                   <span style="font-family:'DashFix','Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#B08E5A;line-height:1;">{{ svc.n }}</span>
                   <span style="flex:1;height:1px;background:#E8E2D6;"></span>
@@ -234,10 +239,16 @@
               </div>
             </sc-for>
           </div>
+          <div data-svc-mobnav="" style="display:none;justify-content:center;gap:12px;align-items:center;margin-top:28px;">
+            <button onClick="{{ svcScrollPrev }}" aria-label="Previous service" style="width:48px;height:48px;border-radius:50%;border:1px solid #D8D0BF;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;" style-hover="border-color:#1B2A4E;background:#1B2A4E;">
+              <span style="display:inline-block;width:9px;height:9px;border-left:1.6px solid #1B2A4E;border-bottom:1.6px solid #1B2A4E;transform:rotate(45deg) translate(2px,-2px);"></span>
+            </button>
+            <button onClick="{{ svcScrollNext }}" aria-label="Next service" style="width:48px;height:48px;border-radius:50%;border:1px solid #D8D0BF;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;" style-hover="border-color:#1B2A4E;background:#1B2A4E;">
+              <span style="display:inline-block;width:9px;height:9px;border-right:1.6px solid #1B2A4E;border-top:1.6px solid #1B2A4E;transform:rotate(45deg) translate(-2px,2px);"></span>
+            </button>
+          </div>
         </div>
       </section>
-
-      <!-- TESTIMONIALS CAROUSEL -->
       <section style="background:#FBF9F5;">
         <div style="max-width:1100px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,40px);">
           <div style="text-align:center;margin-bottom:clamp(36px,4vw,56px);" data-reveal="">
@@ -871,6 +882,9 @@
             </sc-if>
             <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
               <form onSubmit="{{ submit }}" noValidate="{{ true }}" style="background:#fff;border:1px solid #ECE6DA;border-radius:8px;padding:clamp(28px,4vw,48px);box-shadow:0 30px 70px -42px rgba(21,32,59,.3);">
+                <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">
+                  <label>Website<input value="{{ fWebsite }}" onInput="{{ onWebsite }}" type="text" tabindex="-1" autocomplete="off"></label>
+                </div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;" data-form-grid="">
                   <div style="grid-column:1 / -1;">
                     <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Full Name <span style="color:#B08E5A;">*</span></label>
@@ -896,7 +910,10 @@
                     <sc-if value="{{ errMessageShow }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#b4452f;margin-top:7px;">{{ errMessage }}</div></sc-if>
                   </div>
                 </div>
-                <button type="submit" style="margin-top:26px;width:100%;background:#1B2A4E;color:#fff;border:none;padding:17px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;">Submit Enquiry</button>
+                <sc-if value="{{ submitErrorShow }}" hint-placeholder-val="{{ false }}">
+                  <div role="alert" style="margin-top:22px;padding:14px 18px;border:1px solid #E4C5BC;background:#FBF1EE;border-radius:4px;font-size:13.5px;line-height:1.55;color:#9a3b27;">{{ submitError }}</div>
+                </sc-if>
+                <button type="submit" disabled="{{ submitting }}" style="margin-top:26px;width:100%;background:#1B2A4E;color:#fff;border:none;padding:17px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;opacity:{{ submitBtnOpacity }};" style-hover="background:#B08E5A;">{{ submitLabel }}</button>
                 <p style="font-size:12.5px;color:#9a937f;text-align:center;margin:16px 0 0;line-height:1.6;">Your enquiry is treated in the strictest confidence. No information is shared with third parties.</p>
               </form>
             </sc-if>
@@ -953,7 +970,7 @@
           <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#CDB68E;margin-bottom:20px;">CONTACT US</div>
           <div style="font-size:14.5px;line-height:1.7;color:rgba(255,255,255,0.6);"><a href="mailto:enquiries@taxconsulting.co.uk" style="color:rgba(255,255,255,0.72);transition:color .2s;cursor:pointer;" style-hover="color:#fff;">enquiries@taxconsulting.co.uk</a><br><a href="tel:+442036338934" style="color:rgba(255,255,255,0.72);transition:color .2s;cursor:pointer;" style-hover="color:#fff;">+44 (0)203 633 8934</a><br><span style="font-size: 12.5px; color: #ffffffb8; font-family: Helvetica">London l Birmingham l Manchester l Dubai</span></div>
           <div style="margin-top:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-            <button onClick="{{ goContact }}" style="background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;padding:11px 22px;border-radius:2px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;border-color:#B08E5A;color:#15203B;">Get In Touch</button>
+            <button onClick="{{ goContact }}" style="background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;padding:11px 22px;border-radius:2px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;border-color:#B08E5A;color:#15203B;">Contact Us</button>
             <a href="https://www.linkedin.com/company/tax-consulting-group/" target="_blank" rel="noopener noreferrer" aria-label="Tax Consulting Group LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.72);transition:all .25s;flex:0 0 auto;" style-hover="background:#B08E5A;border-color:#B08E5A;color:#15203B;">
               <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm6 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.56 4.78 5.88V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21H9V9z"></path></svg>
             </a>
@@ -1275,8 +1292,8 @@ class Component extends DCLogic {
     tIndex:0,
     svcIndex:0, svcVW:1160,
     teamSelected:null,
-    form:{ name:"", email:"", phone:"", company:"", message:"" },
-    errors:{}, submitted:false
+    form:{ name:"", email:"", phone:"", company:"", message:"", website:"" },
+    errors:{}, submitted:false, submitting:false, submitError:""
   };
 
   _valid = ["home","our-team","articles","publications","professional-advisers","contact","privacy-policy","terms-and-conditions"];
@@ -1327,6 +1344,13 @@ class Component extends DCLogic {
   }
   svcNext(){ this.setState(s => { const m = Math.max(0, SERVICES.length - this._svcVisible(s.svcVW||1160)); return { svcIndex: s.svcIndex >= m ? 0 : s.svcIndex + 1 }; }); }
   svcPrev(){ this.setState(s => { const m = Math.max(0, SERVICES.length - this._svcVisible(s.svcVW||1160)); return { svcIndex: s.svcIndex <= 0 ? m : s.svcIndex - 1 }; }); }
+  _svcScrollMob(dir){
+    const g = document.querySelector('[data-svc-grid]');
+    if (!g) return;
+    const card = g.querySelector('[data-svc-card]');
+    const step = card ? card.getBoundingClientRect().width + 16 : g.clientWidth * 0.84;
+    g.scrollBy({ left: dir * step, behavior: 'smooth' });
+  }
   _initSwipe(){
     const vp = document.querySelector('[data-tst-swipe]');
     if (!vp || vp._tcgSwipe) return;
@@ -1427,16 +1451,36 @@ class Component extends DCLogic {
   }
   submit(ev){
     ev.preventDefault();
+    if (this.state.submitting) return; // prevent duplicate submissions
     const f = this.state.form, e = {};
     if (!f.name.trim()) e.name = "Please enter your full name.";
     if (!f.email.trim()) e.email = "Please enter your email address.";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = "Please enter a valid email address.";
     if (!f.message.trim()) e.message = "Please enter a brief message.";
     if (Object.keys(e).length) { this.setState({ errors:e }); return; }
-    this.setState({ submitted:true, errors:{} });
-    window.scrollTo(0,0);
+    this.setState({ submitting:true, submitError:"", errors:{} });
+    fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: f.name.trim(), email: f.email.trim(), phone: f.phone.trim(),
+        company: f.company.trim(), message: f.message.trim(), website: f.website
+      })
+    })
+      .then(r => r.json().catch(() => ({})).then(j => ({ ok: r.ok, j })))
+      .then(({ ok, j }) => {
+        if (ok && j && j.ok) {
+          this.setState({ submitted:true, submitting:false, submitError:"" });
+          window.scrollTo(0,0);
+        } else {
+          this.setState({ submitting:false, submitError: (j && j.error) || "Your enquiry could not be sent. Please try again, or email us directly at admin@taxconsulting.co.uk." });
+        }
+      })
+      .catch(() => {
+        this.setState({ submitting:false, submitError: "Your enquiry could not be sent. Please try again, or email us directly at admin@taxconsulting.co.uk." });
+      });
   }
-  resetForm(){ this.setState({ submitted:false, form:{ name:"", email:"", phone:"", company:"", message:"" }, errors:{} }); }
+  resetForm(){ this.setState({ submitted:false, submitting:false, submitError:"", form:{ name:"", email:"", phone:"", company:"", message:"", website:"" }, errors:{} }); }
 
   _knowledgeEl(key){
     const p = KNOWLEDGE_PAGES[key];
@@ -1573,6 +1617,7 @@ class Component extends DCLogic {
       tName:t.name, tTitle:t.title, tQuote:t.quote, tHasQuote: !!t.quote,
       tNum:(this.state.tIndex+1) + " / " + TESTIMONIALS.length,
       tNext:()=>this._advance(1), tPrev:()=>this._advance(-1), tDots:dots,
+      svcScrollNext:()=>this._svcScrollMob(1), svcScrollPrev:()=>this._svcScrollMob(-1),
       fName:f.name, fEmail:f.email, fPhone:f.phone, fCompany:f.company, fMessage:f.message,
       onName:(e)=>this.setField("name",e.target.value),
       onEmail:(e)=>this.setField("email",e.target.value),
@@ -1582,6 +1627,10 @@ class Component extends DCLogic {
       errName:er.name||"", errEmail:er.email||"", errMessage:er.message||"",
       errNameShow:!!er.name, errEmailShow:!!er.email, errMessageShow:!!er.message,
       submit:(e)=>this.submit(e), submitted:this.state.submitted, notSubmitted:!this.state.submitted,
+      submitting:this.state.submitting, submitLabel:this.state.submitting ? "Sending\u2026" : "Submit Enquiry",
+      submitBtnOpacity:this.state.submitting ? "0.6" : "1",
+      submitError:this.state.submitError, submitErrorShow:!!this.state.submitError,
+      fWebsite:this.state.form.website, onWebsite:(e)=>this.setField("website",e.target.value),
       resetForm:()=>this.resetForm(),
       year: new Date().getFullYear()
     };
