@@ -97,15 +97,14 @@ ${data.message}
 `;
 
   try {
-    if (process.env.RESEND_API_KEY) {
-      const { Resend } = require("resend");
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      const result = await resend.emails.send({ from: FROM, to: TO, reply_to: data.email, subject, text });
-      console.log("Resend result:", JSON.stringify(result));
-    } else {
-      await sendViaSmtp({ to: TO, from: FROM, replyTo: data.email, subject, text });
-    }
+    await sendViaSmtp({ to: TO, from: FROM, replyTo: data.email, subject, text });
     return res.status(200).json({ ok: true });
+
+    // ---- Resend alternative (uncomment to use instead of SMTP) --------------
+    // const { Resend } = require("resend");
+    // const resend = new Resend(process.env.RESEND_API_KEY);
+    // await resend.emails.send({ from: FROM, to: TO, reply_to: data.email, subject, text });
+    // return res.status(200).json({ ok: true });
   } catch (err) {
     console.error("Contact form send failed:", err);
     return res.status(502).json({ ok: false, error: "Email could not be sent." });
