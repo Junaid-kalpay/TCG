@@ -39,7 +39,7 @@ const server = http.createServer((req, res) => {
   if (fs.existsSync(abs) && fs.statSync(abs).isFile()) {
     const ext = path.extname(abs).slice(1);
     const mime = { html: "text/html", js: "application/javascript", css: "text/css",
-                   png: "image/png", jpg: "image/jpeg", svg: "image/svg+xml",
+                   png: "image/png", jpg: "image/jpeg", svg: "image/svg+xml", ico: "image/x-icon",
                    woff2: "font/woff2", woff: "font/woff" }[ext] || "application/octet-stream";
     res.writeHead(200, { "Content-Type": mime });
     fs.createReadStream(abs).pipe(res);

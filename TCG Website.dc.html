@@ -3,11 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
+<title>Tax Consulting Group</title>
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -29,6 +36,7 @@
   @keyframes tcgSlide{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
   .tcg-tquote{animation:tcgSlide .62s cubic-bezier(.22,.61,.36,1) both;}
   .tcg-just{text-align:justify;text-justify:inter-word;-webkit-hyphens:auto;hyphens:auto;}
+  [data-svc-anchor]{scroll-margin-top:90px;}
   @keyframes tcgScaleIn{from{opacity:0;transform:translateY(18px) scale(.98);}to{opacity:1;transform:none;}}
   ::-webkit-scrollbar{width:11px;height:11px;}
   ::-webkit-scrollbar-thumb{background:#cfc6b4;border-radius:6px;border:3px solid #FBF9F5;}
@@ -189,8 +197,8 @@
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(72px,11vw,148px) clamp(20px,4vw,40px) clamp(80px,11vw,150px);">
           <div style="max-width:880px;">
             
-            <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,5.6vw,70px);line-height:1.1;letter-spacing:-0.005em;margin:0 0 36px;color:#fff;text-wrap:balance;" data-reveal="">Specialist Tax Partners to Professional Advisers, Private Clients and Corporates</h1>
-            <p class="tcg-just" style="font-size:clamp(17px,1.5vw,19.5px);line-height:1.78;color:rgba(255,255,255,0.80);max-width:760px;margin:0 0 0;font-weight:300;" data-reveal=""></p><div style="text-align:justify;"><span style="font-size: 18.156px;"><div><span style="font-size: 18.156px;">Tax Consulting Group (TCG) is one of the UK’s leading independent firms of Chartered Tax Advisers, dedicated to delivering specialist tax solutions to high &amp; ultra-high-net-worth private clients, families and corporates across complex areas of UK and cross-border tax.</span><br></div></span></div><div><span style="font-size: 18.156px;"><br></span></div><div style="text-align:justify;"><span style="font-size: 18.156px;">We partner with professional advisers, including accountancy practices, wealth managers, family offices, private banks, fiduciaries and law firms, to provide expert tax advisory services to clients.</span></div><p></p>
+            <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,5.6vw,70px);line-height:1.1;letter-spacing:-0.005em;margin:0 0 36px;color:#fff;text-wrap:balance;" data-reveal="">Specialist Tax Partners to Accountancy Practices, Wealth Management Firms and Family Offices</h1>
+            <p class="tcg-just" style="font-size:clamp(17px,1.5vw,19.5px);line-height:1.78;color:rgba(255,255,255,0.80);max-width:760px;margin:0 0 0;font-weight:300;" data-reveal=""></p><div style="text-align:justify;"><span style="font-size: 18.156px;"><div><span style="font-size: 18.156px;">Tax Consulting Group (TCG) is one of the leading independent firms of Chartered Tax Advisers, dedicated to providing specialist tax partner services to accountancy practices, wealth management firms and family offices across complex areas of UK and international tax.</span><br></div></span></div><div><span style="font-size: 18.156px;"><br></span></div><div style="text-align:justify;"><span style="font-size: 18.156px;">We partner with accountants and wealth managers to provide expert tax advisory solutions to their clients, as well as extensively advising UK and international family offices on complex tax structuring matters.</span></div><p></p>
             <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:54px;" data-reveal="">
               <button onClick="{{ goServices }}" style="background:#B08E5A;color:#15203B;border:none;padding:16px 32px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#c4a06b;transform:translateY(-2px);">Explore Our Services</button>
               <button onClick="{{ goOurTeam }}" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.45);padding:16px 32px;border-radius:2px;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="border-color:#fff;background:rgba(255,255,255,0.06);">Find Out About Our Team</button>
@@ -210,7 +218,7 @@
             <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,3.2vw,40px);line-height:1.12;margin:0;color:#1B2A4E;">A specialist tax advisory firm with industry-led technical expertise</h2>
           </div>
           <div data-reveal="">
-            <p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0 0 26px;font-weight:400;"></p><div style="text-align:justify;font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;">As one of the leading independent tax advisory firms, our team consists of highly experienced and renowned Chartered Tax Advisers, including ex-Top 10 Partners and published tax authors.&nbsp;</div><p></p><p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0;font-weight:400;"></p><div style="text-align:justify;"><span style="font-size: clamp(17px, 1.4vw, 20px);">With decades of combined specialist tax expertise, we deliver tax solutions on some of the most complex areas of tax.</span></div><p></p>
+            <p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0 0 26px;font-weight:400;"></p><div style="text-align:justify;font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;">As one of the leading independent tax advisory firms, our team consists of highly experienced and renowned Chartered Tax Advisers and published tax authors.&nbsp;</div><p></p><p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0;font-weight:400;"></p><div style="text-align:justify;"><span style="font-size: clamp(17px, 1.4vw, 20px);">With decades of combined specialist tax expertise, we deliver tax solutions on some of the most complex areas of tax.</span></div><p></p>
             <p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:26px 0 0;font-weight:400;">In addition to providing core UK tax advisory services, we also advise on cross-border tax matters by collaborating with our network of partner firms across Europe, Middle East, US and Southeast Asia.</p>
           </div>
         </div>
@@ -220,7 +228,7 @@
       <!-- SERVICES -->
       <section data-svc-section="" style="background:#F4F1EA;border-top:1px solid #E8E2D6;">
         <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,40px);">
-          <div style="max-width:720px;margin:0 auto clamp(40px,5vw,64px);text-align:center;" data-reveal="">
+          <div style="max-width:720px;margin:0 auto clamp(40px,5vw,64px);text-align:center;" data-svc-anchor="" data-reveal="">
             <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:18px;">
               <span style="width:28px;height:1px;background:#B08E5A;"></span>
               <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">What We Do</span>
@@ -1389,12 +1397,14 @@ class Component extends DCLogic {
     else this._scrollToSvc();
   }
   _scrollToSvc(){
-    const el = document.querySelector('[data-svc-section]');
+    const el = document.querySelector("[data-svc-anchor]") || document.querySelector("[data-svc-section]");
     if (!el) return;
-    const header = document.querySelector('header');
-    const h = header ? header.offsetHeight : 70;
-    const top = el.getBoundingClientRect().top + window.scrollY - h;
-    window.scrollTo({ top: Math.max(0, top), behavior:'smooth' });
+    requestAnimationFrame(() => {
+      const header = document.querySelector("header");
+      const h = header ? header.offsetHeight : 84;
+      const top = el.getBoundingClientRect().top + window.scrollY - h;
+      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    });
   }
   goPolicy(sec){
     if (this.state.route !== "privacy-policy") { this.navigate("privacy-policy"); setTimeout(() => this._scrollPolicy(sec), 200); }
