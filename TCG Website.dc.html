@@ -82,6 +82,59 @@
     [data-modal-grid]{grid-template-columns:1fr !important;}
     .tcg-just{text-align:left;hyphens:none;}
   }
+
+  /* ---- Our Locations ---- */
+  /* the page wrapper's overflow-x:hidden disables position:sticky; clip keeps the same clipping without that side effect (Locations page only) */
+  div:has(> main .tcg-loc-grid){overflow-x:clip !important;}
+  .tcg-loc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,4.5vw,64px);align-items:start;}
+  .tcg-loc-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  .tcg-loc-search{width:100%;padding:15px 48px 15px 44px;border:1px solid #DDD6C7;border-radius:3px;font-size:16px;color:#1B2A4E;background:#fff;outline:none;text-overflow:ellipsis;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;}
+  .tcg-loc-search:placeholder-shown{padding-right:14px;}
+  .tcg-loc-search::placeholder{color:#8B8676;opacity:1;}
+  .tcg-loc-search:focus{border-color:#1B2A4E;box-shadow:0 0 0 3px rgba(176,142,90,.22);}
+  .tcg-loc-search::-webkit-search-cancel-button,.tcg-loc-search::-webkit-search-decoration{-webkit-appearance:none;appearance:none;}
+  .tcg-loc-clear{position:absolute;top:50%;right:6px;transform:translateY(-50%);width:38px;height:38px;border:none;border-radius:50%;background:transparent;color:#5b6072;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;}
+  .tcg-loc-clear:hover{background:#F6F2EA;color:#1B2A4E;}
+  .tcg-loc-clear:focus-visible{outline:2px solid #B08E5A;outline-offset:1px;}
+  .tcg-loc-list{list-style:none;margin:0;padding:0;background:#fff;border:1px solid #ECE6DA;border-radius:8px;overflow:hidden;}
+  .tcg-loc-li{border-bottom:1px solid #EFEAE0;}
+  .tcg-loc-li:last-child{border-bottom:none;}
+  .tcg-loc-h{margin:0;font:inherit;}
+  .tcg-loc-item{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:15px 22px;text-align:left;background:transparent;border:none;cursor:pointer;color:#1B2A4E;white-space:normal;box-shadow:inset 3px 0 0 transparent;transition:background .2s,box-shadow .2s;}
+  .tcg-loc-item:hover{background:#F6F2EA;}
+  .tcg-loc-item:focus-visible{outline:2px solid #B08E5A;outline-offset:-2px;}
+  .tcg-loc-name{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;font-size:16px;font-weight:600;line-height:1.3;color:#1B2A4E;transition:color .2s;}
+  .tcg-loc-sub{display:block;margin-top:4px;font-size:13.5px;line-height:1.45;color:#646a7d;transition:color .2s;}
+  .tcg-loc-badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;line-height:1.2;color:#8a6d40;border:1px solid rgba(176,142,90,.6);padding:3px 7px;border-radius:2px;}
+  .tcg-loc-chev{flex:0 0 auto;width:8px;height:8px;border-right:1.6px solid #B08E5A;border-top:1.6px solid #B08E5A;transform:rotate(45deg);transition:transform .25s;}
+  .tcg-loc-item[data-active="true"]{background:#1B2A4E;box-shadow:inset 3px 0 0 #B08E5A;}
+  .tcg-loc-item[data-active="true"] .tcg-loc-name{color:#fff;}
+  .tcg-loc-item[data-active="true"] .tcg-loc-sub{color:rgba(255,255,255,.72);}
+  .tcg-loc-item[data-active="true"] .tcg-loc-badge{color:#CDB68E;border-color:rgba(205,182,142,.6);}
+  .tcg-loc-acc[hidden]{display:none;}
+  .tcg-loc-acc{padding:2px 18px 22px 21px;background:#FBF8F2;box-shadow:inset 3px 0 0 #B08E5A;animation:tcgSlide .35s cubic-bezier(.22,.61,.36,1) both;}
+  .tcg-loc-addr{font-style:normal;font-size:16.5px;line-height:1.65;color:#1B2A4E;font-weight:500;}
+  .tcg-loc-go{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;background:#1B2A4E;color:#fff;padding:15px 26px;border-radius:2px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:background .25s,transform .25s;}
+  .tcg-loc-go:hover{background:#B08E5A;transform:translateY(-1px);}
+  .tcg-loc-go:focus-visible{outline:2px solid #B08E5A;outline-offset:3px;}
+  .tcg-loc-fade{animation:tcgSlide .4s cubic-bezier(.22,.61,.36,1) both;}
+  .tcg-loc-textbtn{background:none;border:none;padding:0;font:inherit;color:#8a6d40;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+  .tcg-loc-textbtn:hover{color:#1B2A4E;}
+  .tcg-loc-textbtn:focus-visible{outline:2px solid #B08E5A;outline-offset:2px;}
+  @media (max-width:767px){
+    .tcg-loc-grid{grid-template-columns:minmax(0,1fr);}
+    .tcg-loc-item{padding:15px 18px;}
+    .tcg-loc-chev{transform:rotate(135deg);}
+    .tcg-loc-item[data-active="true"]{background:#FBF8F2;}
+    .tcg-loc-item[data-active="true"] .tcg-loc-name{color:#1B2A4E;}
+    .tcg-loc-item[data-active="true"] .tcg-loc-sub{display:none;}
+    .tcg-loc-item[data-active="true"] .tcg-loc-badge{color:#8a6d40;border-color:rgba(176,142,90,.6);}
+    .tcg-loc-item[data-active="true"] .tcg-loc-chev{transform:rotate(-45deg);}
+    .tcg-loc-go{width:100%;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .tcg-loc-fade,.tcg-loc-acc{animation:none;}
+  }
 </style>
 </helmet>
 
@@ -90,16 +143,16 @@
   <!-- ============ HEADER ============ -->
   <header style="position:sticky;top:0;z-index:90;background:rgba(251,249,245,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #E8E2D6;">
     <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,40px);height:84px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-      <a href="#/home" onClick="{{ goHome }}" style="display:flex;align-items:center;cursor:pointer;flex-shrink:0;">
-        <img src="assets/tcg-logo.png" alt="Tax Consulting Group" style="height:54px;width:auto;display:block;">
+      <a href="/" onClick="{{ goHome }}" style="display:flex;align-items:center;cursor:pointer;flex-shrink:0;">
+        <img src="assets/tcg-logo.webp" alt="Tax Consulting Group" width="1597" height="544" style="height:54px;width:auto;display:block;">
       </a>
 
       <!-- desktop nav -->
-      <nav style="display:flex;align-items:center;gap:clamp(14px,1.7vw,26px);" data-desktop-nav="">
-        <a href="#/home" onClick="{{ goHome }}" style="font-size:14px;font-weight:500;letter-spacing:.01em;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.home }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Home</a>
+      <nav aria-label="Main" style="display:flex;align-items:center;gap:clamp(14px,1.7vw,26px);" data-desktop-nav="">
+        <a href="/" onClick="{{ goHome }}" style="font-size:14px;font-weight:500;letter-spacing:.01em;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.home }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Home</a>
 
         <div onMouseEnter="{{ openServices }}" onMouseLeave="{{ closeServices }}" style="position:relative;display:flex;align-items:center;gap:6px;">
-          <button onClick="{{ toggleServices }}" aria-label="Services menu" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;background:none;border:none;border-bottom:2px solid {{ nav.services }};display:flex;align-items:center;gap:7px;white-space:nowrap;" style-hover="color:#B08E5A;">Services
+          <button onClick="{{ toggleServices }}" aria-label="Services menu" aria-expanded="{{ servicesOpen }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;background:none;border:none;border-bottom:2px solid {{ nav.services }};display:flex;align-items:center;gap:7px;white-space:nowrap;" style-hover="color:#B08E5A;">Services
             <span style="display:inline-block;width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);"></span>
           </button>
           <sc-if value="{{ servicesOpen }}" hint-placeholder-val="{{ false }}">
@@ -108,7 +161,7 @@
               <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-left:1px solid #ECE6DA;border-top:1px solid #ECE6DA;"></div>
               <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,auto);grid-auto-flow:column;gap:4px;" data-svc-megamenu="">
                 <sc-for list="{{ servicesDropdown }}" as="svc" hint-placeholder-count="9">
-                  <a onClick="{{ svc.go }}" style="display:flex;align-items:center;min-height:52px;padding:12px 16px;border-radius:3px;cursor:pointer;font-size:13.5px;font-weight:500;line-height:1.32;color:#2c3450;transition:background .18s,color .18s;" style-hover="background:#F6F2EA;color:#B08E5A;">{{ svc.title }}</a>
+                  <a href="/services/{{ svc.slug }}" onClick="{{ svc.go }}" style="display:flex;align-items:center;min-height:52px;padding:12px 16px;border-radius:3px;cursor:pointer;font-size:13.5px;font-weight:500;line-height:1.32;color:#2c3450;transition:background .18s,color .18s;" style-hover="background:#F6F2EA;color:#B08E5A;">{{ svc.title }}</a>
                 </sc-for>
               </div>
             </div>
@@ -116,23 +169,23 @@
           </sc-if>
         </div>
 
-        <a href="#/our-team" onClick="{{ goOurTeam }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.ourTeam }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Our Team</a>
+        <a href="/our-team" onClick="{{ goOurTeam }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.ourTeam }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Our Team</a>
 
-        <a href="#/professional-advisers" onClick="{{ goProfAdvisers }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.profAdvisers }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Professional Advisers</a>
+        <a href="/professional-advisers" onClick="{{ goProfAdvisers }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.profAdvisers }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Professional Advisers</a>
 
         <div onMouseEnter="{{ openKnowledge }}" onMouseLeave="{{ closeKnowledge }}" style="position:relative;">
-          <button onClick="{{ toggleKnowledge }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;background:none;border:none;border-bottom:2px solid {{ nav.knowledge }};display:flex;align-items:center;gap:7px;white-space:nowrap;" style-hover="color:#B08E5A;">Knowledge and Insights
+          <button onClick="{{ toggleKnowledge }}" aria-expanded="{{ knowledgeOpen }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;background:none;border:none;border-bottom:2px solid {{ nav.knowledge }};display:flex;align-items:center;gap:7px;white-space:nowrap;" style-hover="color:#B08E5A;">Knowledge and Insights
             <span style="display:inline-block;width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);"></span>
           </button>
           <sc-if value="{{ knowledgeOpen }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:14px;animation:tcgFadeIn .18s ease;z-index:5;">
             <div style="position:relative;background:#fff;border:1px solid #ECE6DA;border-radius:4px;box-shadow:0 24px 60px -22px rgba(21,32,59,.34);padding:8px;min-width:288px;">
               <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-left:1px solid #ECE6DA;border-top:1px solid #ECE6DA;"></div>
-              <a href="#/publications" onClick="{{ goPublications }}" style="display:block;padding:13px 16px;border-radius:3px;cursor:pointer;transition:background .18s;" style-hover="background:#F6F2EA;">
+              <a href="/publications" onClick="{{ goPublications }}" style="display:block;padding:13px 16px;border-radius:3px;cursor:pointer;transition:background .18s;" style-hover="background:#F6F2EA;">
                 <div style="font-size:14.5px;font-weight:600;color:#1B2A4E;">Publications</div>
                 
               </a>
-              <a href="#/articles" onClick="{{ goArticles }}" style="display:block;padding:13px 16px;border-radius:3px;cursor:pointer;transition:background .18s;" style-hover="background:#F6F2EA;">
+              <a href="/articles" onClick="{{ goArticles }}" style="display:block;padding:13px 16px;border-radius:3px;cursor:pointer;transition:background .18s;" style-hover="background:#F6F2EA;">
                 <div style="font-size:14.5px;font-weight:600;color:#1B2A4E;">News, articles and technical updates</div>
                 
               </a>
@@ -141,11 +194,13 @@
           </sc-if>
         </div>
 
+        <a href="/locations" onClick="{{ goLocations }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.locations }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Locations</a>
+
         <button onClick="{{ goContact }}" style="margin-left:4px;background:#1B2A4E;color:#fff;border:none;padding:13px 24px;border-radius:2px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;transform:translateY(-1px);">CONTACT US</button>
       </nav>
 
       <!-- mobile burger -->
-      <button onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px;" data-burger="">
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px;" data-burger="">
         <span style="display:block;width:24px;height:2px;background:#1B2A4E;"></span>
         <span style="display:block;width:24px;height:2px;background:#1B2A4E;"></span>
         <span style="display:block;width:24px;height:2px;background:#1B2A4E;"></span>
@@ -155,24 +210,25 @@
     <!-- mobile menu -->
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
       <div style="border-top:1px solid #E8E2D6;background:#FBF9F5;padding:14px clamp(20px,4vw,40px) 28px;animation:tcgFadeIn .2s ease;max-height:calc(100vh - 84px);overflow-y:auto;">
-        <a href="#/home" onClick="{{ goHome }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Home</a>
-        <button onClick="{{ toggleMobileServices }}" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border:none;border-bottom:1px solid #ECE6DA;background:none;cursor:pointer;">Services<span style="display:inline-block;width:8px;height:8px;border-right:1.6px solid #B08E5A;border-bottom:1.6px solid #B08E5A;transform:rotate(45deg);"></span></button>
+        <a href="/" onClick="{{ goHome }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Home</a>
+        <button onClick="{{ toggleMobileServices }}" aria-expanded="{{ mobileServicesOpen }}" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border:none;border-bottom:1px solid #ECE6DA;background:none;cursor:pointer;">Services<span style="display:inline-block;width:8px;height:8px;border-right:1.6px solid #B08E5A;border-bottom:1.6px solid #B08E5A;transform:rotate(45deg);"></span></button>
         <sc-if value="{{ mobileServicesOpen }}" hint-placeholder-val="{{ false }}">
           <div style="padding:4px 0 4px 14px;border-bottom:1px solid #ECE6DA;">
             <sc-for list="{{ servicesDropdown }}" as="svc" hint-placeholder-count="9">
-              <a onClick="{{ svc.go }}" style="display:block;padding:11px 4px;font-size:15px;line-height:1.4;color:#4A5163;cursor:pointer;">{{ svc.title }}</a>
+              <a href="/services/{{ svc.slug }}" onClick="{{ svc.go }}" style="display:block;padding:11px 4px;font-size:15px;line-height:1.4;color:#4A5163;cursor:pointer;">{{ svc.title }}</a>
             </sc-for>
           </div>
         </sc-if>
-        <a href="#/our-team" onClick="{{ goOurTeam }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Our Team</a>
-        <a href="#/professional-advisers" onClick="{{ goProfAdvisers }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Professional Advisers</a>
-        <button onClick="{{ toggleMobileKnowledge }}" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border:none;border-bottom:1px solid #ECE6DA;background:none;cursor:pointer;">Knowledge and Insights<span style="display:inline-block;width:8px;height:8px;border-right:1.6px solid #B08E5A;border-bottom:1.6px solid #B08E5A;transform:rotate(45deg);"></span></button>
+        <a href="/our-team" onClick="{{ goOurTeam }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Our Team</a>
+        <a href="/professional-advisers" onClick="{{ goProfAdvisers }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Professional Advisers</a>
+        <button onClick="{{ toggleMobileKnowledge }}" aria-expanded="{{ mobileKnowledgeOpen }}" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border:none;border-bottom:1px solid #ECE6DA;background:none;cursor:pointer;">Knowledge and Insights<span style="display:inline-block;width:8px;height:8px;border-right:1.6px solid #B08E5A;border-bottom:1.6px solid #B08E5A;transform:rotate(45deg);"></span></button>
         <sc-if value="{{ mobileKnowledgeOpen }}" hint-placeholder-val="{{ false }}">
           <div style="padding:4px 0 4px 14px;border-bottom:1px solid #ECE6DA;">
-            <a href="#/publications" onClick="{{ goPublications }}" style="display:block;padding:12px 4px;font-size:15px;color:#4A5163;cursor:pointer;">Publications</a>
-            <a href="#/articles" onClick="{{ goArticles }}" style="display:block;padding:12px 4px;font-size:15px;color:#4A5163;cursor:pointer;">News, articles and technical updates</a>
+            <a href="/publications" onClick="{{ goPublications }}" style="display:block;padding:12px 4px;font-size:15px;color:#4A5163;cursor:pointer;">Publications</a>
+            <a href="/articles" onClick="{{ goArticles }}" style="display:block;padding:12px 4px;font-size:15px;color:#4A5163;cursor:pointer;">News, articles and technical updates</a>
           </div>
         </sc-if>
+        <a href="/locations" onClick="{{ goLocations }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Locations</a>
         <button onClick="{{ goContact }}" style="margin-top:18px;width:100%;background:#1B2A4E;color:#fff;border:none;padding:16px;border-radius:2px;font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;">Contact Us</button>
       </div>
     </sc-if>
@@ -239,7 +295,7 @@
                 </div>
                 <h3 onClick="{{ svc.go }}" style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.26;margin:0 0 14px;color:#1B2A4E;cursor:pointer;transition:color .2s;align-self:flex-start;" style-hover="color:#B08E5A;">{{ svc.title }}</h3>
                 <p class="tcg-just" style="font-size:14.5px;line-height:1.7;color:#5b6072;margin:0 0 20px;">{{ svc.desc }}</p>
-                <a onClick="{{ svc.go }}" style="margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#B08E5A;cursor:pointer;transition:gap .2s;" style-hover="gap:12px;">Find Out More
+                <a href="/services/{{ svc.slug }}" onClick="{{ svc.go }}" style="margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#B08E5A;cursor:pointer;transition:gap .2s;" style-hover="gap:12px;">Find Out More
                   <span style="display:inline-block;width:6px;height:6px;border-right:1.6px solid #B08E5A;border-top:1.6px solid #B08E5A;transform:rotate(45deg);"></span>
                 </a>
               </div>
@@ -313,7 +369,7 @@
 
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;" data-reveal="" data-art-grid="">
             <sc-for list="{{ articles }}" as="art" hint-placeholder-count="3">
-              <div data-art-card="" onClick="{{ art.go }}" role="link" tabindex="0" style="background:#FBF9F5;border:1px solid #E8E2D6;border-radius:6px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer;display:flex;flex-direction:column;" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(21,32,59,.3);">
+              <div data-art-card="" onClick="{{ art.go }}" onKeyDown="{{ art.key }}" role="link" tabindex="0" style="background:#FBF9F5;border:1px solid #E8E2D6;border-radius:6px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer;display:flex;flex-direction:column;" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(21,32,59,.3);">
                 <div style="position:relative;height:180px;background:#15203B;overflow:hidden;">
                   <div role="img" aria-label="{{ art.title }}" style="position:absolute;inset:0;background-image:url('{{ art.img }}');background-size:cover;background-position:center;"></div>
                   
@@ -350,7 +406,7 @@
         <div style="position:absolute;top:-130px;right:-150px;width:520px;height:520px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
         <div style="position:absolute;top:-80px;right:-100px;width:400px;height:400px;border-radius:50%;background-image:radial-gradient(rgba(176,142,90,0.26) 1.5px,transparent 1.6px);background-size:24px 24px;opacity:.5;"></div>
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,100px) clamp(20px,4vw,40px);">
-          <a href="#/services" onClick="{{ goServices }}" style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#CDB68E;margin-bottom:22px;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">
+          <a href="/" onClick="{{ goServices }}" style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#CDB68E;margin-bottom:22px;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">
             <span style="display:inline-block;width:7px;height:7px;border-left:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg);"></span>
             Services
           </a>
@@ -433,7 +489,7 @@
                   </sc-if>
                 </div>
                 <div style="padding:22px 22px 24px;flex:1;display:flex;flex-direction:column;">
-                  <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.2;margin:0;color:#1B2A4E;">{{ person.name }}</h3>
+                  <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.2;margin:0;color:#1B2A4E;white-space:normal;">{{ person.name }}</h3>
                   <div style="margin-top:16px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#B08E5A;">Read Bio
                     <span style="display:inline-block;width:7px;height:7px;border-right:1.6px solid #B08E5A;border-top:1.6px solid #B08E5A;transform:rotate(45deg);"></span>
                   </div>
@@ -524,7 +580,7 @@
         <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px);">
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:28px;">
             <sc-for list="{{ articles }}" as="art" hint-placeholder-count="3">
-              <div onClick="{{ art.go }}" role="link" tabindex="0" style="background:#fff;border:1px solid #E8E2D6;border-radius:8px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer;display:flex;flex-direction:column;" style-hover="transform:translateY(-5px);box-shadow:0 26px 56px -34px rgba(21,32,59,.4);">
+              <div onClick="{{ art.go }}" onKeyDown="{{ art.key }}" role="link" tabindex="0" style="background:#fff;border:1px solid #E8E2D6;border-radius:8px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer;display:flex;flex-direction:column;" style-hover="transform:translateY(-5px);box-shadow:0 26px 56px -34px rgba(21,32,59,.4);">
                 <div style="position:relative;height:200px;background:#15203B;overflow:hidden;">
                   <div role="img" aria-label="{{ art.title }}" style="position:absolute;inset:0;background-image:url('{{ art.img }}');background-size:cover;background-position:center;"></div>
                   
@@ -828,6 +884,97 @@
     </div>
     </sc-if>
 
+    <!-- ==================== OUR LOCATIONS PAGE ==================== -->
+    <sc-if value="{{ isLocations }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="position:relative;background:#15203B;color:#fff;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
+        <div style="position:absolute;top:-120px;right:-140px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
+        <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Our Locations</h1>
+          <p style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.80);max-width:860px;margin:26px 0 0;font-weight:300;">Find Tax Consulting Group locations across the United Kingdom.</p>
+        </div>
+      </section>
+
+      <section style="background:#FBF9F5;">
+        <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px);">
+          <div class="tcg-loc-grid">
+            <!-- directory -->
+            <div data-reveal="">
+              <h2 class="tcg-loc-sr">Office directory</h2>
+              <label for="tcg-loc-search" style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Search locations</label>
+              <div style="position:relative;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#8B8676" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg>
+                <input id="tcg-loc-search" class="tcg-loc-search" type="search" value="{{ locQuery }}" onInput="{{ onLocQuery }}" onKeyDown="{{ onLocSearchKey }}" placeholder="Search by city, address or postcode" autoComplete="off" spellCheck="false" aria-describedby="tcg-loc-count">
+                <sc-if value="{{ locHasQuery }}" hint-placeholder-val="{{ false }}">
+                  <button type="button" class="tcg-loc-clear" onClick="{{ clearLocQuery }}" aria-label="Clear search">×</button>
+                </sc-if>
+              </div>
+              <div id="tcg-loc-count" aria-live="polite" style="font-size:13px;letter-spacing:.02em;color:#6b6656;margin:12px 0 18px;">{{ locCountText }}</div>
+
+              <sc-if value="{{ locHasResults }}" hint-placeholder-val="{{ true }}">
+                <ul class="tcg-loc-list" role="list">
+                  <sc-for list="{{ locList }}" as="loc" hint-placeholder-count="17">
+                    <li class="tcg-loc-li">
+                      <h3 class="tcg-loc-h">
+                        <button type="button" id="{{ loc.btnId }}" class="tcg-loc-item" data-active="{{ loc.active }}" aria-current="{{ loc.ariaCurrent }}" aria-expanded="{{ loc.ariaExpanded }}" aria-controls="{{ loc.ariaControls }}" onClick="{{ loc.select }}">
+                          <span>
+                            <span class="tcg-loc-name">{{ loc.name }}<sc-if value="{{ loc.hq }}" hint-placeholder-val="{{ false }}"><span class="tcg-loc-badge">{{ loc.label }}</span></sc-if></span>
+                            <span class="tcg-loc-sub">{{ loc.summary }}</span>
+                          </span>
+                          <span class="tcg-loc-chev" aria-hidden="true"></span>
+                        </button>
+                      </h3>
+                      <sc-if value="{{ loc.showPanel }}" hint-placeholder-val="{{ false }}">
+                        <div id="{{ loc.panelId }}" class="tcg-loc-acc" role="region" aria-labelledby="{{ loc.btnId }}" hidden="{{ loc.panelHidden }}">
+                          <address class="tcg-loc-addr" style="margin:0 0 20px;">
+                            <sc-for list="{{ loc.lines }}" as="ln" hint-placeholder-count="4"><span style="display:block;">{{ ln.text }}</span></sc-for>
+                          </address>
+                          <a class="tcg-loc-go" href="{{ loc.directions }}" target="_blank" rel="noopener noreferrer">Get Directions<span class="tcg-loc-sr"> to {{ loc.fullName }} (opens Google Maps in a new tab)</span>
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+                          </a>
+                        </div>
+                      </sc-if>
+                    </li>
+                  </sc-for>
+                </ul>
+              </sc-if>
+
+              <sc-if value="{{ locNoResults }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;border:1px solid #ECE6DA;border-radius:8px;padding:clamp(24px,3vw,32px);">
+                  <p style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:23px;line-height:1.25;color:#1B2A4E;margin:0 0 10px;">No locations match “{{ locQuery }}”</p>
+                  <p style="font-size:15px;line-height:1.7;color:#5b6072;margin:0;">Try searching by city, street name or postcode, or <button type="button" class="tcg-loc-textbtn" onClick="{{ clearLocQuery }}">view all locations</button>.</p>
+                </div>
+              </sc-if>
+            </div>
+
+            <!-- selected office (desktop and tablet) -->
+            <sc-if value="{{ locShowDetail }}" hint-placeholder-val="{{ true }}">
+              <div data-reveal="" style="position:sticky;top:108px;">
+                <div class="tcg-loc-fade" key="{{ locDetail.id }}" style="background:#fff;border:1px solid #ECE6DA;border-radius:8px;padding:clamp(28px,3.4vw,44px);box-shadow:0 30px 70px -42px rgba(21,32,59,.3);">
+                  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                    <span style="width:28px;height:1px;background:{{ locDetail.ruleColor }};"></span>
+                    <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:{{ locDetail.eyebrowColor }};">{{ locDetail.eyebrow }}</span>
+                  </div>
+                  <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.2vw,42px);line-height:1.1;margin:0 0 26px;color:#1B2A4E;">{{ locDetail.name }}</h2>
+                  <div style="border-top:1px solid #E8E2D6;padding-top:22px;">
+                    <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#6b6656;margin-bottom:10px;">Address</div>
+                    <address class="tcg-loc-addr" style="font-size:17px;margin:0 0 30px;">
+                      <sc-for list="{{ locDetail.lines }}" as="ln" hint-placeholder-count="4"><span style="display:block;">{{ ln.text }}</span></sc-for>
+                    </address>
+                  </div>
+                  <a class="tcg-loc-go" href="{{ locDetail.directions }}" target="_blank" rel="noopener noreferrer">Get Directions<span class="tcg-loc-sr"> to {{ locDetail.fullName }} (opens Google Maps in a new tab)</span>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+                  </a>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
     <!-- ==================== CONTACT PAGE ==================== -->
     <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
     <div>
@@ -901,27 +1048,27 @@
                 </div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;" data-form-grid="">
                   <div style="grid-column:1 / -1;">
-                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Full Name <span style="color:#B08E5A;">*</span></label>
-                    <input value="{{ fName }}" onInput="{{ onName }}" type="text" placeholder="Your full name" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;">
+                    <label for="tcg-f-name" style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Full Name <span style="color:#B08E5A;">*</span></label>
+                    <input id="tcg-f-name" value="{{ fName }}" onInput="{{ onName }}" type="text" placeholder="Your full name" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;">
                     <sc-if value="{{ errNameShow }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#b4452f;margin-top:7px;">{{ errName }}</div></sc-if>
                   </div>
                   <div>
-                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Email <span style="color:#B08E5A;">*</span></label>
-                    <input value="{{ fEmail }}" onInput="{{ onEmail }}" type="email" placeholder="you@firm.co.uk" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;">
+                    <label for="tcg-f-email" style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Email <span style="color:#B08E5A;">*</span></label>
+                    <input id="tcg-f-email" value="{{ fEmail }}" onInput="{{ onEmail }}" type="email" placeholder="you@firm.co.uk" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;">
                     <sc-if value="{{ errEmailShow }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#b4452f;margin-top:7px;">{{ errEmail }}</div></sc-if>
                   </div>
                   <div>
-                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Phone</label>
-                    <input value="{{ fPhone }}" onInput="{{ onPhone }}" type="tel" placeholder="Optional" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;">
+                    <label for="tcg-f-phone" style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Phone</label>
+                    <input id="tcg-f-phone" value="{{ fPhone }}" onInput="{{ onPhone }}" type="tel" placeholder="Optional" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;">
                   </div>
                   <div style="grid-column:1 / -1;">
-                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Company <span style="color:#B08E5A;">*</span></label>
-                    <input value="{{ fCompany }}" onInput="{{ onCompany }}" type="text" placeholder="Firm or organisation" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;">
+                    <label for="tcg-f-company" style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Company <span style="color:#B08E5A;">*</span></label>
+                    <input id="tcg-f-company" value="{{ fCompany }}" onInput="{{ onCompany }}" type="text" placeholder="Firm or organisation" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;transition:border-color .2s;" style-focus="border-color:#1B2A4E;">
                     <sc-if value="{{ errCompanyShow }}" hint-placeholder-val="{{ false }}"><div style="margin-top:7px;font-size:12.5px;color:#b4452f;">{{ errCompany }}</div></sc-if>
                   </div>
                   <div style="grid-column:1 / -1;">
-                    <label style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Message <span style="color:#B08E5A;">*</span></label>
-                    <textarea value="{{ fMessage }}" onInput="{{ onMessage }}" rows="5" placeholder="How can we help?" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;resize:vertical;transition:border-color .2s;font-family:inherit;" style-focus="border-color:#1B2A4E;"></textarea>
+                    <label for="tcg-f-message" style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Message <span style="color:#B08E5A;">*</span></label>
+                    <textarea id="tcg-f-message" value="{{ fMessage }}" onInput="{{ onMessage }}" rows="5" placeholder="How can we help?" style="width:100%;padding:14px 16px;border:1px solid #DDD6C7;border-radius:3px;font-size:15px;color:#1B2A4E;background:#FCFBF8;outline:none;resize:vertical;transition:border-color .2s;font-family:inherit;" style-focus="border-color:#1B2A4E;"></textarea>
                     <sc-if value="{{ errMessageShow }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#b4452f;margin-top:7px;">{{ errMessage }}</div></sc-if>
                   </div>
                 </div>
@@ -943,11 +1090,11 @@
   <!-- ============ TEAM BIO MODAL ============ -->
   <sc-if value="{{ showMember }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeMember }}" style="position:fixed;inset:0;z-index:120;background:rgba(17,25,46,0.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:clamp(16px,5vh,72px) clamp(16px,4vw,40px);overflow-y:auto;animation:tcgFadeIn .2s ease;">
-      <div onClick="{{ stopProp }}" style="position:relative;width:100%;max-width:760px;background:#FBF9F5;border:1px solid #ECE6DA;border-radius:10px;overflow:hidden;box-shadow:0 50px 110px -40px rgba(10,16,32,.7);animation:tcgScaleIn .3s cubic-bezier(.2,.7,.2,1) both;">
+      <div onClick="{{ stopProp }}" role="dialog" aria-modal="true" aria-labelledby="tcg-bio-name" style="position:relative;width:100%;max-width:760px;background:#FBF9F5;border:1px solid #ECE6DA;border-radius:10px;overflow:hidden;box-shadow:0 50px 110px -40px rgba(10,16,32,.7);animation:tcgScaleIn .3s cubic-bezier(.2,.7,.2,1) both;">
         <button onClick="{{ closeMember }}" aria-label="Close biography" style="position:absolute;top:16px;right:16px;z-index:3;width:46px;height:46px;border-radius:50%;border:1px solid #E2DBCC;background:#fff;color:#1B2A4E;cursor:pointer;font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 2px 10px -4px rgba(21,32,59,.3);" style-hover="background:#1B2A4E;color:#fff;border-color:#1B2A4E;">×</button>
         <div data-modal-grid="">
           <div style="padding:clamp(28px,3.4vw,44px);">
-            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.4vw,38px);line-height:1.12;margin:0 0 24px;color:#1B2A4E;">{{ teamMemberName }}</h2>
+            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.4vw,38px);line-height:1.12;margin:0 0 24px;color:#1B2A4E;" id="tcg-bio-name">{{ teamMemberName }}</h2>
 
             
             <sc-for list="{{ teamBio }}" as="para" hint-placeholder-count="3">
@@ -964,22 +1111,23 @@
     <div style="max-width:1240px;margin:0 auto;padding:clamp(40px,4.5vw,60px) clamp(20px,4vw,40px) 0;">
       <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1.1fr;gap:clamp(32px,4vw,56px);padding-bottom:clamp(28px,3.5vw,44px);" data-footer-grid="">
         <div>
-          <img src="assets/tcg-logo-white.png" alt="Tax Consulting Group" style="height:52px;width:auto;display:block;">
+          <img src="assets/tcg-logo-white.webp" alt="Tax Consulting Group" width="1597" height="544" loading="lazy" decoding="async" style="height:52px;width:auto;display:block;">
           <a href="https://www.tax.org.uk/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;background:#fff;border-radius:6px;padding:12px 18px;margin-top:22px;transition:transform .25s;" style-hover="transform:translateY(-2px);">
-            <img src="assets/chartered-tax-advisers.png" alt="Chartered Tax Advisers logo" style="height:38px;width:auto;display:block;">
+            <img src="assets/chartered-tax-advisers.png" alt="Chartered Tax Advisers logo" width="163" height="52" loading="lazy" decoding="async" style="height:38px;width:auto;display:block;">
           </a>
         </div>
         <div>
           <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#CDB68E;margin-bottom:20px;">ABOUT US</div>
-          <a href="#/home" onClick="{{ goHome }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Home</a>
-          <a href="#/home" onClick="{{ goServices }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Services</a>
-          <a href="#/our-team" onClick="{{ goOurTeam }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Our Team</a>
-          <a href="#/professional-advisers" onClick="{{ goProfAdvisers }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Professional Advisers</a>
+          <a href="/" onClick="{{ goHome }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Home</a>
+          <a href="/" onClick="{{ goServices }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Services</a>
+          <a href="/our-team" onClick="{{ goOurTeam }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Our Team</a>
+          <a href="/professional-advisers" onClick="{{ goProfAdvisers }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Professional Advisers</a>
+          <a href="/locations" onClick="{{ goLocations }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Locations</a>
         </div>
         <div>
           <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#CDB68E;margin-bottom:20px;">Knowledge and Insights</div>
-          <a href="#/publications" onClick="{{ goPublications }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Publications</a>
-          <a href="#/articles" onClick="{{ goArticles }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">News, articles and technical updates</a>
+          <a href="/publications" onClick="{{ goPublications }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Publications</a>
+          <a href="/articles" onClick="{{ goArticles }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">News, articles and technical updates</a>
         </div>
         <div>
           <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#CDB68E;margin-bottom:20px;">CONTACT US</div>
@@ -996,11 +1144,11 @@
       <div style="border-top:1px solid rgba(255,255,255,0.12);padding:18px 0 12px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;" data-footer-legalrow="">
         <div style="font-size: 13px; color: #ffffff6b">Copyright © {{ year }} Tax Consulting Group Limited.</div>
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-          <a href="#/terms-and-conditions" onClick="{{ goTerms }}" style="font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Terms of use</a>
+          <a href="/terms-and-conditions" onClick="{{ goTerms }}" style="font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Terms of use</a>
           <span style="width:1px;height:13px;background:rgba(255,255,255,0.22);"></span>
-          <a href="#/privacy-policy" onClick="{{ goPrivacy }}" style="font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Privacy Policy</a>
+          <a href="/privacy-policy" onClick="{{ goPrivacy }}" style="font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Privacy Policy</a>
           <span style="width:1px;height:13px;background:rgba(255,255,255,0.22);"></span>
-          <a href="#/privacy-policy" onClick="{{ goCookies }}" style="font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Cookie Policy</a>
+          <a href="/privacy-policy" onClick="{{ goCookies }}" style="font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Cookie Policy</a>
         </div>
       </div>
       <div style="padding:4px 0 24px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;" data-footer-reginfo="">
@@ -1160,6 +1308,21 @@ const TEAM = [
   ] },
   { name:"Hilary Bevan CTA", img:"assets/team/hilary-bevan.webp", bio:[
     `Hilary is a Chartered Tax Adviser and a VAT specialist with twenty years of experience working in accountancy and tax. She has built up extensive technical knowledge over her years in practice and provides VAT advice on a range of topics. With a true passion for VAT, Hilary delivers regular talks and presentations on the subject. `
+  ] },
+  { name:"Cathrin Richards", img:"assets/team/cathrin-richards.webp", bio:[
+    `Cathrin has many years' experience as a specialist tax adviser, working with a range of private clients, businesses and their owners. Prior to joining TCG, she was a tax partner at a Top Ten 10 accountancy firm with a mixed portfolio of clients including private individuals, families and companies across a diverse range of sectors. Over the years, the focus of her advice has encompassed a wide range of areas including IHT planning, corporate reorganisations & reconstructions, business exit strategies, tax due diligence and structuring (including around private equity backed enterprises) and aspects of international tax matters, both from corporate and personal viewpoints. She has extensive practical experience of R&D tax relief and patent box, as well as dealing with incentivisation and funding related areas such as EMI schemes and EIS relief.`
+  ] },
+  { name:"Jay Doshi", img:"assets/team/jay-doshi.webp", bio:[
+    `Jay began his tax career with Coopers & Lybrand in 1981 and has since developed extensive experience across both private client and corporate taxation. He has held senior tax roles within leading accountancy firms and has also lectured and presented tax seminars for advisers and clients. He advises on complex tax matters where clear thinking and practical implementation are important. His approach is to understand the client’s wider commercial, financial and family objectives, identify the available options and associated risks and provide clear and practical advice. Jay's primary areas of expertise include inheritance tax and succession planning, cross-border tax, taxation of corporate transactions, employee share incentives and HMRC disputes.`
+  ] },
+  { name:"Chris Thorpe LLB CTA (Fellow) TEP ATT", img:"assets/team/chris-thorpe.webp", bio:[
+    `Chris originally qualified as a barrister and is a Fellow of the Chartered Institute of Taxation and a full member of the Society of Trust and Estate Practitioners (STEP). He qualified as a Chartered Tax Adviser with Grant Thornton in 2011. Chris has particular expertise in private client tax matters, including inheritance tax, succession and estate planning, as well as all aspects of family and owner-managed businesses taxation. Chris is the author of "Implied Trusts and Beneficial Ownership in Modern UK Tax Law". He has published several peer-reviewed articles in academic journals and has also worked as a technical offer for the Chartered Institute of Taxation.`
+  ] },
+  { name:"Susie Moore", img:"assets/team/susie-moore.webp", bio:[
+    `Susie is a Chartered Tax Advisor and legally trained international tax specialist with over 20 years of experience in cross-border tax structuring, compliance and strategic advisory.`,
+    `With extensive experience in both the UK and the Middle East, Susie has developed deep regional expertise in UK–UAE taxation and a practical understanding of how international and domestic tax regimes interact. She specialises in helping business owners, multinational groups, high-net-worth individuals and family offices navigate the complexities of relocation, business expansion and corporate structuring between the UK, UAE and wider GCC region.`,
+    `Susie has held senior positions at leading global firms including PwC, BDO, and CGI in Dubai, where she advised on complex international tax planning, transfer pricing, intellectual property structuring, foundations and corporate residency across numerous jurisdictions including the UK, UAE, Europe, the US, and key GCC markets.`,
+    `Her expertise lies in designing and implementing tax-efficient, compliant and scalable structures that align with commercial objectives and support long-term growth, investment and exit strategies.`
   ] }
 ];
 const TESTIMONIALS = [
@@ -1196,7 +1359,7 @@ const ARTICLES = [
     slug:"pensions-and-inheritance-tax-from-april-2027",
     tag:"Technical Update",
     date:"20 June 2026",
-    img:"assets/articles/article-pensions-iht-2027.png",
+    img:"assets/articles/article-pensions-iht-2027.webp",
     title:"Pensions and Inheritance Tax from April 2027",
     excerpt:"From 6 April 2027, most unused pension funds and pension death benefits will be brought into the deceased\u2019s estate for inheritance tax purposes \u2014 a significant shift for clients holding substantial defined contribution funds.",
     paras:[
@@ -1214,7 +1377,7 @@ const ARTICLES = [
     slug:"inheritance-tax-business-relief-and-agricultural-relief-after-6-april-2026",
     tag:"Briefing",
     date:"31 May 2026",
-    img:"assets/articles/article-bpr-2026.png",
+    img:"assets/articles/article-bpr-2026.webp",
     title:"Inheritance Tax Business Relief and Agricultural Relief after 6 April 2026",
     excerpt:"For deaths and lifetime transfers on or after 6 April 2026, 100% relief for qualifying business and agricultural property is capped at £2.5 million — changing the whole conversation about business succession.",
     paras:[
@@ -1231,7 +1394,7 @@ const ARTICLES = [
     slug:"the-foreign-income-and-gains-fig-regime",
     tag:"Insight",
     date:"21 May 2026",
-    img:"assets/articles/article-fig-regime.png",
+    img:"assets/articles/article-fig-regime.webp",
     title:"The Foreign Income and Gains (FIG) Regime",
     excerpt:"From 6 April 2025 the remittance basis was abolished and replaced by a residence-based regime, with a four-year FIG regime available to qualifying new residents \u2014 making early, well-timed advice essential.",
     paras:[
@@ -1292,6 +1455,70 @@ const PUBLICATIONS = [
     desc:"This specialist title analyses the approach of the UK tax regime towards intellectual property assets, following the life-cycle of intellectual property from creation to disposal." }
 ];
 
+// Head office first, then alphabetical. Address lines are rendered and searched as-is.
+const LOCATIONS = [
+  { id:"london-head-office", name:"London", label:"Head Office", headOffice:true, lines:["13 Hanover Square","Mayfair","London","W1S 1HN"] },
+  { id:"birmingham", name:"Birmingham", lines:["11 Brindleyplace","2 Brunswick Square","Birmingham","B1 2LP"] },
+  { id:"bristol", name:"Bristol", lines:["Vintry Building","20 Wine Street","Bristol","BS1 2BD"] },
+  { id:"cambridge", name:"Cambridge", lines:["Future Business Centre","Cambridge Campus","Kings Hedges Road","Cambridge","CB4 2HY"] },
+  { id:"cardiff", name:"Cardiff", lines:["Wellington House (First Floor)","Wellington Street","Cardiff","CF11 9BE"] },
+  { id:"edinburgh", name:"Edinburgh", lines:["21 Young Street","Edinburgh","EH2 4HU"] },
+  { id:"glasgow", name:"Glasgow", lines:["6th Floor","7 Buchanan Street","Glasgow","G1 3HL"] },
+  { id:"leeds", name:"Leeds", lines:["46 Park Place","Leeds","LS1 2RY"] },
+  { id:"liverpool", name:"Liverpool", lines:["Rodney Chambers","40 Rodney Street","Liverpool","L1 9AA"] },
+  { id:"london-lower-thames-street", name:"London – Lower Thames Street", lines:["10 Lower Thames Street","London","EC3R 6AF"] },
+  { id:"manchester", name:"Manchester", lines:["91 Princess Street","Manchester","M1 4HT"] },
+  { id:"milton-keynes", name:"Milton Keynes", lines:["3rd Floor Elder House West","Elder Gate","Milton Keynes","MK9 1LR"] },
+  { id:"newcastle", name:"Newcastle", lines:["Clavering House","Clavering Place","Newcastle upon Tyne","Tyne and Wear","NE1 3NG"] },
+  { id:"nottingham", name:"Nottingham", lines:["2 King Street","Nottingham","NG1 2AS"] },
+  { id:"reading", name:"Reading", lines:["Quadrant House","Broad St Mall","Reading","RG1 7QE"] },
+  { id:"sheffield", name:"Sheffield", lines:["First Floor Enterprise House","Unit 1 Broadfield Business Park","Sheffield","S8 0XF"] },
+  { id:"southampton", name:"Southampton", lines:["Enterprise House","Ocean Village","Southampton","SO14 3XB"] }
+];
+const LOC_MOBILE_MQ = "(max-width: 767px)";
+const locSearchText = (l) => [l.name, l.label || "", ...l.lines].join(" ").toLowerCase();
+const locDirections = (l) => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(l.lines.join(", ") + ", United Kingdom");
+// List preview: first address line that isn't just a floor number, plus postcode (kept on one line)
+const locSummary = (l) => (l.lines.find(t => !/^\w+ floor$/i.test(t)) || l.lines[0]) + " · " + l.lines[l.lines.length - 1].replace(/ /g, " ");
+
+// Page metadata (browser title, meta description, canonical path). Descriptions reuse
+// existing on-page copy. Also read by scripts/build.mjs to prerender each page's <head>.
+const SITE_NAME = "Tax Consulting Group";
+const SITE_URL = "https://www.taxconsulting.co.uk";
+const PAGE_META = {
+  "home": { title:"Tax Consulting Group | Specialist Tax Partners to Accountancy Practices and Wealth Managers",
+    description:"Tax Consulting Group (TCG) is one of the leading independent firms of Chartered Tax Advisers, dedicated to providing specialist tax partner services to accountancy practices, wealth managers and family offices across complex areas of UK and international tax." },
+  "our-team": { title:"Meet Our Team of Senior Experts | Tax Consulting Group",
+    description:"As one of the leading independent tax advisory firms, our team consists of highly experienced and renowned Chartered Tax Advisers and published tax authors." },
+  "professional-advisers": { title:"Professional Advisers | Tax Consulting Group",
+    description:"Specialist Tax Partner and Consultancy Support for Accountancy Practices, Wealth Managers and Family Offices" },
+  "articles": { title:"News, articles and technical updates | Tax Consulting Group",
+    description:"Technical commentary and practical insight on developments across UK and international tax" },
+  "publications": { title:"Publications | Tax Consulting Group",
+    description:"Specialist Publications written for Bloomsbury Professional." },
+  "locations": { title:"Our Locations | Tax Consulting Group",
+    description:"Find Tax Consulting Group locations across the United Kingdom." },
+  "contact": { title:"Contact Us | Tax Consulting Group",
+    description:"Get in touch to find out more about our specialist tax services and how our team can help." },
+  "privacy-policy": { title:"Privacy and Cookies Policy | Tax Consulting Group",
+    description:"Tax Consulting Group Limited (\"we\", \"us\" or \"our\") is committed to protecting and respecting your privacy. This privacy policy sets out the basis on which any personal data we collect from you, or that you provide to us, will be processed by us." },
+  "terms-and-conditions": { title:"Terms and Conditions | Tax Consulting Group",
+    description:"This page (and the documents it refers to) tells you the terms of use on which you may use our website www.taxconsulting.co.uk (our site), whether as a guest or a registered user." }
+};
+function pageMeta(route, slug, articleSlug){
+  if (route === "service-detail") {
+    const s = SERVICES.find(x => x.slug === slug) || SERVICES[0];
+    return { route, path:"/services/" + s.slug, title:s.title + " | " + SITE_NAME, description:s.desc };
+  }
+  if (route === "article-detail") {
+    const a = ARTICLES.find(x => x.slug === articleSlug);
+    if (a) return { route, path:"/articles/" + a.slug, title:a.title + " | " + SITE_NAME, description:a.excerpt };
+    route = "articles";
+  }
+  if (!PAGE_META[route]) route = "home";
+  return { route, path: route === "home" ? "/" : "/" + route, title:PAGE_META[route].title, description:PAGE_META[route].description };
+}
+
 class Component extends DCLogic {
   state = {
     route: "home", menuOpen:false, knowledgeOpen:false, mobileKnowledgeOpen:false,
@@ -1299,14 +1526,63 @@ class Component extends DCLogic {
     tIndex:0,
     svcIndex:0, svcVW:1160,
     teamSelected:null,
+    locQuery:"", locSel:LOCATIONS[0].id, locOpen:LOCATIONS[0].id,
+    locMobile: typeof window !== "undefined" && !!window.matchMedia && window.matchMedia(LOC_MOBILE_MQ).matches,
     form:{ name:"", email:"", phone:"", company:"", message:"", website:"" },
     errors:{}, submitted:false, submitting:false, submitError:""
   };
 
-  _valid = ["home","our-team","articles","publications","professional-advisers","contact","privacy-policy","terms-and-conditions"];
+  _valid = ["home","our-team","articles","publications","professional-advisers","locations","contact","privacy-policy","terms-and-conditions"];
 
-  _parseHash(){
-    let h = (window.location.hash || "").replace(/^#\/?/, "");
+  // Production uses clean paths (/our-team). When the page is opened as the .dc.html
+  // source file (Claude Design preview) it keeps the original #/route links.
+  _hashMode = typeof window !== "undefined" && /\.dc\.html?$/i.test(decodeURIComponent(window.location.pathname || ""));
+
+  _currentRoute(){
+    if (this._hashMode) return this._parseHash();
+    return this._parseHash(decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, ""));
+  }
+  _setUrl(path){
+    if (this._hashMode) {
+      const h = "#" + (path === "/" ? "/home" : path);
+      if (window.location.hash !== h) window.location.hash = h;
+    } else if (window.location.pathname !== path) {
+      window.history.pushState(null, "", path);
+    }
+  }
+  _routeChanged(){
+    const p = this._currentRoute();
+    this.setState({ route: p.route, serviceSlug: p.slug, articleSlug: p.articleSlug, menuOpen:false, knowledgeOpen:false, servicesOpen:false, submitted:false, teamSelected:null });
+    window.scrollTo(0,0);
+  }
+  // old /#/route links (bookmarks, shared links) map onto the clean path
+  _adoptLegacyHash(){
+    const h = window.location.hash || "";
+    if (this._hashMode || h.indexOf("#/") !== 0) return false;
+    const p = this._parseHash(h.slice(2));
+    const m = pageMeta(p.route, p.slug, p.articleSlug);
+    window.history.replaceState(null, "", m.path + window.location.search);
+    return true;
+  }
+  _syncMeta(){
+    const m = pageMeta(this.state.route, this.state.serviceSlug, this.state.articleSlug);
+    if (m.path === this._metaPath && document.title === m.title) return;
+    this._metaPath = m.path;
+    document.title = m.title;
+    const set = (sel, attr, v) => { const el = document.head.querySelector(sel); if (el && el.getAttribute(attr) !== v) el.setAttribute(attr, v); };
+    set('meta[name="description"]', "content", m.description);
+    set('meta[property="og:title"]', "content", m.title);
+    set('meta[property="og:description"]', "content", m.description);
+    set('meta[name="twitter:title"]', "content", m.title);
+    set('meta[name="twitter:description"]', "content", m.description);
+    if (!this._hashMode) {
+      set('link[rel="canonical"]', "href", SITE_URL + m.path);
+      set('meta[property="og:url"]', "content", SITE_URL + m.path);
+    }
+  }
+
+  _parseHash(route){
+    let h = route != null ? route : (window.location.hash || "").replace(/^#\/?/, "");
     if (h.indexOf("services/") === 0) {
       const slug = h.slice("services/".length);
       if (SERVICES.some(s => s.slug === slug)) return { route:"service-detail", slug, articleSlug:null };
@@ -1322,10 +1598,13 @@ class Component extends DCLogic {
   }
 
   componentDidMount(){
-    const p0 = this._parseHash();
+    this._adoptLegacyHash();
+    const p0 = this._currentRoute();
     this.setState({ route: p0.route, serviceSlug: p0.slug, articleSlug: p0.articleSlug });
-    this._onHash = () => { const p = this._parseHash(); this.setState({ route: p.route, serviceSlug: p.slug, articleSlug: p.articleSlug, menuOpen:false, knowledgeOpen:false, servicesOpen:false, submitted:false, teamSelected:null }); window.scrollTo(0,0); };
+    this._onHash = () => { if (this._hashMode || this._adoptLegacyHash()) this._routeChanged(); };
     window.addEventListener("hashchange", this._onHash);
+    this._onPop = () => { if (!this._hashMode) this._routeChanged(); };
+    window.addEventListener("popstate", this._onPop);
     this._initReveal();
     this._scheduleAutoplay();
 
@@ -1333,13 +1612,25 @@ class Component extends DCLogic {
     window.addEventListener("resize", this._onResize);
     this._onKey = (e) => { if (e.key === "Escape" && this.state.teamSelected != null) this.closeMember(); };
     window.addEventListener("keydown", this._onKey);
+    if (window.matchMedia) {
+      this._locMQ = window.matchMedia(LOC_MOBILE_MQ);
+      this._onLocMQ = () => this.setState({ locMobile: this._locMQ.matches });
+      if (this._locMQ.addEventListener) this._locMQ.addEventListener("change", this._onLocMQ);
+      else this._locMQ.addListener(this._onLocMQ);
+      this._onLocMQ();
+    }
     requestAnimationFrame(() => requestAnimationFrame(() => { this._measureSvc(); this._initSwipe(); }));
   }
-  componentDidUpdate(){ this._initReveal(); this._measureSvc(); }
+  componentDidUpdate(){ this._initReveal(); this._measureSvc(); this._syncMeta(); }
   componentWillUnmount(){
     window.removeEventListener("hashchange", this._onHash);
+    window.removeEventListener("popstate", this._onPop);
     window.removeEventListener("resize", this._onResize);
     window.removeEventListener("keydown", this._onKey);
+    if (this._locMQ) {
+      if (this._locMQ.removeEventListener) this._locMQ.removeEventListener("change", this._onLocMQ);
+      else this._locMQ.removeListener(this._onLocMQ);
+    }
     clearTimeout(this._timer);
     clearTimeout(this._safety);
   }
@@ -1433,22 +1724,70 @@ class Component extends DCLogic {
   }
 
   navigate(route){
-    if (window.location.hash !== "#/" + route) window.location.hash = "#/" + route;
+    this._setUrl(route === "home" ? "/" : "/" + route);
     this.setState({ route, serviceSlug:null, menuOpen:false, knowledgeOpen:false, mobileKnowledgeOpen:false, servicesOpen:false, mobileServicesOpen:false, submitted:false, teamSelected:null });
     window.scrollTo(0,0);
   }
   goServiceDetail(slug){
-    if (window.location.hash !== "#/services/" + slug) window.location.hash = "#/services/" + slug;
+    this._setUrl("/services/" + slug);
     this.setState({ route:"service-detail", serviceSlug:slug, menuOpen:false, knowledgeOpen:false, mobileKnowledgeOpen:false, servicesOpen:false, mobileServicesOpen:false, submitted:false, teamSelected:null });
     window.scrollTo(0,0);
   }
   goArticleDetail(slug){
-    if (window.location.hash !== "#/articles/" + slug) window.location.hash = "#/articles/" + slug;
+    this._setUrl("/articles/" + slug);
     this.setState({ route:"article-detail", articleSlug:slug, serviceSlug:null, menuOpen:false, knowledgeOpen:false, mobileKnowledgeOpen:false, servicesOpen:false, mobileServicesOpen:false, submitted:false, teamSelected:null });
     window.scrollTo(0,0);
   }
+  // In-page navigation for <a href="/path"> links; modified clicks (new tab/window) keep browser behaviour.
+  _link(fn){
+    return (e) => {
+      const a = e && e.currentTarget;
+      if (a && a.tagName === "A" && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0)) return;
+      if (e && e.preventDefault) e.preventDefault();
+      fn();
+    };
+  }
   openMember(i){ this.setState({ teamSelected:i }); }
   closeMember(){ this.setState({ teamSelected:null }); }
+
+  goLocations(){
+    this.setState({ locQuery:"", locSel:LOCATIONS[0].id, locOpen:LOCATIONS[0].id });
+    this.navigate("locations");
+  }
+  _locFilter(q){
+    const n = (q || "").trim().toLowerCase().replace(/\s+/g, " ");
+    if (!n) return LOCATIONS;
+    const c = n.replace(/\s/g, "");
+    return LOCATIONS.filter(l => { const t = locSearchText(l); return t.indexOf(n) >= 0 || t.replace(/\s/g, "").indexOf(c) >= 0; });
+  }
+  setLocQuery(q){
+    this.setState(s => {
+      const ids = this._locFilter(q).map(l => l.id);
+      const u = { locQuery:q };
+      if (ids.length) {
+        if (ids.indexOf(s.locSel) < 0) u.locSel = ids[0];
+        if (ids.indexOf(s.locOpen) < 0) u.locOpen = ids[0];
+      }
+      return u;
+    });
+  }
+  selectLoc(id){
+    if (this.state.locMobile) {
+      this.setState(s => ({ locSel:id, locOpen: s.locOpen === id ? null : id }), () => {
+        // closing the item above can shift the tapped row out of view
+        requestAnimationFrame(() => {
+          const btn = document.getElementById("loc-btn-" + id);
+          const header = document.querySelector("header");
+          const top = header ? header.offsetHeight : 84;
+          if (btn && btn.getBoundingClientRect().top < top + 8) {
+            window.scrollTo({ top: window.scrollY + btn.getBoundingClientRect().top - top - 12, behavior:"smooth" });
+          }
+        });
+      });
+    } else {
+      this.setState({ locSel:id, locOpen:id });
+    }
+  }
   _scheduleAutoplay(){
     clearTimeout(this._timer);
     this._timer = setTimeout(() => {
@@ -1571,19 +1910,59 @@ class Component extends DCLogic {
     const team = TEAM.map((p,i) => ({ name:p.name, img:p.img, open:()=>this.openMember(i) }));
 
     // ---- services ----
-    const servicesList = SERVICES.map(s => ({ n:s.n, title:s.title, desc:s.desc, slug:s.slug, go:()=>this.goServiceDetail(s.slug) }));
-    const servicesDropdown = SERVICES.map(s => ({ title:s.title, go:()=>this.goServiceDetail(s.slug) }));
+    const servicesList = SERVICES.map(s => ({ n:s.n, title:s.title, desc:s.desc, slug:s.slug, go:this._link(()=>this.goServiceDetail(s.slug)) }));
+    const servicesDropdown = SERVICES.map(s => ({ title:s.title, slug:s.slug, go:this._link(()=>this.goServiceDetail(s.slug)) }));
     const sd = (r==="service-detail") ? SERVICES.find(s => s.slug===this.state.serviceSlug) : null;
     const ad = (r==="article-detail") ? ARTICLES.find(a => a.slug===this.state.articleSlug) : null;
+
+    // ---- locations ----
+    const lq = this.state.locQuery || "";
+    const lMatches = this._locFilter(lq);
+    const lMob = !!this.state.locMobile;
+    const lSelId = lMatches.some(l => l.id===this.state.locSel) ? this.state.locSel : (lMatches[0] ? lMatches[0].id : null);
+    const lFullName = (l) => l.headOffice ? l.name + " " + l.label : l.name;
+    const locList = lMatches.map(l => {
+      const sel = l.id===lSelId, open = l.id===this.state.locOpen;
+      return {
+        id:l.id, name:l.name, label:l.label || "", hq:!!l.headOffice, fullName:lFullName(l),
+        summary:locSummary(l), lines:l.lines.map(t => ({ text:t })), directions:locDirections(l),
+        btnId:"loc-btn-" + l.id, panelId:"loc-panel-" + l.id,
+        active: lMob ? open : sel,
+        ariaCurrent: (!lMob && sel) ? "true" : undefined,
+        ariaExpanded: lMob ? open : undefined,
+        ariaControls: lMob ? "loc-panel-" + l.id : undefined,
+        showPanel: lMob, panelHidden: !open,
+        select:()=>this.selectLoc(l.id)
+      };
+    });
+    const lSel = lSelId ? LOCATIONS.find(l => l.id===lSelId) : null;
+    const locDetail = lSel ? {
+      id:lSel.id, name:lSel.name, fullName:lFullName(lSel),
+      eyebrow: lSel.headOffice ? lSel.label : "Office",
+      eyebrowColor: lSel.headOffice ? "#8a6d40" : "#6b6656",
+      ruleColor: lSel.headOffice ? "#B08E5A" : "#D8CFBD",
+      lines:lSel.lines.map(t => ({ text:t })), directions:locDirections(lSel)
+    } : null;
+    const lCount = lMatches.length;
+    const locCountText = !lq.trim()
+      ? LOCATIONS.length + " locations"
+      : (lCount ? lCount + (lCount===1 ? " location" : " locations") + " found" : "No locations found");
 
     return {
       route:r,
       isHome:r==="home", isServices:r==="services", isOurTeam:r==="our-team", isProfAdvisers:r==="professional-advisers",
       isArticles:r==="articles", isPublications:r==="publications", isWebinars:r==="webinars",
       isTestimonials:r==="testimonials", isContact:r==="contact", isPrivacy:r==="privacy-policy", isTerms:r==="terms-and-conditions",
+      isLocations:r==="locations",
+      locQuery:lq, locHasQuery:lq.length > 0, locList, locHasResults:lCount > 0, locNoResults:lCount===0,
+      locDetail, locShowDetail:!lMob && !!locDetail, locCountText,
+      onLocQuery:(e)=>this.setLocQuery(e.target.value),
+      onLocSearchKey:(e)=>{ if (e.key==="Escape" && this.state.locQuery) { e.preventDefault(); this.setLocQuery(""); } },
+      clearLocQuery:()=>{ this.setLocQuery(""); const i = document.getElementById("tcg-loc-search"); if (i) i.focus(); },
       isServiceDetail: r==="service-detail",
       isArticleDetail: r==="article-detail",
-      articles: ARTICLES.map(a => ({ slug:a.slug, tag:a.tag, date:a.date, img:a.img, title:a.title, excerpt:a.excerpt, go:()=>this.goArticleDetail(a.slug) })),
+      articles: ARTICLES.map(a => ({ slug:a.slug, tag:a.tag, date:a.date, img:a.img, title:a.title, excerpt:a.excerpt, go:()=>this.goArticleDetail(a.slug),
+        key:(e)=>{ if (e.key==="Enter") { e.preventDefault(); this.goArticleDetail(a.slug); } } })),
       articleTitle: ad ? ad.title : "",
       articleDate: ad ? ad.date : "",
       articleTag: ad ? ad.tag : "",
@@ -1608,14 +1987,16 @@ class Component extends DCLogic {
         ourTeam: r==="our-team" ? active : off,
         knowledge: isKnowledge ? active : off,
         profAdvisers: r==="professional-advisers" ? active : off,
+        locations: r==="locations" ? active : off,
         testimonials: r==="testimonials" ? active : off
       },
-      goHome:()=>this.navigate("home"), goServices:()=>this.goServicesSection(),
-      goOurTeam:()=>this.navigate("our-team"), goProfAdvisers:()=>this.navigate("professional-advisers"),
-      goArticles:()=>this.navigate("articles"), goPublications:()=>this.navigate("publications"),
-      goContact:()=>this.navigate("contact"),
-      goPrivacy:()=>this.goPolicy("privacy"), goCookies:()=>this.goPolicy("cookies"),
-      goTerms:()=>this.navigate("terms-and-conditions"),
+      goHome:this._link(()=>this.navigate("home")), goServices:this._link(()=>this.goServicesSection()),
+      goOurTeam:this._link(()=>this.navigate("our-team")), goProfAdvisers:this._link(()=>this.navigate("professional-advisers")),
+      goArticles:this._link(()=>this.navigate("articles")), goPublications:this._link(()=>this.navigate("publications")),
+      goContact:this._link(()=>this.navigate("contact")),
+      goLocations:this._link(()=>this.goLocations()),
+      goPrivacy:this._link(()=>this.goPolicy("privacy")), goCookies:this._link(()=>this.goPolicy("cookies")),
+      goTerms:this._link(()=>this.navigate("terms-and-conditions")),
       openServices:()=>this.setState({servicesOpen:true}),
       closeServices:()=>this.setState({servicesOpen:false}),
       toggleServices:()=>this.setState(s=>({servicesOpen:!s.servicesOpen})),
