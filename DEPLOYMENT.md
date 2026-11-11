@@ -16,6 +16,11 @@
   - fonts from Google Fonts, exactly as the approved design loads them;
   - only the assets the page references, with content-hashed URLs (`?v=…`).
 
+The Our Locations map uses Leaflet (`npm` package, served from `vendor/` in
+production; loaded from unpkg with SRI when the source page is opened
+directly) with OpenStreetMap tiles, which the CSP in `vercel.json` allows.
+Office photos are `assets/offices/<office id>.webp` (1200×800).
+
 Opening `TCG Website.dc.html` directly (e.g. in Claude Design) still uses the
 original `#/route` links; production uses clean URLs. Old `/#/route` links are
 converted to the clean URL in the browser.

@@ -83,10 +83,7 @@
     .tcg-just{text-align:left;hyphens:none;}
   }
 
-  /* ---- Our Locations ---- */
-  /* the page wrapper's overflow-x:hidden disables position:sticky; clip keeps the same clipping without that side effect (Locations page only) */
-  div:has(> main .tcg-loc-grid){overflow-x:clip !important;}
-  .tcg-loc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,4.5vw,64px);align-items:start;}
+  /* ---- Our Locations: directory panel (all locations > region > office) beside a map ---- */
   .tcg-loc-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
   .tcg-loc-search{width:100%;padding:15px 48px 15px 44px;border:1px solid #DDD6C7;border-radius:3px;font-size:16px;color:#1B2A4E;background:#fff;outline:none;text-overflow:ellipsis;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;}
   .tcg-loc-search:placeholder-shown{padding-right:14px;}
@@ -96,29 +93,28 @@
   .tcg-loc-clear{position:absolute;top:50%;right:6px;transform:translateY(-50%);width:38px;height:38px;border:none;border-radius:50%;background:transparent;color:#5b6072;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;}
   .tcg-loc-clear:hover{background:#F6F2EA;color:#1B2A4E;}
   .tcg-loc-clear:focus-visible{outline:2px solid #B08E5A;outline-offset:1px;}
-  .tcg-loc-list{list-style:none;margin:0;padding:0;background:#fff;border:1px solid #ECE6DA;border-radius:8px;overflow:hidden;}
+  .tcg-loc-searchrow{max-width:560px;}
+  .tcg-loc-grid{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:clamp(20px,2.4vw,32px);align-items:stretch;}
+  .tcg-loc-panel{display:flex;flex-direction:column;min-width:0;height:640px;background:#fff;border:1px solid #ECE6DA;border-radius:8px;overflow:hidden;}
+  .tcg-loc-body{flex:1;min-height:0;overflow-y:auto;}
+  .tcg-loc-bar{flex:0 0 auto;display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:14px 20px;background:#1B2A4E;color:#fff;border:none;text-align:left;font:inherit;font-size:15px;font-weight:600;line-height:1.3;cursor:pointer;transition:background .2s;}
+  .tcg-loc-bar:hover{background:#15203B;}
+  .tcg-loc-bar:focus-visible{outline:2px solid #B08E5A;outline-offset:-4px;}
+  .tcg-loc-bar-arrow{flex:0 0 auto;width:8px;height:8px;margin-left:3px;border-left:1.6px solid #CDB68E;border-bottom:1.6px solid #CDB68E;transform:rotate(45deg);}
+  .tcg-loc-country{padding:22px 0 0;}
+  .tcg-loc-list{list-style:none;margin:0;padding:0;border-top:1px solid #EFEAE0;}
   .tcg-loc-li{border-bottom:1px solid #EFEAE0;}
-  .tcg-loc-li:last-child{border-bottom:none;}
-  .tcg-loc-country + .tcg-loc-country{margin-top:34px;}
-  .tcg-loc-ch{display:flex;align-items:center;gap:12px;margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;line-height:1.3;color:#B08E5A;}
+  .tcg-loc-ch{display:flex;align-items:center;gap:12px;margin:0 22px 12px;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;line-height:1.3;color:#B08E5A;}
   .tcg-loc-rule{flex:0 0 auto;width:28px;height:1px;background:#B08E5A;}
-  .tcg-loc-reg + .tcg-loc-reg{border-top:1px solid #E8E2D6;}
   .tcg-loc-rh{margin:0;padding:11px 22px 9px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.3;color:#6b6656;background:#FBF9F5;border-bottom:1px solid #EFEAE0;}
   .tcg-loc-sublist{list-style:none;margin:0;padding:0;}
-  .tcg-loc-h{margin:0;font:inherit;}
-  .tcg-loc-item{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:15px 22px;text-align:left;background:transparent;border:none;cursor:pointer;color:#1B2A4E;white-space:normal;box-shadow:inset 3px 0 0 transparent;transition:background .2s,box-shadow .2s;}
+  .tcg-loc-item{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:58px;padding:14px 22px;text-align:left;background:transparent;border:none;cursor:pointer;color:#1B2A4E;white-space:normal;box-shadow:inset 3px 0 0 transparent;transition:background .2s,box-shadow .2s;}
   .tcg-loc-item:hover{background:#F6F2EA;}
   .tcg-loc-item:focus-visible{outline:2px solid #B08E5A;outline-offset:-2px;}
   .tcg-loc-name{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;font-size:16px;font-weight:600;line-height:1.3;color:#1B2A4E;transition:color .2s;}
   .tcg-loc-sub{display:block;margin-top:4px;font-size:13.5px;line-height:1.45;color:#646a7d;transition:color .2s;}
   .tcg-loc-badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;line-height:1.2;color:#8a6d40;border:1px solid rgba(176,142,90,.6);padding:3px 7px;border-radius:2px;}
   .tcg-loc-chev{flex:0 0 auto;width:8px;height:8px;border-right:1.6px solid #B08E5A;border-top:1.6px solid #B08E5A;transform:rotate(45deg);transition:transform .25s;}
-  .tcg-loc-item[data-active="true"]{background:#1B2A4E;box-shadow:inset 3px 0 0 #B08E5A;}
-  .tcg-loc-item[data-active="true"] .tcg-loc-name{color:#fff;}
-  .tcg-loc-item[data-active="true"] .tcg-loc-sub{color:rgba(255,255,255,.72);}
-  .tcg-loc-item[data-active="true"] .tcg-loc-badge{color:#CDB68E;border-color:rgba(205,182,142,.6);}
-  .tcg-loc-acc[hidden]{display:none;}
-  .tcg-loc-acc{padding:2px 18px 22px 21px;background:#FBF8F2;box-shadow:inset 3px 0 0 #B08E5A;animation:tcgSlide .35s cubic-bezier(.22,.61,.36,1) both;}
   .tcg-loc-addr{font-style:normal;font-size:16.5px;line-height:1.65;color:#1B2A4E;font-weight:500;}
   .tcg-loc-go{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;background:#1B2A4E;color:#fff;padding:15px 26px;border-radius:2px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:background .25s,transform .25s;}
   .tcg-loc-go:hover{background:#B08E5A;transform:translateY(-1px);}
@@ -127,21 +123,36 @@
   .tcg-loc-textbtn{background:none;border:none;padding:0;font:inherit;color:#8a6d40;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
   .tcg-loc-textbtn:hover{color:#1B2A4E;}
   .tcg-loc-textbtn:focus-visible{outline:2px solid #B08E5A;outline-offset:2px;}
-  @media (max-width:767px){
+  .tcg-loc-txt{flex:1;min-width:0;}
+  .tcg-loc-pinicon{flex:0 0 auto;color:#B08E5A;}
+  .tcg-loc-photo{display:block;width:100%;height:auto;aspect-ratio:3 / 2;object-fit:cover;background:#E9E4D8;}
+  .tcg-loc-detail{padding:24px 24px 28px;}
+  .tcg-loc-empty{padding:24px 22px;}
+  .tcg-loc-map{position:relative;z-index:0;min-width:0;height:640px;border:1px solid #ECE6DA;border-radius:8px;overflow:hidden;background:#E8E4DB;}
+  .tcg-loc-map .leaflet-tile-pane{filter:grayscale(.85) sepia(.1) brightness(1.03) contrast(.94);}
+  .tcg-loc-map .leaflet-control-attribution{font-size:10.5px;}
+  .tcg-loc-map .leaflet-marker-icon:focus-visible{outline:2px solid #B08E5A;outline-offset:3px;}
+  .tcg-pin-wrap{background:none;border:none;}
+  .tcg-pin{position:relative;display:block;width:24px;height:24px;box-sizing:border-box;border-radius:50% 50% 50% 0;background:#1B2A4E;border:2px solid #fff;transform:rotate(-45deg);box-shadow:-1px 2px 6px rgba(21,32,59,.35);transition:background .2s;}
+  .tcg-pin::after{content:"";position:absolute;top:50%;left:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:#CDB68E;}
+  .tcg-pin[data-on="true"]{background:#B08E5A;}
+  .tcg-pin[data-on="true"]::after{background:#fff;}
+  .tcg-cluster{display:flex;align-items:center;justify-content:center;width:40px;height:40px;box-sizing:border-box;border-radius:50%;background:#B08E5A;color:#15203B;font-size:14px;font-weight:700;border:3px solid rgba(255,255,255,.92);box-shadow:0 2px 8px rgba(21,32,59,.35);}
+  @media (max-width:899px){
     .tcg-loc-grid{grid-template-columns:minmax(0,1fr);}
-    .tcg-loc-item{padding:15px 18px;}
+    .tcg-loc-panel{height:auto;}
+    .tcg-loc-body{overflow:visible;}
+    .tcg-loc-map{height:340px;}
+  }
+  @media (max-width:767px){
+    .tcg-loc-item{padding:14px 18px;}
     .tcg-loc-rh{padding:11px 18px 9px;}
-    .tcg-loc-chev{transform:rotate(135deg);}
-    .tcg-loc-item[data-active="true"]{background:#FBF8F2;}
-    .tcg-loc-item[data-active="true"] .tcg-loc-name{color:#1B2A4E;}
-    .tcg-loc-item[data-active="true"] .tcg-loc-sub{display:none;}
-    .tcg-loc-item[data-active="true"] .tcg-loc-badge{color:#8a6d40;border-color:rgba(176,142,90,.6);}
-    .tcg-loc-item[data-active="true"] .tcg-loc-chev{transform:rotate(-45deg);}
+    .tcg-loc-ch{margin:0 18px 12px;}
+    .tcg-loc-detail{padding:20px 18px 24px;}
     .tcg-loc-go{width:100%;}
-    .tcg-loc-item[data-noaddr="true"] .tcg-loc-chev{display:none;}
   }
   @media (prefers-reduced-motion:reduce){
-    .tcg-loc-fade,.tcg-loc-acc{animation:none;}
+    .tcg-loc-fade{animation:none;}
   }
 </style>
 </helmet>
@@ -906,91 +917,95 @@
 
       <section style="background:#FBF9F5;">
         <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px);">
-          <div class="tcg-loc-grid">
-            <!-- directory -->
-            <div data-reveal="">
-              <h2 class="tcg-loc-sr">Office directory</h2>
-              <label for="tcg-loc-search" style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Search locations</label>
-              <div style="position:relative;">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#8B8676" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg>
-                <input id="tcg-loc-search" class="tcg-loc-search" type="search" value="{{ locQuery }}" onInput="{{ onLocQuery }}" onKeyDown="{{ onLocSearchKey }}" placeholder="Search by city, address or postcode" autoComplete="off" spellCheck="false" aria-describedby="tcg-loc-count">
-                <sc-if value="{{ locHasQuery }}" hint-placeholder-val="{{ false }}">
-                  <button type="button" class="tcg-loc-clear" onClick="{{ clearLocQuery }}" aria-label="Clear search">×</button>
-                </sc-if>
-              </div>
-              <div id="tcg-loc-count" aria-live="polite" style="font-size:13px;letter-spacing:.02em;color:#6b6656;margin:12px 0 18px;">{{ locCountText }}</div>
-
-              <sc-if value="{{ locHasResults }}" hint-placeholder-val="{{ true }}">
-                <sc-for list="{{ locGroups }}" as="grp" hint-placeholder-count="2">
-                  <div class="tcg-loc-country">
-                    <h3 class="tcg-loc-ch"><span class="tcg-loc-rule" aria-hidden="true"></span>{{ grp.name }}</h3>
-                    <ul class="tcg-loc-list" role="list">
-                      <sc-for list="{{ grp.regions }}" as="reg" hint-placeholder-count="4">
-                        <li class="tcg-loc-reg">
-                          <sc-if value="{{ reg.hasName }}" hint-placeholder-val="{{ true }}"><h4 class="tcg-loc-rh">{{ reg.name }}</h4></sc-if>
-                          <ul class="tcg-loc-sublist" role="list">
-                            <sc-for list="{{ reg.items }}" as="loc" hint-placeholder-count="2">
-                              <li class="tcg-loc-li">
-                                <h5 class="tcg-loc-h">
-                                  <button type="button" id="{{ loc.btnId }}" class="tcg-loc-item" data-active="{{ loc.active }}" data-noaddr="{{ loc.noAddress }}" aria-current="{{ loc.ariaCurrent }}" aria-expanded="{{ loc.ariaExpanded }}" aria-controls="{{ loc.ariaControls }}" onClick="{{ loc.select }}">
-                                    <span>
-                                      <span class="tcg-loc-name">{{ loc.name }}<sc-if value="{{ loc.hq }}" hint-placeholder-val="{{ false }}"><span class="tcg-loc-badge">{{ loc.label }}</span></sc-if></span>
-                                      <sc-if value="{{ loc.hasAddress }}" hint-placeholder-val="{{ true }}"><span class="tcg-loc-sub">{{ loc.summary }}</span></sc-if>
-                                    </span>
-                                    <span class="tcg-loc-chev" aria-hidden="true"></span>
-                                  </button>
-                                </h5>
-                                <sc-if value="{{ loc.showPanel }}" hint-placeholder-val="{{ false }}">
-                                  <div id="{{ loc.panelId }}" class="tcg-loc-acc" role="region" aria-labelledby="{{ loc.btnId }}" hidden="{{ loc.panelHidden }}">
-                                    <address class="tcg-loc-addr" style="margin:0 0 20px;">
-                                      <sc-for list="{{ loc.lines }}" as="ln" hint-placeholder-count="4"><span style="display:block;">{{ ln.text }}</span></sc-for>
-                                    </address>
-                                    <a class="tcg-loc-go" href="{{ loc.directions }}" target="_blank" rel="noopener noreferrer">Get Directions<span class="tcg-loc-sr"> to {{ loc.fullName }} (opens Google Maps in a new tab)</span>
-                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>
-                                    </a>
-                                  </div>
-                                </sc-if>
-                              </li>
-                            </sc-for>
-                          </ul>
-                        </li>
-                      </sc-for>
-                    </ul>
-                  </div>
-                </sc-for>
-              </sc-if>
-
-              <sc-if value="{{ locNoResults }}" hint-placeholder-val="{{ false }}">
-                <div style="background:#fff;border:1px solid #ECE6DA;border-radius:8px;padding:clamp(24px,3vw,32px);">
-                  <p style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:23px;line-height:1.25;color:#1B2A4E;margin:0 0 10px;">No locations match “{{ locQuery }}”</p>
-                  <p style="font-size:15px;line-height:1.7;color:#5b6072;margin:0;">Try searching by city, street name or postcode, or <button type="button" class="tcg-loc-textbtn" onClick="{{ clearLocQuery }}">view all locations</button>.</p>
-                </div>
+          <h2 class="tcg-loc-sr">Office directory</h2>
+          <div class="tcg-loc-searchrow" data-reveal="">
+            <label for="tcg-loc-search" style="display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B2A4E;margin-bottom:9px;">Search locations</label>
+            <div style="position:relative;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#8B8676" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);pointer-events:none;"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg>
+              <input id="tcg-loc-search" class="tcg-loc-search" type="search" value="{{ locQuery }}" onInput="{{ onLocQuery }}" onKeyDown="{{ onLocSearchKey }}" placeholder="Search by city, address or postcode" autoComplete="off" spellCheck="false" aria-describedby="tcg-loc-count">
+              <sc-if value="{{ locHasQuery }}" hint-placeholder-val="{{ false }}">
+                <button type="button" class="tcg-loc-clear" onClick="{{ clearLocQuery }}" aria-label="Clear search">×</button>
               </sc-if>
             </div>
+            <div id="tcg-loc-count" aria-live="polite" style="font-size:13px;letter-spacing:.02em;color:#6b6656;margin:12px 0 22px;">{{ locCountText }}</div>
+          </div>
 
-            <!-- selected office (desktop and tablet) -->
-            <sc-if value="{{ locShowDetail }}" hint-placeholder-val="{{ true }}">
-              <div data-reveal="" style="position:sticky;top:108px;">
-                <div class="tcg-loc-fade" key="{{ locDetail.id }}" style="background:#fff;border:1px solid #ECE6DA;border-radius:8px;padding:clamp(28px,3.4vw,44px);box-shadow:0 30px 70px -42px rgba(21,32,59,.3);">
-                  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-                    <span style="width:28px;height:1px;background:{{ locDetail.ruleColor }};"></span>
-                    <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:{{ locDetail.eyebrowColor }};">{{ locDetail.eyebrow }}</span>
-                  </div>
-                  <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.2vw,42px);line-height:1.1;margin:0 0 26px;color:#1B2A4E;">{{ locDetail.name }}</h2>
-                  <sc-if value="{{ locDetail.hasAddress }}" hint-placeholder-val="{{ true }}">
-                    <div style="border-top:1px solid #E8E2D6;padding-top:22px;">
-                      <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#6b6656;margin-bottom:10px;">Address</div>
-                      <address class="tcg-loc-addr" style="font-size:17px;margin:0 0 30px;">
-                        <sc-for list="{{ locDetail.lines }}" as="ln" hint-placeholder-count="4"><span style="display:block;">{{ ln.text }}</span></sc-for>
-                      </address>
+          <div class="tcg-loc-grid" data-reveal="">
+            <!-- directory: all locations > region > office -->
+            <div class="tcg-loc-panel">
+              <sc-if value="{{ locHasBar }}" hint-placeholder-val="{{ false }}">
+                <button type="button" id="tcg-loc-back" class="tcg-loc-bar" onClick="{{ locBack }}" aria-label="{{ locBackLabel }}"><span class="tcg-loc-bar-arrow" aria-hidden="true"></span><span>{{ locBarTitle }}</span></button>
+              </sc-if>
+              <div class="tcg-loc-body tcg-loc-fade" key="{{ locViewKey }}">
+                <sc-if value="{{ locIsHome }}" hint-placeholder-val="{{ true }}">
+                  <sc-for list="{{ locHome }}" as="ctry" hint-placeholder-count="2">
+                    <div class="tcg-loc-country">
+                      <h3 class="tcg-loc-ch"><span class="tcg-loc-rule" aria-hidden="true"></span>{{ ctry.name }}</h3>
+                      <ul class="tcg-loc-list" role="list">
+                        <sc-for list="{{ ctry.regions }}" as="reg" hint-placeholder-count="8">
+                          <li class="tcg-loc-li"><button type="button" id="{{ reg.btnId }}" class="tcg-loc-item" onClick="{{ reg.open }}"><span class="tcg-loc-txt"><span class="tcg-loc-name">{{ reg.name }}</span></span><span class="tcg-loc-chev" aria-hidden="true"></span></button></li>
+                        </sc-for>
+                        <sc-for list="{{ ctry.offices }}" as="loc" hint-placeholder-count="1">
+                            <li class="tcg-loc-li"><button type="button" id="{{ loc.btnId }}" class="tcg-loc-item" onClick="{{ loc.select }}"><svg class="tcg-loc-pinicon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2.5a6.8 6.8 0 0 0-6.8 6.8c0 5 6.8 12.2 6.8 12.2s6.8-7.2 6.8-12.2A6.8 6.8 0 0 0 12 2.5zm0 9.3a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg><span class="tcg-loc-txt"><span class="tcg-loc-name">{{ loc.name }}<sc-if value="{{ loc.hq }}" hint-placeholder-val="{{ false }}"><span class="tcg-loc-badge">{{ loc.label }}</span></sc-if></span><sc-if value="{{ loc.hasAddress }}" hint-placeholder-val="{{ true }}"><span class="tcg-loc-sub">{{ loc.summary }}</span></sc-if></span><span class="tcg-loc-chev" aria-hidden="true"></span></button></li>
+                        </sc-for>
+                      </ul>
                     </div>
-                    <a class="tcg-loc-go" href="{{ locDetail.directions }}" target="_blank" rel="noopener noreferrer">Get Directions<span class="tcg-loc-sr"> to {{ locDetail.fullName }} (opens Google Maps in a new tab)</span>
-                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>
-                    </a>
-                  </sc-if>
-                </div>
+                  </sc-for>
+                </sc-if>
+
+                <sc-if value="{{ locIsList }}" hint-placeholder-val="{{ false }}">
+                  <sc-for list="{{ locGroups }}" as="grp" hint-placeholder-count="1">
+                    <div class="tcg-loc-country">
+                      <h3 class="tcg-loc-ch"><span class="tcg-loc-rule" aria-hidden="true"></span>{{ grp.name }}</h3>
+                      <ul class="tcg-loc-list" role="list">
+                        <sc-for list="{{ grp.regions }}" as="reg" hint-placeholder-count="1">
+                          <li>
+                            <sc-if value="{{ reg.hasName }}" hint-placeholder-val="{{ false }}"><h4 class="tcg-loc-rh">{{ reg.name }}</h4></sc-if>
+                            <ul class="tcg-loc-sublist" role="list">
+                              <sc-for list="{{ reg.items }}" as="loc" hint-placeholder-count="3">
+                                <li class="tcg-loc-li"><button type="button" id="{{ loc.btnId }}" class="tcg-loc-item" onClick="{{ loc.select }}"><svg class="tcg-loc-pinicon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2.5a6.8 6.8 0 0 0-6.8 6.8c0 5 6.8 12.2 6.8 12.2s6.8-7.2 6.8-12.2A6.8 6.8 0 0 0 12 2.5zm0 9.3a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path></svg><span class="tcg-loc-txt"><span class="tcg-loc-name">{{ loc.name }}<sc-if value="{{ loc.hq }}" hint-placeholder-val="{{ false }}"><span class="tcg-loc-badge">{{ loc.label }}</span></sc-if></span><sc-if value="{{ loc.hasAddress }}" hint-placeholder-val="{{ true }}"><span class="tcg-loc-sub">{{ loc.summary }}</span></sc-if></span><span class="tcg-loc-chev" aria-hidden="true"></span></button></li>
+                              </sc-for>
+                            </ul>
+                          </li>
+                        </sc-for>
+                      </ul>
+                    </div>
+                  </sc-for>
+                </sc-if>
+
+                <sc-if value="{{ locIsOffice }}" hint-placeholder-val="{{ false }}">
+                  <img class="tcg-loc-photo" src="{{ locDetail.img }}" alt="{{ locDetail.name }}" width="1200" height="800" loading="lazy" decoding="async">
+                  <div class="tcg-loc-detail">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                      <span style="width:28px;height:1px;background:{{ locDetail.ruleColor }};"></span>
+                      <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:{{ locDetail.eyebrowColor }};">{{ locDetail.eyebrow }}</span>
+                    </div>
+                    <h3 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,2.6vw,36px);line-height:1.1;margin:0 0 22px;color:#1B2A4E;">{{ locDetail.name }}</h3>
+                    <sc-if value="{{ locDetail.hasAddress }}" hint-placeholder-val="{{ true }}">
+                      <div style="border-top:1px solid #E8E2D6;padding-top:20px;">
+                        <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#6b6656;margin-bottom:10px;">Address</div>
+                        <address class="tcg-loc-addr" style="margin:0 0 26px;">
+                          <sc-for list="{{ locDetail.lines }}" as="ln" hint-placeholder-count="4"><span style="display:block;">{{ ln.text }}</span></sc-for>
+                        </address>
+                      </div>
+                      <a class="tcg-loc-go" href="{{ locDetail.directions }}" target="_blank" rel="noopener noreferrer">Get Directions<span class="tcg-loc-sr"> to {{ locDetail.fullName }} (opens Google Maps in a new tab)</span>
+                                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+                                          </a>
+                    </sc-if>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ locNoResults }}" hint-placeholder-val="{{ false }}">
+                  <div class="tcg-loc-empty">
+                                    <p style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:23px;line-height:1.25;color:#1B2A4E;margin:0 0 10px;">No locations match “{{ locQuery }}”</p>
+                                    <p style="font-size:15px;line-height:1.7;color:#5b6072;margin:0;">Try searching by city, street name or postcode, or <button type="button" class="tcg-loc-textbtn" onClick="{{ clearLocQuery }}">view all locations</button>.</p>
+                                  </div>
+                </sc-if>
               </div>
-            </sc-if>
+            </div>
+
+            <!-- map (Leaflet, mounted by the page logic) -->
+            <div id="tcg-loc-map" class="tcg-loc-map" role="region" aria-label="Map of office locations"></div>
           </div>
         </div>
       </section>
@@ -1499,28 +1514,35 @@ const PUBLICATIONS = [
     desc:"This specialist title analyses the approach of the UK tax regime towards intellectual property assets, following the life-cycle of intellectual property from creation to disposal." }
 ];
 
-// Grouped by country, then region, in the client's order; the template shows both as headings.
+// Grouped by country, then region, in the client's order: the directory drills down country > region > office.
 // Address lines are rendered and searched as-is; an office with no lines yet shows its name only.
+// ll: map position (postcode centroid); img: 1200x800 office photo.
 const LOC_UK = "United Kingdom", LOC_UAE = "United Arab Emirates";
 const LOCATIONS = [
-  { id:"london-head-office", country:LOC_UK, region:"London", name:"London", label:"UK Head Office", headOffice:true, lines:["13 Hanover Square","Mayfair","London","W1S 1HN"] },
-  { id:"london-lower-thames-street", country:LOC_UK, region:"London", name:"London – Lower Thames Street", lines:["10 Lower Thames Street","London","EC3R 6AF"] },
-  { id:"birmingham", country:LOC_UK, region:"Midlands", name:"West Midlands (Birmingham)", lines:["11 Brindleyplace","2 Brunswick Square","Birmingham","B1 2LP"] },
-  { id:"nottingham", country:LOC_UK, region:"Midlands", name:"East Midlands (Nottingham)", lines:["2 King Street","Nottingham","NG1 2AS"] },
-  { id:"manchester", country:LOC_UK, region:"North", name:"Manchester", lines:["91 Princess Street","Manchester","M1 4HT"] },
-  { id:"leeds", country:LOC_UK, region:"North", name:"Leeds", lines:["46 Park Place","Leeds","LS1 2RY"] },
-  { id:"liverpool", country:LOC_UK, region:"North", name:"Liverpool", lines:["Rodney Chambers","40 Rodney Street","Liverpool","L1 9AA"] },
-  { id:"newcastle", country:LOC_UK, region:"North", name:"Newcastle", lines:["Clavering House","Clavering Place","Newcastle upon Tyne","Tyne and Wear","NE1 3NG"] },
-  { id:"reading", country:LOC_UK, region:"South", name:"Reading", lines:["Quadrant House","Broad St Mall","Reading","RG1 7QE"] },
-  { id:"bristol", country:LOC_UK, region:"South", name:"Bristol", lines:["Vintry Building","20 Wine Street","Bristol","BS1 2BD"] },
-  { id:"southampton", country:LOC_UK, region:"South", name:"Southampton", lines:["Enterprise House","Ocean Village","Southampton","SO14 3XB"] },
-  { id:"cambridge", country:LOC_UK, region:"East", name:"Cambridge", lines:["Future Business Centre","Cambridge Campus","Kings Hedges Road","Cambridge","CB4 2HY"] },
-  { id:"belfast", country:LOC_UK, region:"Northern Ireland", name:"Belfast", lines:["19 Arthur Street","Belfast","BT1 4GA"] },
-  { id:"cardiff", country:LOC_UK, region:"Wales", name:"Cardiff", lines:["Wellington House (First Floor)","Wellington Street","Cardiff","CF11 9BE"] },
-  { id:"glasgow", country:LOC_UK, region:"Scotland", name:"Glasgow", lines:["6th Floor","7 Buchanan Street","Glasgow","G1 3HL"] },
-  { id:"dubai", country:LOC_UAE, name:"Dubai", label:"Middle East Head Office", headOffice:true, lines:["Boulevard Plaza","Tower 1","Level 9","Sheikh Mohammed Bin Rashid Boulevard","Dubai","United Arab Emirates"] }
+  { id:"london-head-office", country:LOC_UK, region:"London", name:"London", label:"UK Head Office", headOffice:true, lines:["13 Hanover Square","Mayfair","London","W1S 1HN"], ll:[51.514536,-0.143895], img:"assets/offices/london-head-office.webp" },
+  { id:"london-lower-thames-street", country:LOC_UK, region:"London", name:"London – Lower Thames Street", lines:["10 Lower Thames Street","London","EC3R 6AF"], ll:[51.509143,-0.084784], img:"assets/offices/london-lower-thames-street.webp" },
+  { id:"birmingham", country:LOC_UK, region:"Midlands", name:"West Midlands (Birmingham)", lines:["11 Brindleyplace","2 Brunswick Square","Birmingham","B1 2LP"], ll:[52.47679,-1.914028], img:"assets/offices/birmingham.webp" },
+  { id:"nottingham", country:LOC_UK, region:"Midlands", name:"East Midlands (Nottingham)", lines:["2 King Street","Nottingham","NG1 2AS"], ll:[52.95435,-1.149258], img:"assets/offices/nottingham.webp" },
+  { id:"manchester", country:LOC_UK, region:"North", name:"Manchester", lines:["91 Princess Street","Manchester","M1 4HT"], ll:[53.477977,-2.240599], img:"assets/offices/manchester.webp" },
+  { id:"leeds", country:LOC_UK, region:"North", name:"Leeds", lines:["46 Park Place","Leeds","LS1 2RY"], ll:[53.797452,-1.551624], img:"assets/offices/leeds.webp" },
+  { id:"liverpool", country:LOC_UK, region:"North", name:"Liverpool", lines:["Rodney Chambers","40 Rodney Street","Liverpool","L1 9AA"], ll:[53.401379,-2.973709], img:"assets/offices/liverpool.webp" },
+  { id:"newcastle", country:LOC_UK, region:"North", name:"Newcastle", lines:["Clavering House","Clavering Place","Newcastle upon Tyne","Tyne and Wear","NE1 3NG"], ll:[54.968373,-1.612154], img:"assets/offices/newcastle.webp" },
+  { id:"reading", country:LOC_UK, region:"South", name:"Reading", lines:["Quadrant House","Broad St Mall","Reading","RG1 7QE"], ll:[51.454811,-0.975875], img:"assets/offices/reading.webp" },
+  { id:"bristol", country:LOC_UK, region:"South", name:"Bristol", lines:["Vintry Building","20 Wine Street","Bristol","BS1 2BD"], ll:[51.455572,-2.591632], img:"assets/offices/bristol.webp" },
+  { id:"southampton", country:LOC_UK, region:"South", name:"Southampton", lines:["Enterprise House","Ocean Village","Southampton","SO14 3XB"], ll:[50.896033,-1.393781], img:"assets/offices/southampton.webp" },
+  { id:"cambridge", country:LOC_UK, region:"East", name:"Cambridge", lines:["Future Business Centre","Cambridge Campus","Kings Hedges Road","Cambridge","CB4 2HY"], ll:[52.234821,0.129527], img:"assets/offices/cambridge.webp" },
+  { id:"belfast", country:LOC_UK, region:"Northern Ireland", name:"Belfast", lines:["19 Arthur Street","Belfast","BT1 4GA"], ll:[54.598278,-5.928043], img:"assets/offices/belfast.webp" },
+  { id:"cardiff", country:LOC_UK, region:"Wales", name:"Cardiff", lines:["Wellington House (First Floor)","Wellington Street","Cardiff","CF11 9BE"], ll:[51.479812,-3.196833], img:"assets/offices/cardiff.webp" },
+  { id:"glasgow", country:LOC_UK, region:"Scotland", name:"Glasgow", lines:["6th Floor","7 Buchanan Street","Glasgow","G1 3HL"], ll:[55.859243,-4.254883], img:"assets/offices/glasgow.webp" },
+  { id:"dubai", country:LOC_UAE, name:"Dubai", label:"Middle East Head Office", headOffice:true, lines:["Boulevard Plaza","Tower 1","Level 9","Sheikh Mohammed Bin Rashid Boulevard","Dubai","United Arab Emirates"], ll:[25.200089,55.275072], img:"assets/offices/dubai.webp" }
 ];
-const LOC_MOBILE_MQ = "(max-width: 767px)";
+const locRegionKey = (l) => l.region ? l.country + "|" + l.region : "";
+// Map: Leaflet, loaded on the first visit to Our Locations. scripts/build.mjs serves the same files from /vendor.
+const LEAFLET_JS = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+const LEAFLET_JS_SRI = "sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH";
+const LEAFLET_CSS = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+const LEAFLET_CSS_SRI = "sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H";
+const MAP_TILES = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 const locSearchText = (l) => [l.name, l.label || "", l.region || "", l.country, ...l.lines].join(" ").toLowerCase();
 const locDirections = (l) => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(locAddr(l).join(", ") + ", " + l.country);
 // List preview: first address line that isn't just a floor number, plus postcode (kept on one line)
@@ -1572,8 +1594,7 @@ class Component extends DCLogic {
     tIndex:0,
     svcIndex:0, svcVW:1160,
     teamSelected:null,
-    locQuery:"", locSel:LOCATIONS[0].id, locOpen:LOCATIONS[0].id,
-    locMobile: typeof window !== "undefined" && !!window.matchMedia && window.matchMedia(LOC_MOBILE_MQ).matches,
+    locQuery:"", locRegion:"", locSel:null,
     form:{ name:"", email:"", phone:"", company:"", message:"", website:"" },
     errors:{}, submitted:false, submitting:false, submitError:""
   };
@@ -1659,25 +1680,18 @@ class Component extends DCLogic {
     window.addEventListener("resize", this._onResize);
     this._onKey = (e) => { if (e.key === "Escape" && this.state.teamSelected != null) this.closeMember(); };
     window.addEventListener("keydown", this._onKey);
-    if (window.matchMedia) {
-      this._locMQ = window.matchMedia(LOC_MOBILE_MQ);
-      this._onLocMQ = () => this.setState({ locMobile: this._locMQ.matches });
-      if (this._locMQ.addEventListener) this._locMQ.addEventListener("change", this._onLocMQ);
-      else this._locMQ.addListener(this._onLocMQ);
-      this._onLocMQ();
-    }
-    requestAnimationFrame(() => requestAnimationFrame(() => { this._measureSvc(); this._initSwipe(); }));
+    requestAnimationFrame(() => requestAnimationFrame(() => { this._measureSvc(); this._initSwipe(); this._syncMap(); }));
   }
-  componentDidUpdate(){ this._initReveal(); this._measureSvc(); this._syncMeta(); }
+  componentDidUpdate(){
+    this._initReveal(); this._measureSvc(); this._syncMeta(); this._syncMap();
+    if (this._locFocus) { const el = document.getElementById(this._locFocus); this._locFocus = null; if (el) el.focus({ preventScroll:true }); }
+  }
   componentWillUnmount(){
     window.removeEventListener("hashchange", this._onHash);
     window.removeEventListener("popstate", this._onPop);
     window.removeEventListener("resize", this._onResize);
     window.removeEventListener("keydown", this._onKey);
-    if (this._locMQ) {
-      if (this._locMQ.removeEventListener) this._locMQ.removeEventListener("change", this._onLocMQ);
-      else this._locMQ.removeListener(this._onLocMQ);
-    }
+    if (this._map) { this._map.remove(); this._map = null; }
     clearTimeout(this._timer);
     clearTimeout(this._safety);
   }
@@ -1798,7 +1812,7 @@ class Component extends DCLogic {
   closeMember(){ this.setState({ teamSelected:null }); }
 
   goLocations(){
-    this.setState({ locQuery:"", locSel:LOCATIONS[0].id, locOpen:LOCATIONS[0].id });
+    this.setState({ locQuery:"", locRegion:"", locSel:null });
     this.navigate("locations");
   }
   _locFilter(q){
@@ -1807,33 +1821,112 @@ class Component extends DCLogic {
     const c = n.replace(/\s/g, "");
     return LOCATIONS.filter(l => { const t = locSearchText(l); return t.indexOf(n) >= 0 || t.replace(/\s/g, "").indexOf(c) >= 0; });
   }
-  setLocQuery(q){
-    this.setState(s => {
-      const ids = this._locFilter(q).map(l => l.id);
-      const u = { locQuery:q };
-      if (ids.length) {
-        if (ids.indexOf(s.locSel) < 0) u.locSel = ids[0];
-        if (ids.indexOf(s.locOpen) < 0) u.locOpen = ids[0];
-      }
-      return u;
-    });
+  // typing always shows the matching offices; clearing returns to where the visitor was
+  setLocQuery(q){ this.setState({ locQuery:q, locSel:null }); }
+  openLocRegion(key){
+    this._locFocus = "tcg-loc-back";
+    this.setState({ locRegion:key, locSel:null, locQuery:"" });
   }
-  selectLoc(id){
-    if (this.state.locMobile) {
-      this.setState(s => ({ locSel:id, locOpen: s.locOpen === id ? null : id }), () => {
-        // closing the item above can shift the tapped row out of view
-        requestAnimationFrame(() => {
-          const btn = document.getElementById("loc-btn-" + id);
-          const header = document.querySelector("header");
-          const top = header ? header.offsetHeight : 84;
-          if (btn && btn.getBoundingClientRect().top < top + 8) {
-            window.scrollTo({ top: window.scrollY + btn.getBoundingClientRect().top - top - 12, behavior:"smooth" });
-          }
-        });
-      });
-    } else {
-      this.setState({ locSel:id, locOpen:id });
+  selectLoc(id, fromMap){
+    const l = LOCATIONS.find(x => x.id === id);
+    this._locFocus = "tcg-loc-back";
+    this.setState({ locSel:id, locRegion:locRegionKey(l), locQuery:"" });
+    // on narrow screens the map sits below the directory: bring the office details into view
+    if (fromMap && window.matchMedia && window.matchMedia("(max-width: 899px)").matches) {
+      const p = document.querySelector(".tcg-loc-panel");
+      if (p) requestAnimationFrame(() => p.scrollIntoView({ behavior:"smooth", block:"start" }));
     }
+  }
+  locBack(){
+    const l = this.state.locSel ? LOCATIONS.find(x => x.id === this.state.locSel) : null;
+    if (l) {
+      this._locFocus = "loc-btn-" + l.id;
+      this.setState({ locSel:null, locRegion:locRegionKey(l) });
+    } else {
+      this._locFocus = "loc-reg-" + this.state.locRegion.split("|")[1].toLowerCase().replace(/\W+/g, "-");
+      this.setState({ locRegion:"" });
+    }
+  }
+
+  // ---- Our Locations map ----
+  _loadLeaflet(){
+    if (window.L) return Promise.resolve(window.L);
+    if (!this._leaflet) {
+      const add = (tag, attrs) => new Promise((resolve, reject) => {
+        const el = Object.assign(document.createElement(tag), attrs, { crossOrigin:"anonymous", onload:resolve, onerror:reject });
+        document.head.appendChild(el);
+      });
+      this._leaflet = Promise.all([
+        add("link", { rel:"stylesheet", href:LEAFLET_CSS, integrity:LEAFLET_CSS_SRI }),
+        add("script", { src:LEAFLET_JS, integrity:LEAFLET_JS_SRI })
+      ]).then(() => window.L);
+      this._leaflet.catch(() => { this._leaflet = null; });
+    }
+    return this._leaflet;
+  }
+  _initMap(L, el){
+    const map = L.map(el, { scrollWheelZoom:false, dragging:!L.Browser.mobile, zoomSnap:0.5 });
+    map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a>');
+    L.tileLayer(MAP_TILES, { maxZoom:18,
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors' }).addTo(map);
+    const pin = (on) => L.divIcon({ className:"tcg-pin-wrap", html:'<span class="tcg-pin" data-on="' + on + '"></span>',
+      iconSize:[24, 24], iconAnchor:[12, 29], tooltipAnchor:[0, -26] });
+    this._pin = pin;
+    this._pins = {};
+    const offices = L.layerGroup(), countries = L.layerGroup();
+    LOCATIONS.forEach(l => {
+      const m = L.marker(l.ll, { icon:pin(false), keyboard:true, riseOnHover:true })
+        .bindTooltip(l.name, { direction:"top" })
+        .on("click", () => this.selectLoc(l.id, true));
+      m.on("add", () => { const e = m.getElement(); if (e) e.setAttribute("aria-label", l.headOffice ? l.name + " " + l.label : l.name); });
+      this._pins[l.id] = m.addTo(offices);
+    });
+    // zoomed right out, each country shows one numbered marker instead of overlapping pins
+    [...new Set(LOCATIONS.map(l => l.country))].forEach(c => {
+      const ls = LOCATIONS.filter(l => l.country === c), b = L.latLngBounds(ls.map(l => l.ll));
+      L.marker(b.getCenter(), { keyboard:true,
+        icon:L.divIcon({ className:"tcg-pin-wrap", html:'<span class="tcg-cluster">' + ls.length + "</span>", iconSize:[40, 40], iconAnchor:[20, 20] }) })
+        .bindTooltip(c, { direction:"top", offset:[0, -18] })
+        .on("click", () => map.fitBounds(b, { padding:[40, 40], maxZoom:13 }))
+        .addTo(countries);
+    });
+    const layers = () => {
+      const far = map.getZoom() < 5;
+      if (far && !map.hasLayer(countries)) { map.removeLayer(offices); countries.addTo(map); }
+      if (!far && !map.hasLayer(offices)) { map.removeLayer(countries); offices.addTo(map); }
+    };
+    map.on("zoomend", layers);
+    map.fitBounds(L.latLngBounds(LOCATIONS.map(l => l.ll)), { padding:[40, 40] });
+    layers();
+    this._map = map; this._mapView = null; this._mapSel = undefined;
+  }
+  _syncMap(){
+    const el = this.state.route === "locations" ? document.getElementById("tcg-loc-map") : null;
+    if (this._map && (!el || this._map.getContainer() !== el)) { this._map.remove(); this._map = null; }
+    if (!el) return;
+    if (!this._map) {
+      if (this._mapLoading) return;
+      this._mapLoading = true;
+      this._loadLeaflet().then(L => {
+        this._mapLoading = false;
+        if (this.state.route === "locations" && document.getElementById("tcg-loc-map") === el && !this._map) { this._initMap(L, el); this._syncMap(); }
+      }, () => { this._mapLoading = false; });
+      return;
+    }
+    const L = window.L, st = this.state, q = (st.locQuery || "").trim();
+    if (this._mapSel !== st.locSel) {
+      if (this._mapSel && this._pins[this._mapSel]) this._pins[this._mapSel].setIcon(this._pin(false)).setZIndexOffset(0);
+      if (st.locSel && this._pins[st.locSel]) this._pins[st.locSel].setIcon(this._pin(true)).setZIndexOffset(1000);
+      this._mapSel = st.locSel;
+    }
+    const shown = st.locSel ? LOCATIONS.filter(l => l.id === st.locSel)
+      : q ? this._locFilter(q) : st.locRegion ? LOCATIONS.filter(l => locRegionKey(l) === st.locRegion) : LOCATIONS;
+    const view = shown.map(l => l.id).join(",");
+    if (!shown.length || view === this._mapView) return;
+    this._mapView = view;
+    const animate = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    if (st.locSel) this._map.setView(shown[0].ll, 15, { animate });
+    else this._map.fitBounds(L.latLngBounds(shown.map(l => l.ll)), { padding:[48, 48], maxZoom:shown.length > 1 ? 12 : 13, animate });
   }
   _scheduleAutoplay(){
     clearTimeout(this._timer);
@@ -1962,45 +2055,45 @@ class Component extends DCLogic {
     const sd = (r==="service-detail") ? SERVICES.find(s => s.slug===this.state.serviceSlug) : null;
     const ad = (r==="article-detail") ? ARTICLES.find(a => a.slug===this.state.articleSlug) : null;
 
-    // ---- locations ----
+    // ---- locations: all locations > region > office ----
     const lq = this.state.locQuery || "";
+    const lSearch = !!lq.trim();
     const lMatches = this._locFilter(lq);
-    const lMob = !!this.state.locMobile;
-    const lSelId = lMatches.some(l => l.id===this.state.locSel) ? this.state.locSel : (lMatches[0] ? lMatches[0].id : null);
+    const lSel = this.state.locSel ? LOCATIONS.find(l => l.id === this.state.locSel) : null;
+    const lReg = !lSel && !lSearch ? this.state.locRegion : "";
     const lFullName = (l) => l.headOffice ? l.name + " " + l.label : l.name;
-    const locList = lMatches.map(l => {
-      const sel = l.id===lSelId, open = l.id===this.state.locOpen, hasAddr = l.lines.length > 0;
-      return {
-        id:l.id, name:l.name, label:l.label || "", hq:!!l.headOffice, fullName:lFullName(l), country:l.country, region:l.region || "",
-        summary:locSummary(l), lines:l.lines.map(t => ({ text:t })), directions:hasAddr ? locDirections(l) : "",
-        hasAddress:hasAddr, noAddress:!hasAddr,
-        btnId:"loc-btn-" + l.id, panelId:"loc-panel-" + l.id,
-        active: lMob ? open : sel,
-        ariaCurrent: (!lMob && sel) ? "true" : undefined,
-        ariaExpanded: lMob && hasAddr ? open : undefined,
-        ariaControls: lMob && hasAddr ? "loc-panel-" + l.id : undefined,
-        showPanel: lMob && hasAddr, panelHidden: !open,
-        select:()=>this.selectLoc(l.id)
-      };
+    const locRow = (l) => ({ id:l.id, btnId:"loc-btn-" + l.id, name:l.name, label:l.label || "", hq:!!l.headOffice,
+      summary:locSummary(l), hasAddress:l.lines.length > 0, select:()=>this.selectLoc(l.id) });
+    const locHome = [];
+    LOCATIONS.forEach(l => {
+      let c = locHome[locHome.length - 1];
+      if (!c || c.name !== l.country) locHome.push(c = { name:l.country, regions:[], offices:[] });
+      if (!l.region) c.offices.push(locRow(l));
+      else if (!c.regions.some(rg => rg.name === l.region)) {
+        const key = locRegionKey(l);
+        c.regions.push({ name:l.region, btnId:"loc-reg-" + l.region.toLowerCase().replace(/\W+/g, "-"), open:()=>this.openLocRegion(key) });
+      }
     });
-    // country > region > offices, both in LOCATIONS order; groups with no search matches drop out
+    // one region, or search results grouped by country and region (both in LOCATIONS order)
     const locGroups = [];
-    locList.forEach(l => {
+    (lSearch ? lMatches : lReg ? LOCATIONS.filter(l => locRegionKey(l) === lReg) : []).forEach(l => {
+      const gName = lSearch ? l.country : l.region;
       let g = locGroups[locGroups.length - 1];
-      if (!g || g.name !== l.country) locGroups.push(g = { name:l.country, regions:[] });
+      if (!g || g.name !== gName) locGroups.push(g = { name:gName, regions:[] });
       let rg = g.regions[g.regions.length - 1];
-      if (!rg || rg.name !== l.region) g.regions.push(rg = { name:l.region, hasName:!!l.region, items:[] });
-      rg.items.push(l);
+      if (!rg || rg.name !== (l.region || "")) g.regions.push(rg = { name:l.region || "", hasName:lSearch && !!l.region, items:[] });
+      rg.items.push(locRow(l));
     });
-    const lSel = lSelId ? LOCATIONS.find(l => l.id===lSelId) : null;
     const locDetail = lSel ? {
-      id:lSel.id, name:lSel.name, fullName:lFullName(lSel),
+      id:lSel.id, name:lSel.name, fullName:lFullName(lSel), img:lSel.img,
       eyebrow: lSel.headOffice ? lSel.label : "Office",
       eyebrowColor: lSel.headOffice ? "#8a6d40" : "#6b6656",
       ruleColor: lSel.headOffice ? "#B08E5A" : "#D8CFBD",
       lines:lSel.lines.map(t => ({ text:t })), hasAddress:lSel.lines.length > 0,
       directions:lSel.lines.length ? locDirections(lSel) : ""
     } : null;
+    // the bar names the level above, PwC-style: an office goes back to its region (or country), a region to all locations
+    const lParent = lSel ? (lSel.region || lSel.country) : lReg ? lReg.split("|")[0] : "";
     const lCount = lMatches.length;
     const locCountText = !lq.trim()
       ? LOCATIONS.length + " locations"
@@ -2012,8 +2105,11 @@ class Component extends DCLogic {
       isArticles:r==="articles", isPublications:r==="publications", isWebinars:r==="webinars",
       isTestimonials:r==="testimonials", isContact:r==="contact", isPrivacy:r==="privacy-policy", isTerms:r==="terms-and-conditions",
       isLocations:r==="locations",
-      locQuery:lq, locHasQuery:lq.length > 0, locGroups, locHasResults:lCount > 0, locNoResults:lCount===0,
-      locDetail, locShowDetail:!lMob && !!locDetail, locCountText,
+      locQuery:lq, locHasQuery:lq.length > 0, locCountText, locHome, locGroups, locDetail,
+      locIsOffice:!!lSel, locIsList:!lSel && (lReg !== "" || (lSearch && lCount > 0)), locIsHome:!lSel && !lSearch && !lReg,
+      locNoResults:!lSel && lSearch && lCount === 0,
+      locViewKey: lSel ? "o-" + lSel.id : lSearch ? "q" : lReg ? "r-" + lReg : "home",
+      locHasBar:!!lParent, locBarTitle:lParent, locBackLabel:"Back to " + lParent, locBack:()=>this.locBack(),
       onLocQuery:(e)=>this.setLocQuery(e.target.value),
       onLocSearchKey:(e)=>{ if (e.key==="Escape" && this.state.locQuery) { e.preventDefault(); this.setLocQuery(""); } },
       clearLocQuery:()=>{ this.setLocQuery(""); const i = document.getElementById("tcg-loc-search"); if (i) i.focus(); },
