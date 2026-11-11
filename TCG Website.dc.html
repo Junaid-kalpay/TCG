@@ -99,6 +99,12 @@
   .tcg-loc-list{list-style:none;margin:0;padding:0;background:#fff;border:1px solid #ECE6DA;border-radius:8px;overflow:hidden;}
   .tcg-loc-li{border-bottom:1px solid #EFEAE0;}
   .tcg-loc-li:last-child{border-bottom:none;}
+  .tcg-loc-country + .tcg-loc-country{margin-top:34px;}
+  .tcg-loc-ch{display:flex;align-items:center;gap:12px;margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;line-height:1.3;color:#B08E5A;}
+  .tcg-loc-rule{flex:0 0 auto;width:28px;height:1px;background:#B08E5A;}
+  .tcg-loc-reg + .tcg-loc-reg{border-top:1px solid #E8E2D6;}
+  .tcg-loc-rh{margin:0;padding:11px 22px 9px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.3;color:#6b6656;background:#FBF9F5;border-bottom:1px solid #EFEAE0;}
+  .tcg-loc-sublist{list-style:none;margin:0;padding:0;}
   .tcg-loc-h{margin:0;font:inherit;}
   .tcg-loc-item{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:15px 22px;text-align:left;background:transparent;border:none;cursor:pointer;color:#1B2A4E;white-space:normal;box-shadow:inset 3px 0 0 transparent;transition:background .2s,box-shadow .2s;}
   .tcg-loc-item:hover{background:#F6F2EA;}
@@ -124,6 +130,7 @@
   @media (max-width:767px){
     .tcg-loc-grid{grid-template-columns:minmax(0,1fr);}
     .tcg-loc-item{padding:15px 18px;}
+    .tcg-loc-rh{padding:11px 18px 9px;}
     .tcg-loc-chev{transform:rotate(135deg);}
     .tcg-loc-item[data-active="true"]{background:#FBF8F2;}
     .tcg-loc-item[data-active="true"] .tcg-loc-name{color:#1B2A4E;}
@@ -131,6 +138,7 @@
     .tcg-loc-item[data-active="true"] .tcg-loc-badge{color:#8a6d40;border-color:rgba(176,142,90,.6);}
     .tcg-loc-item[data-active="true"] .tcg-loc-chev{transform:rotate(-45deg);}
     .tcg-loc-go{width:100%;}
+    .tcg-loc-item[data-noaddr="true"] .tcg-loc-chev{display:none;}
   }
   @media (prefers-reduced-motion:reduce){
     .tcg-loc-fade,.tcg-loc-acc{animation:none;}
@@ -151,6 +159,8 @@
       <nav aria-label="Main" style="display:flex;align-items:center;gap:clamp(14px,1.7vw,26px);" data-desktop-nav="">
         <a href="/" onClick="{{ goHome }}" style="font-size:14px;font-weight:500;letter-spacing:.01em;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.home }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Home</a>
 
+        <a href="/about-us" onClick="{{ goAboutUs }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.aboutUs }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">About Us</a>
+
         <div onMouseEnter="{{ openServices }}" onMouseLeave="{{ closeServices }}" style="position:relative;display:flex;align-items:center;gap:6px;">
           <button onClick="{{ toggleServices }}" aria-label="Services menu" aria-expanded="{{ servicesOpen }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;background:none;border:none;border-bottom:2px solid {{ nav.services }};display:flex;align-items:center;gap:7px;white-space:nowrap;" style-hover="color:#B08E5A;">Services
             <span style="display:inline-block;width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);"></span>
@@ -159,8 +169,8 @@
             <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:14px;animation:tcgFadeIn .18s ease;z-index:6;">
             <div style="position:relative;background:#fff;border:1px solid #ECE6DA;border-radius:4px;box-shadow:0 24px 60px -22px rgba(21,32,59,.34);padding:14px;width:760px;max-width:88vw;">
               <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-left:1px solid #ECE6DA;border-top:1px solid #ECE6DA;"></div>
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,auto);grid-auto-flow:column;gap:4px;" data-svc-megamenu="">
-                <sc-for list="{{ servicesDropdown }}" as="svc" hint-placeholder-count="9">
+              <div style="display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,auto);grid-auto-flow:column;gap:4px;" data-svc-megamenu="">
+                <sc-for list="{{ servicesDropdown }}" as="svc" hint-placeholder-count="10">
                   <a href="/services/{{ svc.slug }}" onClick="{{ svc.go }}" style="display:flex;align-items:center;min-height:52px;padding:12px 16px;border-radius:3px;cursor:pointer;font-size:13.5px;font-weight:500;line-height:1.32;color:#2c3450;transition:background .18s,color .18s;" style-hover="background:#F6F2EA;color:#B08E5A;">{{ svc.title }}</a>
                 </sc-for>
               </div>
@@ -169,9 +179,7 @@
           </sc-if>
         </div>
 
-        <a href="/our-team" onClick="{{ goOurTeam }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.ourTeam }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Our Team</a>
-
-        <a href="/professional-advisers" onClick="{{ goProfAdvisers }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.profAdvisers }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Professional Advisers</a>
+        <a href="/our-team" onClick="{{ goOurTeam }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;border-bottom:2px solid {{ nav.ourTeam }};transition:color .2s;white-space:nowrap;" style-hover="color:#B08E5A;">Our Senior Team</a>
 
         <div onMouseEnter="{{ openKnowledge }}" onMouseLeave="{{ closeKnowledge }}" style="position:relative;">
           <button onClick="{{ toggleKnowledge }}" aria-expanded="{{ knowledgeOpen }}" style="font-size:14px;font-weight:500;padding:6px 0;cursor:pointer;color:#28324d;background:none;border:none;border-bottom:2px solid {{ nav.knowledge }};display:flex;align-items:center;gap:7px;white-space:nowrap;" style-hover="color:#B08E5A;">Knowledge and Insights
@@ -211,16 +219,16 @@
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
       <div style="border-top:1px solid #E8E2D6;background:#FBF9F5;padding:14px clamp(20px,4vw,40px) 28px;animation:tcgFadeIn .2s ease;max-height:calc(100vh - 84px);overflow-y:auto;">
         <a href="/" onClick="{{ goHome }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Home</a>
+        <a href="/about-us" onClick="{{ goAboutUs }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">About Us</a>
         <button onClick="{{ toggleMobileServices }}" aria-expanded="{{ mobileServicesOpen }}" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border:none;border-bottom:1px solid #ECE6DA;background:none;cursor:pointer;">Services<span style="display:inline-block;width:8px;height:8px;border-right:1.6px solid #B08E5A;border-bottom:1.6px solid #B08E5A;transform:rotate(45deg);"></span></button>
         <sc-if value="{{ mobileServicesOpen }}" hint-placeholder-val="{{ false }}">
           <div style="padding:4px 0 4px 14px;border-bottom:1px solid #ECE6DA;">
-            <sc-for list="{{ servicesDropdown }}" as="svc" hint-placeholder-count="9">
+            <sc-for list="{{ servicesDropdown }}" as="svc" hint-placeholder-count="10">
               <a href="/services/{{ svc.slug }}" onClick="{{ svc.go }}" style="display:block;padding:11px 4px;font-size:15px;line-height:1.4;color:#4A5163;cursor:pointer;">{{ svc.title }}</a>
             </sc-for>
           </div>
         </sc-if>
-        <a href="/our-team" onClick="{{ goOurTeam }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Our Team</a>
-        <a href="/professional-advisers" onClick="{{ goProfAdvisers }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Professional Advisers</a>
+        <a href="/our-team" onClick="{{ goOurTeam }}" style="display:block;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border-bottom:1px solid #ECE6DA;cursor:pointer;">Our Senior Team</a>
         <button onClick="{{ toggleMobileKnowledge }}" aria-expanded="{{ mobileKnowledgeOpen }}" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:14px 4px;font-size:17px;font-weight:600;color:#1B2A4E;border:none;border-bottom:1px solid #ECE6DA;background:none;cursor:pointer;">Knowledge and Insights<span style="display:inline-block;width:8px;height:8px;border-right:1.6px solid #B08E5A;border-bottom:1.6px solid #B08E5A;transform:rotate(45deg);"></span></button>
         <sc-if value="{{ mobileKnowledgeOpen }}" hint-placeholder-val="{{ false }}">
           <div style="padding:4px 0 4px 14px;border-bottom:1px solid #ECE6DA;">
@@ -247,8 +255,8 @@
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(40px,6vw,80px) clamp(20px,4vw,40px) clamp(56px,8vw,104px);">
           <div style="max-width:880px;width:100%;min-width:0;">
             
-            <h1 data-hero-title style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,5.6vw,70px);line-height:1.1;letter-spacing:-0.005em;margin:0 0 36px;color:#fff;text-wrap:balance;max-width:100%;width:100%;" data-reveal="">Specialist Tax Partners to Accountancy Practices and Wealth Managers</h1>
-            <p class="tcg-just" style="font-size:clamp(17px,1.5vw,19.5px);line-height:1.78;color:rgba(255,255,255,0.80);max-width:760px;margin:0 0 0;font-weight:300;" data-reveal=""></p><div style="text-align:justify;"><span style="font-size: 18.156px;"><div><span style="font-size: 18.156px;">Tax Consulting Group (TCG) is one of the leading independent firms of Chartered Tax Advisers, dedicated to providing specialist tax partner services to accountancy practices, wealth managers and family offices across complex areas of UK and international tax.</span><br></div></span></div><div><span style="font-size: 18.156px;"><br></span></div><div style="text-align:justify;"><span style="font-size: 18.156px;">We partner with accountants and wealth managers to provide expert tax advisory solutions to their clients, as well as extensively advising UK and international family offices on complex tax structuring matters.</span></div><p></p>
+            <h1 data-hero-title style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,5.6vw,70px);line-height:1.1;letter-spacing:-0.005em;margin:0 0 36px;color:#fff;text-wrap:balance;max-width:100%;width:100%;" data-reveal="">Specialist Tax Partners to Accountancy Practices and Wealth Advisory Firms</h1>
+            <p class="tcg-just" style="font-size:clamp(17px,1.5vw,19.5px);line-height:1.78;color:rgba(255,255,255,0.80);max-width:760px;margin:0 0 0;font-weight:300;" data-reveal=""></p><div style="text-align:justify;"><span style="font-size: 18.156px;"><div><span style="font-size: 18.156px;">Tax Consulting Group (TCG) is one of the leading independent firms of Chartered Tax Advisers, dedicated to providing specialist tax partner services to accountancy practices, wealth advisers and their private and corporate clients.</span><br></div></span></div><div><span style="font-size: 18.156px;"><br></span></div><div style="text-align:justify;"><span style="font-size: 18.156px;">With multiple office locations across the UK and UAE and a senior team of industry-led experts and ex-Top 10 Partners, we partner with accountants and wealth advisers to provide practical and commercially driven tax solutions to complex tax issues, with a focus on delivering tax efficient outcomes for clients.</span></div><p></p>
             <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:54px;" data-reveal="">
               <button onClick="{{ goServices }}" style="background:#B08E5A;color:#15203B;border:none;padding:16px 32px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#c4a06b;transform:translateY(-2px);">Explore Our Services</button>
               <button onClick="{{ goOurTeam }}" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.45);padding:16px 32px;border-radius:2px;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="border-color:#fff;background:rgba(255,255,255,0.06);">Find Out About Our Team</button>
@@ -269,7 +277,7 @@
           </div>
           <div data-reveal="">
             <p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0 0 26px;font-weight:400;"></p><div style="text-align:justify;font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;">As one of the leading independent tax advisory firms, our team consists of highly experienced and renowned Chartered Tax Advisers and published tax authors.&nbsp;</div><p></p><p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:0;font-weight:400;"></p><div style="text-align:justify;"><span style="font-size: clamp(17px, 1.4vw, 20px);">With decades of combined specialist tax expertise, we deliver tax solutions on some of the most complex areas of tax.</span></div><p></p>
-            <p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:26px 0 0;font-weight:400;">In addition to providing core UK tax advisory services, we also advise on cross-border tax matters by collaborating with our network of partner firms across Europe, Middle East, US and Southeast Asia.</p>
+            <p class="tcg-just" style="font-size:clamp(17px,1.4vw,20px);line-height:1.8;color:#384058;margin:26px 0 0;font-weight:400;">In addition to providing core UK and GCC tax advisory services, we also advise on cross-border tax matters by collaborating with our network of partner firms across Europe, Middle East, US and Southeast Asia.</p>
           </div>
         </div>
         
@@ -284,10 +292,10 @@
               <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#B08E5A;">What We Do</span>
               <span style="width:28px;height:1px;background:#B08E5A;"></span>
             </div>
-            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Specialist Tax Advisory Services</h2>
+            <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4.4vw,56px);line-height:1.06;margin:0;color:#1B2A4E;">Our Specialist Services</h2>
           </div>
-          <div data-reveal="" data-svc-grid="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
-            <sc-for list="{{ services }}" as="svc" hint-placeholder-count="9">
+          <div data-reveal="" data-svc-grid="" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+            <sc-for list="{{ services }}" as="svc" hint-placeholder-count="10">
               <div data-svc-card="" style="background:#fff;border:1px solid #E8E2D6;border-radius:8px;padding:clamp(28px,2.6vw,38px);display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s;" style-hover="box-shadow:0 22px 50px -32px rgba(21,32,59,.34);transform:translateY(-4px);">
                 <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
                   <span style="font-family:'DashFix','Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#B08E5A;line-height:1;">{{ svc.n }}</span>
@@ -473,7 +481,7 @@
         <div style="position:absolute;top:-120px;right:-140px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
           
-          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Meet Our Team of Senior Experts</h1>
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Meet Our Senior Team of Experts</h1>
           
         </div>
       </section>
@@ -503,8 +511,8 @@
     </sc-if>
 
     <!-- ==================== TAX SUBSCRIPTION PAGE ==================== -->
-    <!-- ==================== PROFESSIONAL ADVISERS PAGE ==================== -->
-    <sc-if value="{{ isProfAdvisers }}" hint-placeholder-val="{{ false }}">
+    <!-- ==================== ABOUT US PAGE ==================== -->
+    <sc-if value="{{ isAboutUs }}" hint-placeholder-val="{{ false }}">
     <div>
       <section style="position:relative;background:#15203B;color:#fff;overflow:hidden;">
         <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
@@ -512,8 +520,8 @@
         <div style="position:absolute;top:-80px;right:-100px;width:400px;height:400px;border-radius:50%;background-image:radial-gradient(rgba(176,142,90,0.26) 1.5px,transparent 1.6px);background-size:24px 24px;opacity:.5;"></div>
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
           
-          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:960px;color:#fff;">Professional Advisers</h1>
-          <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.80);max-width:860px;margin:26px 0 0;font-weight:300;">Specialist Tax Partner and Consultancy Support for Accountancy Practices, Wealth Managers and Family Offices</p>
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:960px;color:#fff;">About Us</h1>
+          <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.80);max-width:860px;margin:26px 0 0;font-weight:300;">Specialist Tax Partner Services for Accountancy Practices and Wealth Advisory Firms</p>
         </div>
       </section>
 
@@ -521,10 +529,10 @@
         <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:clamp(40px,6vw,80px);align-items:start;" data-adv-grid="">
           <!-- intro content -->
           <div data-reveal="">
-            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 22px;">We work closely with accountancy practices and wealth managers to provide specialist tax solutions on complex tax matters, delivering tax efficient outcomes for their clients. We also regularly advise UK and international family offices on complex tax advisory and structuring matters.</p>
-            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 22px;">Our aim is to help resolve complex tax issues for your clients and support them with their tax needs. Whether you need a second opinion on a tax matter, or want to engage us to handle a complex tax advisory project, our team of experts are here to assist.</p>
+            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 22px;">Our model is focused around partnering with accountancy practices and wealth advisory firms to provide specialist tax solutions on complex tax matters, delivering tax efficient outcomes for their clients.</p>
+            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 22px;">Our aim is to help resolve complex tax issues for clients and support them with their tax needs. Whether you need a second opinion on a tax matter, or want to engage us to handle a complex tax advisory project, our team of experts are here to assist.</p>
             <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 22px;">We can either work behind the scenes on a white-label basis or by engaging directly with your client as your strategic tax partners.</p>
-            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 36px;">Our services are designed for professional advisers who require specialist and solutions focused tax advice and answers to tax queries. We will provide support and practical answers to complex tax questions, helping you serve your clients effectively and manage risk.</p>
+            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 36px;">Our services are designed for accountancy practices and wealth advisers who require specialist and solutions focused tax advisory services. We will provide support and practical answers to complex tax questions, helping you serve your clients effectively and manage risk.</p>
             
           </div>
           <!-- why card -->
@@ -532,19 +540,19 @@
             <div style="background:#1B2A4E;color:#fff;border-radius:8px;padding:clamp(30px,3vw,42px);position:relative;overflow:hidden;">
               <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1.2px,transparent 1.3px);background-size:22px 22px;"></div>
               <div style="position:relative;">
-                <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2vw,26px);line-height:1.22;margin:0 0 26px;color:#fff;">Why do professional advisers use our services?</h2>
+                <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,2vw,26px);line-height:1.22;margin:0 0 26px;color:#fff;">Why do accountancy practices and wealth advisers use our services?</h2>
                 <div>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);">
                     <span style="flex:0 0 auto;margin-top:7px;width:7px;height:7px;background:#B08E5A;transform:rotate(45deg);"></span>
-                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To assist with tax specialist areas where they don’t have an in-house resource</span>
+                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To assist with tax specialist areas where they lack in-house resource and capacity</span>
                   </div>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);">
                     <span style="flex:0 0 auto;margin-top:7px;width:7px;height:7px;background:#B08E5A;transform:rotate(45deg);"></span>
-                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To grow their firm via expert value-added tax advisory services and enhance their offering to clients</span>
+                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To grow their firms via expert value-added advisory services and enhance their offering to clients</span>
                   </div>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);">
                     <span style="flex:0 0 auto;margin-top:7px;width:7px;height:7px;background:#B08E5A;transform:rotate(45deg);"></span>
-                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To ensure that clients stay with them and don’t move to practices with in-house tax departments</span>
+                    <span style="font-size:15.5px;line-height:1.55;color:rgba(255,255,255,0.88);">To ensure they do not lose clients to larger firms with in-house tax departments</span>
                   </div>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);">
                     <span style="flex:0 0 auto;margin-top:7px;width:7px;height:7px;background:#B08E5A;transform:rotate(45deg);"></span>
@@ -572,7 +580,7 @@
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
           
           <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.06;margin:0;max-width:900px;color:#fff;">News, articles and technical updates</h1>
-          <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:760px;margin:24px 0 0;font-weight:300;">Technical commentary and practical insight on developments across UK and international tax</p>
+          <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:760px;margin:24px 0 0;font-weight:300;">Technical commentary and practical insights on tax developments</p>
         </div>
       </section>
 
@@ -640,7 +648,7 @@
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
           
           <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Publications</h1>
-          <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:760px;margin:24px 0 0;font-weight:300;">Specialist Publications written for Bloomsbury Professional.</p>
+          <p class="tcg-just" style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.78);max-width:760px;margin:24px 0 0;font-weight:300;">Specialist publications written for Bloomsbury Professional</p>
         </div>
       </section>
 
@@ -891,8 +899,8 @@
         <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.09) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.5;"></div>
         <div style="position:absolute;top:-120px;right:-140px;width:480px;height:480px;border-radius:50%;border:1px solid rgba(176,142,90,.22);"></div>
         <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(60px,7vw,104px) clamp(20px,4vw,40px);">
-          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Our Locations</h1>
-          <p style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.80);max-width:860px;margin:26px 0 0;font-weight:300;">Find Tax Consulting Group locations across the United Kingdom.</p>
+          <h1 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.06;margin:0;max-width:900px;color:#fff;">Our office locations</h1>
+          <p style="font-size:clamp(16px,1.4vw,19px);line-height:1.8;color:rgba(255,255,255,0.80);max-width:860px;margin:26px 0 0;font-weight:300;">We have 16 office locations supporting our clients across the UK, UAE and beyond. Click on the links below to find your nearest location.</p>
         </div>
       </section>
 
@@ -913,31 +921,43 @@
               <div id="tcg-loc-count" aria-live="polite" style="font-size:13px;letter-spacing:.02em;color:#6b6656;margin:12px 0 18px;">{{ locCountText }}</div>
 
               <sc-if value="{{ locHasResults }}" hint-placeholder-val="{{ true }}">
-                <ul class="tcg-loc-list" role="list">
-                  <sc-for list="{{ locList }}" as="loc" hint-placeholder-count="17">
-                    <li class="tcg-loc-li">
-                      <h3 class="tcg-loc-h">
-                        <button type="button" id="{{ loc.btnId }}" class="tcg-loc-item" data-active="{{ loc.active }}" aria-current="{{ loc.ariaCurrent }}" aria-expanded="{{ loc.ariaExpanded }}" aria-controls="{{ loc.ariaControls }}" onClick="{{ loc.select }}">
-                          <span>
-                            <span class="tcg-loc-name">{{ loc.name }}<sc-if value="{{ loc.hq }}" hint-placeholder-val="{{ false }}"><span class="tcg-loc-badge">{{ loc.label }}</span></sc-if></span>
-                            <span class="tcg-loc-sub">{{ loc.summary }}</span>
-                          </span>
-                          <span class="tcg-loc-chev" aria-hidden="true"></span>
-                        </button>
-                      </h3>
-                      <sc-if value="{{ loc.showPanel }}" hint-placeholder-val="{{ false }}">
-                        <div id="{{ loc.panelId }}" class="tcg-loc-acc" role="region" aria-labelledby="{{ loc.btnId }}" hidden="{{ loc.panelHidden }}">
-                          <address class="tcg-loc-addr" style="margin:0 0 20px;">
-                            <sc-for list="{{ loc.lines }}" as="ln" hint-placeholder-count="4"><span style="display:block;">{{ ln.text }}</span></sc-for>
-                          </address>
-                          <a class="tcg-loc-go" href="{{ loc.directions }}" target="_blank" rel="noopener noreferrer">Get Directions<span class="tcg-loc-sr"> to {{ loc.fullName }} (opens Google Maps in a new tab)</span>
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>
-                          </a>
-                        </div>
-                      </sc-if>
-                    </li>
-                  </sc-for>
-                </ul>
+                <sc-for list="{{ locGroups }}" as="grp" hint-placeholder-count="2">
+                  <div class="tcg-loc-country">
+                    <h3 class="tcg-loc-ch"><span class="tcg-loc-rule" aria-hidden="true"></span>{{ grp.name }}</h3>
+                    <ul class="tcg-loc-list" role="list">
+                      <sc-for list="{{ grp.regions }}" as="reg" hint-placeholder-count="4">
+                        <li class="tcg-loc-reg">
+                          <sc-if value="{{ reg.hasName }}" hint-placeholder-val="{{ true }}"><h4 class="tcg-loc-rh">{{ reg.name }}</h4></sc-if>
+                          <ul class="tcg-loc-sublist" role="list">
+                            <sc-for list="{{ reg.items }}" as="loc" hint-placeholder-count="2">
+                              <li class="tcg-loc-li">
+                                <h5 class="tcg-loc-h">
+                                  <button type="button" id="{{ loc.btnId }}" class="tcg-loc-item" data-active="{{ loc.active }}" data-noaddr="{{ loc.noAddress }}" aria-current="{{ loc.ariaCurrent }}" aria-expanded="{{ loc.ariaExpanded }}" aria-controls="{{ loc.ariaControls }}" onClick="{{ loc.select }}">
+                                    <span>
+                                      <span class="tcg-loc-name">{{ loc.name }}<sc-if value="{{ loc.hq }}" hint-placeholder-val="{{ false }}"><span class="tcg-loc-badge">{{ loc.label }}</span></sc-if></span>
+                                      <sc-if value="{{ loc.hasAddress }}" hint-placeholder-val="{{ true }}"><span class="tcg-loc-sub">{{ loc.summary }}</span></sc-if>
+                                    </span>
+                                    <span class="tcg-loc-chev" aria-hidden="true"></span>
+                                  </button>
+                                </h5>
+                                <sc-if value="{{ loc.showPanel }}" hint-placeholder-val="{{ false }}">
+                                  <div id="{{ loc.panelId }}" class="tcg-loc-acc" role="region" aria-labelledby="{{ loc.btnId }}" hidden="{{ loc.panelHidden }}">
+                                    <address class="tcg-loc-addr" style="margin:0 0 20px;">
+                                      <sc-for list="{{ loc.lines }}" as="ln" hint-placeholder-count="4"><span style="display:block;">{{ ln.text }}</span></sc-for>
+                                    </address>
+                                    <a class="tcg-loc-go" href="{{ loc.directions }}" target="_blank" rel="noopener noreferrer">Get Directions<span class="tcg-loc-sr"> to {{ loc.fullName }} (opens Google Maps in a new tab)</span>
+                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+                                    </a>
+                                  </div>
+                                </sc-if>
+                              </li>
+                            </sc-for>
+                          </ul>
+                        </li>
+                      </sc-for>
+                    </ul>
+                  </div>
+                </sc-for>
               </sc-if>
 
               <sc-if value="{{ locNoResults }}" hint-placeholder-val="{{ false }}">
@@ -957,15 +977,17 @@
                     <span style="font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:{{ locDetail.eyebrowColor }};">{{ locDetail.eyebrow }}</span>
                   </div>
                   <h2 style="font-family:'DashFix','Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.2vw,42px);line-height:1.1;margin:0 0 26px;color:#1B2A4E;">{{ locDetail.name }}</h2>
-                  <div style="border-top:1px solid #E8E2D6;padding-top:22px;">
-                    <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#6b6656;margin-bottom:10px;">Address</div>
-                    <address class="tcg-loc-addr" style="font-size:17px;margin:0 0 30px;">
-                      <sc-for list="{{ locDetail.lines }}" as="ln" hint-placeholder-count="4"><span style="display:block;">{{ ln.text }}</span></sc-for>
-                    </address>
-                  </div>
-                  <a class="tcg-loc-go" href="{{ locDetail.directions }}" target="_blank" rel="noopener noreferrer">Get Directions<span class="tcg-loc-sr"> to {{ locDetail.fullName }} (opens Google Maps in a new tab)</span>
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>
-                  </a>
+                  <sc-if value="{{ locDetail.hasAddress }}" hint-placeholder-val="{{ true }}">
+                    <div style="border-top:1px solid #E8E2D6;padding-top:22px;">
+                      <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#6b6656;margin-bottom:10px;">Address</div>
+                      <address class="tcg-loc-addr" style="font-size:17px;margin:0 0 30px;">
+                        <sc-for list="{{ locDetail.lines }}" as="ln" hint-placeholder-count="4"><span style="display:block;">{{ ln.text }}</span></sc-for>
+                      </address>
+                    </div>
+                    <a class="tcg-loc-go" href="{{ locDetail.directions }}" target="_blank" rel="noopener noreferrer">Get Directions<span class="tcg-loc-sr"> to {{ locDetail.fullName }} (opens Google Maps in a new tab)</span>
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>
+                    </a>
+                  </sc-if>
                 </div>
               </div>
             </sc-if>
@@ -1009,12 +1031,12 @@
                 <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#8B8676;margin-bottom:16px;">ADDRESS</div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px 28px;" data-office-list="">
                   <div>
-                    
+                    <div style="font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8a6d40;margin-bottom:8px;">UK Head Office</div>
                     <address style="font-style: normal; font-size: 16.5px; line-height: 1.6; color: #1B2A4E; font-weight: 500">13 Hanover Square<br>Mayfair<br>London<br>W1S 1HN</address>
                   </div>
                   <div>
-                    
-                    
+                    <div style="font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8a6d40;margin-bottom:8px;">Middle East Head Office</div>
+                    <address style="font-style: normal; font-size: 16.5px; line-height: 1.6; color: #1B2A4E; font-weight: 500">Boulevard Plaza<br>Tower 1<br>Level 9<br>Sheikh Mohammed Bin Rashid Boulevard<br>Dubai<br>United Arab Emirates</address>
                   </div>
                   <div>
                     
@@ -1120,8 +1142,8 @@
           <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#CDB68E;margin-bottom:20px;">ABOUT US</div>
           <a href="/" onClick="{{ goHome }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Home</a>
           <a href="/" onClick="{{ goServices }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Services</a>
-          <a href="/our-team" onClick="{{ goOurTeam }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Our Team</a>
-          <a href="/professional-advisers" onClick="{{ goProfAdvisers }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Professional Advisers</a>
+          <a href="/our-team" onClick="{{ goOurTeam }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Our Senior Team</a>
+          <a href="/about-us" onClick="{{ goAboutUs }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">About Us</a>
           <a href="/locations" onClick="{{ goLocations }}" style="display:block;font-size:14.5px;color:rgba(255,255,255,0.72);padding:7px 0;cursor:pointer;transition:color .2s;" style-hover="color:#fff;">Locations</a>
         </div>
         <div>
@@ -1131,7 +1153,7 @@
         </div>
         <div>
           <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#CDB68E;margin-bottom:20px;">CONTACT US</div>
-          <div style="font-size:14.5px;line-height:1.7;color:rgba(255,255,255,0.6);"><a href="mailto:enquiries@taxconsulting.co.uk" style="color:rgba(255,255,255,0.72);transition:color .2s;cursor:pointer;" style-hover="color:#fff;">enquiries@taxconsulting.co.uk</a><br><a href="tel:+442036338934" style="color:rgba(255,255,255,0.72);transition:color .2s;cursor:pointer;" style-hover="color:#fff;">+44 (0)203 633 8934</a><br><span style="font-size: 14.5px; color: #ffffffb8; font-family: inherit">13 Hanover Square, Mayfair, London, W1S 1HN</span></div>
+          <div style="font-size:14.5px;line-height:1.7;color:rgba(255,255,255,0.6);"><a href="mailto:enquiries@taxconsulting.co.uk" style="color:rgba(255,255,255,0.72);transition:color .2s;cursor:pointer;" style-hover="color:#fff;">enquiries@taxconsulting.co.uk</a><br><a href="tel:+442036338934" style="color:rgba(255,255,255,0.72);transition:color .2s;cursor:pointer;" style-hover="color:#fff;">+44 (0)203 633 8934</a><span style="display:block;margin-top:12px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#CDB68E;">UK Head Office</span><span style="font-size: 14.5px; color: #ffffffb8; font-family: inherit">13 Hanover Square, Mayfair, London, W1S 1HN</span><span style="display:block;margin-top:12px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#CDB68E;">Middle East Head Office</span><span style="font-size: 14.5px; color: #ffffffb8; font-family: inherit">Boulevard Plaza, Tower 1, Level 9, Sheikh Mohammed Bin Rashid Boulevard, Dubai, United Arab Emirates</span></div>
           <div style="margin-top:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
             <button onClick="{{ goContact }}" style="background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;padding:11px 22px;border-radius:2px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .25s;" style-hover="background:#B08E5A;border-color:#B08E5A;color:#15203B;">Contact Us</button>
             <a href="https://www.linkedin.com/company/tax-consulting-group/" target="_blank" rel="noopener noreferrer" aria-label="Tax Consulting Group LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.72);transition:all .25s;flex:0 0 auto;" style-hover="background:#B08E5A;border-color:#B08E5A;color:#15203B;">
@@ -1161,8 +1183,8 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;propertyTaxLastFocus&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Stamp Duty Land Tax&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Property Tax page&quot;}}">
 const SERVICES = [
-  { n:"1", slug:"private-wealth-inheritance-tax-estate-planning", title:"Private Wealth, Inheritance Tax and Estate Planning", cta:"Discuss your IHT and estate planning requirements with our team",
-    desc:"Specialist Inheritance Tax and estate planning services for high & ultra-high-net-worth private clients and families, including tax efficient succession planning strategies, generational wealth protection and family governance.",
+  { n:"1", slug:"private-wealth-inheritance-tax-estate-planning", title:"Private Wealth, Inheritance Tax and Succession Planning", cta:"Discuss your IHT and estate planning requirements with our team",
+    desc:"Specialist Inheritance Tax and private wealth structuring services for high & ultra-high-net-worth private clients and families, including tax efficient succession planning strategies, generational wealth protection and family governance.",
     intro:"Strategic generational planning that safeguards family wealth and business legacy for future generations.",
     paras:[
       "We provide strategic planning and advisory services to families and high-net-worth individuals to manage their IHT exposures. We build strong relationships with clients and understand their objectives to provide commercially driven generational planning and family governance advice, ensuring family wealth is passed to the next generation tax efficiently.",
@@ -1175,8 +1197,8 @@ const SERVICES = [
     areasLabel:"Core areas of focus",
     areas:["Tax efficient succession planning","Wealth preservation strategies and family governance","Family buyouts","Family Investment Companies","Trust advisory","Will planning","Family office support"] },
 
-  { n:"2", slug:"property-tax", title:"Property Tax Advisory", cta:"Discuss your property tax requirements with our team",
-    desc:"Property tax advisory services for investors and developers, including portfolio restructuring, UK inbound and outbound tax efficient investment strategies, SDLT and capital allowances.",
+  { n:"2", slug:"property-tax", title:"Property Tax Structuring and Reliefs", cta:"Discuss your property tax requirements with our team",
+    desc:"Property tax advisory services for investors and developers, including portfolio structuring, UK inbound and outbound tax efficient investment strategies, capital allowances and Stamp Duty Land Tax.",
     intro:"Commercially driven tax advisory services for investors and developers across all areas of land and property.",
     paras:[
       "We advise property owners, developers and investors across all aspects of property taxation matters. We are one of the leading property tax experts and our CEO Zeeshan Khilji is the author of Bloomsbury’s Property Tax Planning, one of the leading publications in this area.",
@@ -1188,7 +1210,7 @@ const SERVICES = [
     areasLabel:"Core areas of focus",
     areas:["Property portfolio structuring","Real estate and M&A","International structuring","Capital allowances","VAT and property","Stamp Duty Land Tax"] },
 
-  { n:"3", slug:"international-tax-cross-border-structuring", title:"International Tax and Cross-Border Structuring", cta:"Discuss your international tax requirements with our team",
+  { n:"3", slug:"international-tax-cross-border-structuring", title:"International and Cross-Border Tax", cta:"Discuss your international tax requirements with our team",
     desc:"Specialist cross-border tax solutions for businesses and international private clients, covering global mobility, residency planning, Double Tax Treaties, Transfer Pricing and UK inbound & outbound structuring advice. ",
     intro:"Specialist international tax advisory and cross-border structuring services for internationally mobile families and entrepreneurs.",
     paras:[
@@ -1202,7 +1224,22 @@ const SERVICES = [
     areasLabel:"Core areas of focus",
     areas:["Global mobility","Personal and corporate tax residency","Cross-border structuring","Foreign Income and Gains regime","Double Tax Treaties","Transfer Pricing","UK inbound and outbound investment structuring","UAE and GCC tax advisory and corporate services"] },
 
-  { n:"4", slug:"corporate-transactions-reorganisations-reconstructions", title:"Corporate Transactions, Reorganisations and Reconstructions", cta:"Discuss your corporate transaction tax requirements with our team",
+  { n:"4", slug:"uae-gcc", title:"UAE and GCC Services (TCG Middle East)", cta:"Discuss your UAE and Middle Eastern tax and corporate services requirements with our team",
+    desc:"Specialist UAE & wider GCC tax, cross-border structuring, international mobility and corporate services for UK, Middle Eastern and global private and corporate clients.",
+    intro:"Specialist UAE and GCC tax, corporate, private wealth and real estate structuring services.",
+    paras:[
+      "Our Middle Eastern firm provides specialist UAE and wider GCC tax, global mobility, corporate structuring and real estate services to high-net-worth private clients, expats, private businesses and international families.",
+      "We support our clients throughout the business lifecycle, from corporate set up to tax efficient structuring and exit planning. We have extensive experience with helping families, entrepreneurs and investors enter the UAE and wider GCC / Middle Eastern market, implementing tax efficient corporate, private wealth and real estate structures and managing ongoing tax compliance. With strong contacts at government level and extensive knowledge of the local market, we deliver an integrated suite of relocation and structuring services for businesses establishing a footprint across the GCC, particularly the UAE.",
+      "Our model combines tailored and bespoke advisory with timely execution, ensuring clients enter the region with clarity and confidence, whilst ensuring their compliance and regulatory obligations are met. We provide ongoing support to you and your business post set up, acting as your dedicated advisers, providing proactive tax compliance and advisory services to your business, including implementing and managing robust corporate governance frameworks.",
+      "With global mobility on the rise, demand for technically strong and commercial crossborder tax advice has grown significantly. Our team provides expert cross-border structuring and residency planning for international clients entering or expanding to the UAE and wider GCC.",
+      "We also work extensively with Middle Eastern and international families, advising them on tax efficient structuring of their international asset portfolios, succession planning, family governance and wealth preservation strategies. With a large number of Middle Eastern clients with assets in the UK particularly real estate portfolios, we extensively advise families on implementing tax efficient ownership structures to help mitigate long term tax exposures.",
+      "In collaboration with our real estate partners, we also work extensively with investors to provide real estate advisory services to international investors investing into the region.",
+      "We provide fully integrated accounting, financial reporting and tax compliance services to businesses operating in the UAE. Our team delivers proactive and commercially focused support throughout the year, enabling clients to meet regulatory obligations while maintaining strong financial governance. We also provide outsourced CFO services to businesses, providing strategic support across every stage of the business lifecycle and advising businesses on building in-house finance functions."
+    ],
+    areasLabel:"Core areas of focus",
+    areas:["Comprehensive relocation support, global mobility and corporate formation services for UAE and GCC inbound families and entrepreneurs","Strategic tax planning, international structuring and cross-border solutions for businesses and families","Expert guidance on real estate transactions, structuring and financing across the region via our real estate partners","Bespoke wealth preservation strategies, asset protection solutions and succession planning including trusts, foundations and wills","Family governance and constitutional frameworks","Comprehensive UAE accounting and tax compliance services including outsourced CFO support","UAE residency visas and advisory services for families and entrepreneurs","Corporate structuring, licensing and regulatory approvals","Banking and concierge service","UK – UAE tax residency and Federal Tax Authority (FTA) residency certificates"] },
+
+  { n:"5", slug:"corporate-transactions-reorganisations-reconstructions", title:"Corporate Transactions, Reorganisations and Reconstructions", cta:"Discuss your corporate transaction tax requirements with our team",
     desc:"Holistic tax advisory services across all aspects of corporate transactional matters, including M&A, corporate structuring, company reorganisations and reconstructions.",
     intro:"Commercial and practical tax advice on all aspects of corporate transactional matters.",
     paras:[
@@ -1213,7 +1250,7 @@ const SERVICES = [
     areasLabel:"Core areas of focus",
     areas:["Statutory and non-statutory demergers","Share for share exchanges and group structures","HMRC clearance applications","M&A and deal structuring","Buy side and sell side tax due diligence","Management buyouts","Company Purchase of Own Shares","Tax efficient exit planning strategies"] },
 
-  { n:"5", slug:"employee-ownership-share-incentives", title:"Employee Ownership and Share Incentives", cta:"Discuss your employee share incentive requirements with our team",
+  { n:"6", slug:"employee-ownership-share-incentives", title:"Employee Ownership and Share Incentives", cta:"Discuss your employee share incentive requirements with our team",
     desc:"Employee and management incentives, share option schemes, Employee Ownership Trusts (EOTs) and growth shares.",
     intro:"Tax efficient employee and management incentives, equity rewards and HMRC approved share option schemes to incentivise key employees and management.",
     paras:[
@@ -1227,7 +1264,7 @@ const SERVICES = [
     areasLabel:"Core areas of focus",
     areas:["Enterprise Management Incentive (EMI) scheme","Share Incentive Plan (SIP)","Save as you Earn (SAYE)","Company Share Option Plan (CSOP)","Ongoing support post share incentive structure implementation","Employee ownership trusts","Growth shares","Share valuations","Employment related securities annual reporting"] },
 
-  { n:"6", slug:"tax-efficient-investments", title:"Tax Efficient Investments", cta:"Discuss your tax efficient investments enquiries with our team",
+  { n:"7", slug:"tax-efficient-investments", title:"Tax Efficient Investments", cta:"Discuss your tax efficient investments enquiries with our team",
     desc:"Tax efficient investment solutions for investors, private clients and startups, including venture capital reliefs and qualifying overseas pension schemes.",
     intro:"Tax efficient investment solutions for investors, private clients and startups.",
     paras:[
@@ -1239,7 +1276,7 @@ const SERVICES = [
     areasLabel:"Core areas of focus",
     areas:["EIS, SEIS and VCT advice for individuals, companies and funds","Advance assurance applications to HMRC","Tax efficient investment structuring","Offshore bonds","QROPS and QNUPS"] },
 
-  { n:"7", slug:"intellectual-property-innovation-tax-reliefs", title:"Intellectual Property and Innovation Tax Reliefs", cta:"Discuss your IP and innovation tax relief requirements with our team",
+  { n:"8", slug:"intellectual-property-innovation-tax-reliefs", title:"Intellectual Property and Innovation Tax Reliefs", cta:"Discuss your IP and innovation tax relief requirements with our team",
     desc:"Specialist innovation tax and intellectual property (IP) services for tech and IP intensive companies including tax efficient IP structuring, R&D and patent box reliefs.",
     intro:"Specialist R&D, Patent Box and intellectual property relief and structuring services for tech driven and IP intensive companies.",
     paras:[
@@ -1254,7 +1291,7 @@ const SERVICES = [
     areasLabel:"Core areas of focus",
     areas:["Tax efficient Intellectual Property structuring","IP holding companies and group structures","R&D claim preparation and submission","Patent Box claims","HMRC enquiries support","Second opinions and reviews"] },
 
-  { n:"8", slug:"tax-dispute-resolution", title:"Tax Dispute Resolution Services", cta:"Discuss your tax dispute resolution requirements with our team",
+  { n:"9", slug:"tax-dispute-resolution", title:"Tax Dispute Resolution Services", cta:"Discuss your tax dispute resolution requirements with our team",
     desc:"Specialist support with HMRC enquiries, compliance checks and voluntary disclosures from an experienced tax dispute resolution team.",
     intro:"Specialist support with HMRC enquiries, compliance checks and voluntary disclosures from an experienced tax dispute resolution team.",
     paras:[
@@ -1266,7 +1303,7 @@ const SERVICES = [
     areasLabel:"Core areas of focus",
     areas:["HMRC enquiries","Voluntary disclosures to HMRC","Let Property Campaign and the Worldwide Disclosure Facility","General investigations support"] },
 
-  { n:"9", slug:"vat-advisory", title:"VAT Advisory", cta:"Discuss your VAT advisory requirements with our team",
+  { n:"10", slug:"vat-advisory", title:"VAT Advisory", cta:"Discuss your VAT advisory requirements with our team",
     desc:"Expert advisory services to businesses across all areas of VAT.",
     intro:"Practical VAT advice to help businesses manage VAT risks.",
     paras:[
@@ -1280,15 +1317,19 @@ const SERVICES = [
 ];
 const TEAM = [
   { name:"Zeeshan Khilji CTA", img:"assets/team/zeeshan-khilji.webp", bio:[
-    `Zeeshan is TCG’s CEO and a Chartered Tax Adviser and published tax author. Prior to establishing TCG, Zeeshan spent over a decade working for Big Four, Top 10 and independent firms.`,
-    `Zeeshan specialises in advising high & ultra-high-net-worth private clients, families and corporates on private wealth structuring, IHT, real estate, cross-border tax, corporate transactions and reorganisations.`,
-    `Zeeshan is the author of Bloomsbury’s Property Tax Planning and co-author of Taxation of Intellectual Property publications. He particularly enjoys working with other professional advisers to support them with delivering specialist tax advisory services to their clients.`,
-    `Zeeshan has an extensive network of professional advisers across Europe, Middle East, US and Southeast Asia, who he regularly partners with on international tax advisory matters.`
+    `Zeeshan is a Chartered Tax Adviser and published tax author. His main areas of focus include IHT, tax efficient exit & succession planning, property tax, cross-border structuring, corporate transactions, company reorganisations and intellectual property tax.`,
+    `He is the author of Bloomsbury’s Property Tax Planning and co-author of Taxation of Intellectual Property publications. Prior to establishing TCG, Zeeshan spent over a decade working for Big Four, Top 10 and independent firms.`,
+    `Zeeshan is passionate about delivering holistic and solution-focused tax advisory services to clients, using a commercial and integrated approach that recognises entrepreneurs and their businesses as a single composite client, taking into account all relevant personal and corporate taxes.`,
+    `He particularly enjoys working with other professional advisers to support them with delivering specialist tax advisory services to clients. Zeeshan has an extensive network of professional advisers across Europe, Middle East, USA and Southeast Asia, who he regularly partners with on international tax advisory matters.`
+  ] },
+  { name:"Cathrin Richards", img:"assets/team/cathrin-richards.webp", bio:[
+    `Cathrin has many years' experience as a specialist tax adviser, working with a range of private clients, businesses and their owners. Prior to joining TCG, she was a tax partner at a Top 10 accountancy firm with a mixed portfolio of clients including private individuals, families and companies across a diverse range of sectors.`,
+    `Over the years, the focus of her advice has encompassed a wide range of areas including IHT planning, corporate reorganisations & reconstructions, business exit strategies, tax due diligence and structuring (including advising on private equity transactions) and aspects of international tax matters, both from corporate and personal viewpoints.`,
+    `Cathrin also has extensive practical experience of R&D tax relief and patent box, as well as dealing with share incentives and venture capital reliefs.`
   ] },
   { name:"John Kavanagh CTA ATT", img:"assets/team/john-kavanagh.webp", bio:[
-    `John has over 35 years of experience in all aspects of UK and international tax, advising a wide range of clients from private individuals, owner managed businesses, publicly owned groups, trustees, executors and a Fortune 100 bank.`,
+    `John is a Chartered Tax Adviser and a member of the Association of Taxation Technicians. He has over 35 years of experience in all aspects of UK and international tax, advising a wide range of clients from private individuals, owner managed businesses, publicly owned groups, trustees, executors and a Fortune 100 bank.`,
     `John worked initially for HMRC and then spent 7 years with Deloitte, where he qualified as a Chartered Tax Adviser. He subsequently took up positions as a specialist Tax Partner in a Top 10 accountancy firm and as a board director of a City Tax boutique.`,
-    `As well as being a Chartered Tax Adviser, John is also a member of the Association of Taxation Technicians.`,
     `John has written on many occasions for the professional press, in titles such as Taxation, Tax Journal, the Journal of International Taxation and Accountancy, and for specialist websites such as Taxationweb.`
   ] },
   { name:"Ken Moody CTA ATT", img:"assets/team/ken-moody.webp", bio:[
@@ -1296,33 +1337,36 @@ const TEAM = [
     `Ken is a published tax author and was awarded the Fellowship of the CIOT in 2011 for his work "Employment-Related Securities and Unlisted Companies", published by Spiramus. He also contributes regular articles to professional journals including Tax Insider and also worked as an examiner for the CIOT for several years.`
   ] },
   { name:"Duncan Meredith CTA", img:"assets/team/duncan-meredith.webp", bio:[
-    `Duncan has over 30 years of experience as a tax adviser. He trained and worked for Big 4 firms, as well as mid-tier and independent firms, with a focus on owner-managed businesses, families and high-net-worth private clients. Duncan has written many articles for the press and lectures on tax topics.`,
+    `Duncan is a Chartered Tax Adviser with over 30 years of specialist tax advisory experience. He trained and worked for Big 4 firms, as well as mid-tier and independent firms, with a focus on private businesses, families and high-net-worth private clients. Duncan has written many articles for the press and lectures on tax topics.`,
     `Duncan is particularly well known amongst his clients for explaining complex issues in an easily understood manner.`
   ] },
   { name:"Andrew McKenna CTA ATT CEDR", img:"assets/team/andrew-mckenna.webp", bio:[
-    `Andrew has over 25 years' experience in dealing with tax disputes, including working for HMRC as an Investigator for 17 years and as a Tax Partner for a Top 10 firm, assisting individuals, businesses, trustees and other professionals to resolve tax disputes and enquiries.`,
-    `Andrew is a Chartered Tax Advisor (CTA) and member of the CIOT Taxes Administration Sub-Committee. He is also a CEDR (Centre for Effective Dispute Resolution) accredited meditator with experience of using ADR (Alternative Dispute Resolution) to move contentious HMRC cases to settlement without litigation.`
+    `Andrew is a Chartered Tax Advisor (CTA) and member of the CIOT Taxes Administration Sub-Committee. He is also a CEDR (Centre for Effective Dispute Resolution) accredited mediator with experience of using ADR (Alternative Dispute Resolution) to move contentious HMRC cases to settlement without litigation.`,
+    `He has over 25 years' experience in dealing with tax disputes, including working for HMRC as an Investigator for 17 years and as a Tax Partner for a Top 10 firm, assisting individuals, businesses, trustees and other professionals to resolve tax disputes and enquiries.`
   ] },
   { name:"Tim Mallon CTA", img:"assets/team/tim-mallon.webp", bio:[
     `Tim is a Chartered Tax Adviser with over 35 years of specialist tax advisory experience covering all areas of direct taxes. Tim is a former Chair of the North East England branch of the Chartered Institute of Taxation. He is well known amongst clients and other professional advisers for his clear and practical advice.`
   ] },
-  { name:"Hilary Bevan CTA", img:"assets/team/hilary-bevan.webp", bio:[
-    `Hilary is a Chartered Tax Adviser and a VAT specialist with twenty years of experience working in accountancy and tax. She has built up extensive technical knowledge over her years in practice and provides VAT advice on a range of topics. With a true passion for VAT, Hilary delivers regular talks and presentations on the subject. `
-  ] },
-  { name:"Cathrin Richards", img:"assets/team/cathrin-richards.webp", bio:[
-    `Cathrin has many years' experience as a specialist tax adviser, working with a range of private clients, businesses and their owners. Prior to joining TCG, she was a tax partner at a Top Ten 10 accountancy firm with a mixed portfolio of clients including private individuals, families and companies across a diverse range of sectors. Over the years, the focus of her advice has encompassed a wide range of areas including IHT planning, corporate reorganisations & reconstructions, business exit strategies, tax due diligence and structuring (including around private equity backed enterprises) and aspects of international tax matters, both from corporate and personal viewpoints. She has extensive practical experience of R&D tax relief and patent box, as well as dealing with incentivisation and funding related areas such as EMI schemes and EIS relief.`
-  ] },
-  { name:"Jay Doshi", img:"assets/team/jay-doshi.webp", bio:[
-    `Jay began his tax career with Coopers & Lybrand in 1981 and has since developed extensive experience across both private client and corporate taxation. He has held senior tax roles within leading accountancy firms and has also lectured and presented tax seminars for advisers and clients. He advises on complex tax matters where clear thinking and practical implementation are important. His approach is to understand the client’s wider commercial, financial and family objectives, identify the available options and associated risks and provide clear and practical advice. Jay's primary areas of expertise include inheritance tax and succession planning, cross-border tax, taxation of corporate transactions, employee share incentives and HMRC disputes.`
-  ] },
   { name:"Chris Thorpe LLB CTA (Fellow) TEP ATT", img:"assets/team/chris-thorpe.webp", bio:[
-    `Chris originally qualified as a barrister and is a Fellow of the Chartered Institute of Taxation and a full member of the Society of Trust and Estate Practitioners (STEP). He qualified as a Chartered Tax Adviser with Grant Thornton in 2011. Chris has particular expertise in private client tax matters, including inheritance tax, succession and estate planning, as well as all aspects of family and owner-managed businesses taxation. Chris is the author of "Implied Trusts and Beneficial Ownership in Modern UK Tax Law". He has published several peer-reviewed articles in academic journals and has also worked as a technical offer for the Chartered Institute of Taxation.`
+    `Chris originally qualified as a barrister and is a Fellow of the Chartered Institute of Taxation and a full member of the Society of Trust and Estate Practitioners (STEP), having qualified as a Chartered Tax Adviser with Grant Thornton in 2011.`,
+    `Chris has particular expertise in private client tax matters, including inheritance tax, succession and estate planning, as well as all aspects of family and owner-managed businesses taxation. Chris is the author of "Implied Trusts and Beneficial Ownership in Modern UK Tax Law". He has published several peer-reviewed articles in academic journals and has also worked as a technical officer for the Chartered Institute of Taxation.`
   ] },
   { name:"Susie Moore", img:"assets/team/susie-moore.webp", bio:[
     `Susie is a Chartered Tax Advisor and legally trained international tax specialist with over 20 years of experience in cross-border tax structuring, compliance and strategic advisory.`,
     `With extensive experience in both the UK and the Middle East, Susie has developed deep regional expertise in UK–UAE taxation and a practical understanding of how international and domestic tax regimes interact. She specialises in helping business owners, multinational groups, high-net-worth individuals and family offices navigate the complexities of relocation, business expansion and corporate structuring between the UK, UAE and wider GCC region.`,
     `Susie has held senior positions at leading global firms including PwC, BDO, and CGI in Dubai, where she advised on complex international tax planning, transfer pricing, intellectual property structuring, foundations and corporate residency across numerous jurisdictions including the UK, UAE, Europe, the US, and key GCC markets.`,
     `Her expertise lies in designing and implementing tax-efficient, compliant and scalable structures that align with commercial objectives and support long-term growth, investment and exit strategies.`
+  ] },
+  { name:"Jay Doshi", img:"assets/team/jay-doshi.webp", bio:[
+    `Jay began his tax career with Coopers & Lybrand in 1981. In a career spanning 40 years, he has developed extensive experience across both private client and corporate taxation, having held senior tax roles within leading accountancy firms, as well as lecturing and presenting tax seminars for advisers and clients.`,
+    `Jay advises on complex tax matters where clear thinking and practical implementation are important. His approach is to understand the client’s wider commercial, financial and family objectives, identify the available options and associated risks and provide clear and practical advice. Jay’s primary areas of expertise include inheritance tax and succession planning, cross-border tax, taxation of corporate transactions, employee share incentives and HMRC disputes.`
+  ] },
+  { name:"Ashraful Alam", img:"assets/team/ashraful-alam.webp", bio:[
+    `Ashraful has over 15 years’ experience advising private clients and business owners on tax efficient wealth structuring. His clients include senior executives at FTSE 100 companies, investment bankers and business owners, as well as non-UK domiciled and internationally mobile individuals and families.`,
+    `Ashraful specialises in business exit and succession planning, inheritance tax, legacy planning and senior executive compensation.`
+  ] },
+  { name:"Hilary Bevan CTA", img:"assets/team/hilary-bevan.webp", bio:[
+    `Hilary is a Chartered Tax Adviser and a VAT specialist with twenty years of experience working in accountancy and tax. She has built up extensive technical knowledge over her years in practice and provides VAT advice on a range of topics. With a true passion for VAT, Hilary delivers regular talks and presentations on the subject. `
   ] }
 ];
 const TESTIMONIALS = [
@@ -1455,48 +1499,50 @@ const PUBLICATIONS = [
     desc:"This specialist title analyses the approach of the UK tax regime towards intellectual property assets, following the life-cycle of intellectual property from creation to disposal." }
 ];
 
-// Head office first, then alphabetical. Address lines are rendered and searched as-is.
+// Grouped by country, then region, in the client's order; the template shows both as headings.
+// Address lines are rendered and searched as-is; an office with no lines yet shows its name only.
+const LOC_UK = "United Kingdom", LOC_UAE = "United Arab Emirates";
 const LOCATIONS = [
-  { id:"london-head-office", name:"London", label:"Head Office", headOffice:true, lines:["13 Hanover Square","Mayfair","London","W1S 1HN"] },
-  { id:"birmingham", name:"Birmingham", lines:["11 Brindleyplace","2 Brunswick Square","Birmingham","B1 2LP"] },
-  { id:"bristol", name:"Bristol", lines:["Vintry Building","20 Wine Street","Bristol","BS1 2BD"] },
-  { id:"cambridge", name:"Cambridge", lines:["Future Business Centre","Cambridge Campus","Kings Hedges Road","Cambridge","CB4 2HY"] },
-  { id:"cardiff", name:"Cardiff", lines:["Wellington House (First Floor)","Wellington Street","Cardiff","CF11 9BE"] },
-  { id:"edinburgh", name:"Edinburgh", lines:["21 Young Street","Edinburgh","EH2 4HU"] },
-  { id:"glasgow", name:"Glasgow", lines:["6th Floor","7 Buchanan Street","Glasgow","G1 3HL"] },
-  { id:"leeds", name:"Leeds", lines:["46 Park Place","Leeds","LS1 2RY"] },
-  { id:"liverpool", name:"Liverpool", lines:["Rodney Chambers","40 Rodney Street","Liverpool","L1 9AA"] },
-  { id:"london-lower-thames-street", name:"London – Lower Thames Street", lines:["10 Lower Thames Street","London","EC3R 6AF"] },
-  { id:"manchester", name:"Manchester", lines:["91 Princess Street","Manchester","M1 4HT"] },
-  { id:"milton-keynes", name:"Milton Keynes", lines:["3rd Floor Elder House West","Elder Gate","Milton Keynes","MK9 1LR"] },
-  { id:"newcastle", name:"Newcastle", lines:["Clavering House","Clavering Place","Newcastle upon Tyne","Tyne and Wear","NE1 3NG"] },
-  { id:"nottingham", name:"Nottingham", lines:["2 King Street","Nottingham","NG1 2AS"] },
-  { id:"reading", name:"Reading", lines:["Quadrant House","Broad St Mall","Reading","RG1 7QE"] },
-  { id:"sheffield", name:"Sheffield", lines:["First Floor Enterprise House","Unit 1 Broadfield Business Park","Sheffield","S8 0XF"] },
-  { id:"southampton", name:"Southampton", lines:["Enterprise House","Ocean Village","Southampton","SO14 3XB"] }
+  { id:"london-head-office", country:LOC_UK, region:"London", name:"London", label:"UK Head Office", headOffice:true, lines:["13 Hanover Square","Mayfair","London","W1S 1HN"] },
+  { id:"london-lower-thames-street", country:LOC_UK, region:"London", name:"London – Lower Thames Street", lines:["10 Lower Thames Street","London","EC3R 6AF"] },
+  { id:"birmingham", country:LOC_UK, region:"Midlands", name:"West Midlands (Birmingham)", lines:["11 Brindleyplace","2 Brunswick Square","Birmingham","B1 2LP"] },
+  { id:"nottingham", country:LOC_UK, region:"Midlands", name:"East Midlands (Nottingham)", lines:["2 King Street","Nottingham","NG1 2AS"] },
+  { id:"manchester", country:LOC_UK, region:"North", name:"Manchester", lines:["91 Princess Street","Manchester","M1 4HT"] },
+  { id:"leeds", country:LOC_UK, region:"North", name:"Leeds", lines:["46 Park Place","Leeds","LS1 2RY"] },
+  { id:"liverpool", country:LOC_UK, region:"North", name:"Liverpool", lines:["Rodney Chambers","40 Rodney Street","Liverpool","L1 9AA"] },
+  { id:"newcastle", country:LOC_UK, region:"North", name:"Newcastle", lines:["Clavering House","Clavering Place","Newcastle upon Tyne","Tyne and Wear","NE1 3NG"] },
+  { id:"reading", country:LOC_UK, region:"South", name:"Reading", lines:["Quadrant House","Broad St Mall","Reading","RG1 7QE"] },
+  { id:"bristol", country:LOC_UK, region:"South", name:"Bristol", lines:["Vintry Building","20 Wine Street","Bristol","BS1 2BD"] },
+  { id:"southampton", country:LOC_UK, region:"South", name:"Southampton", lines:["Enterprise House","Ocean Village","Southampton","SO14 3XB"] },
+  { id:"cambridge", country:LOC_UK, region:"East", name:"Cambridge", lines:["Future Business Centre","Cambridge Campus","Kings Hedges Road","Cambridge","CB4 2HY"] },
+  { id:"belfast", country:LOC_UK, region:"Northern Ireland", name:"Belfast", lines:["19 Arthur Street","Belfast","BT1 4GA"] },
+  { id:"cardiff", country:LOC_UK, region:"Wales", name:"Cardiff", lines:["Wellington House (First Floor)","Wellington Street","Cardiff","CF11 9BE"] },
+  { id:"glasgow", country:LOC_UK, region:"Scotland", name:"Glasgow", lines:["6th Floor","7 Buchanan Street","Glasgow","G1 3HL"] },
+  { id:"dubai", country:LOC_UAE, name:"Dubai", label:"Middle East Head Office", headOffice:true, lines:["Boulevard Plaza","Tower 1","Level 9","Sheikh Mohammed Bin Rashid Boulevard","Dubai","United Arab Emirates"] }
 ];
 const LOC_MOBILE_MQ = "(max-width: 767px)";
-const locSearchText = (l) => [l.name, l.label || "", ...l.lines].join(" ").toLowerCase();
-const locDirections = (l) => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(l.lines.join(", ") + ", United Kingdom");
+const locSearchText = (l) => [l.name, l.label || "", l.region || "", l.country, ...l.lines].join(" ").toLowerCase();
+const locDirections = (l) => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(locAddr(l).join(", ") + ", " + l.country);
 // List preview: first address line that isn't just a floor number, plus postcode (kept on one line)
-const locSummary = (l) => (l.lines.find(t => !/^\w+ floor$/i.test(t)) || l.lines[0]) + " · " + l.lines[l.lines.length - 1].replace(/ /g, " ");
+const locAddr = (l) => l.lines[l.lines.length - 1] === l.country ? l.lines.slice(0, -1) : l.lines;  // drop a trailing country line
+const locSummary = (l) => { const a = locAddr(l); return !a.length ? "" : (a.find(t => !/^\w+ floor$/i.test(t)) || a[0]) + " · " + a[a.length - 1].replace(/ /g, " "); };
 
 // Page metadata (browser title, meta description, canonical path). Descriptions reuse
 // existing on-page copy. Also read by scripts/build.mjs to prerender each page's <head>.
 const SITE_NAME = "Tax Consulting Group";
 const SITE_URL = "https://www.taxconsulting.co.uk";
 const PAGE_META = {
-  "home": { title:"Tax Consulting Group | Specialist Tax Partners to Accountancy Practices and Wealth Managers",
-    description:"Tax Consulting Group (TCG) is one of the leading independent firms of Chartered Tax Advisers, dedicated to providing specialist tax partner services to accountancy practices, wealth managers and family offices across complex areas of UK and international tax." },
-  "our-team": { title:"Meet Our Team of Senior Experts | Tax Consulting Group",
+  "home": { title:"Tax Consulting Group | Specialist Tax Partners to Accountancy Practices and Wealth Advisory Firms",
+    description:"Tax Consulting Group (TCG) is one of the leading independent firms of Chartered Tax Advisers, dedicated to providing specialist tax partner services to accountancy practices, wealth advisers and their private and corporate clients." },
+  "our-team": { title:"Meet Our Senior Team of Experts | Tax Consulting Group",
     description:"As one of the leading independent tax advisory firms, our team consists of highly experienced and renowned Chartered Tax Advisers and published tax authors." },
-  "professional-advisers": { title:"Professional Advisers | Tax Consulting Group",
-    description:"Specialist Tax Partner and Consultancy Support for Accountancy Practices, Wealth Managers and Family Offices" },
+  "about-us": { title:"About Us | Tax Consulting Group",
+    description:"Specialist Tax Partner Services for Accountancy Practices and Wealth Advisory Firms" },
   "articles": { title:"News, articles and technical updates | Tax Consulting Group",
-    description:"Technical commentary and practical insight on developments across UK and international tax" },
+    description:"Technical commentary and practical insights on tax developments" },
   "publications": { title:"Publications | Tax Consulting Group",
-    description:"Specialist Publications written for Bloomsbury Professional." },
-  "locations": { title:"Our Locations | Tax Consulting Group",
+    description:"Specialist publications written for Bloomsbury Professional" },
+  "locations": { title:"Our office locations | Tax Consulting Group",
     description:"Find Tax Consulting Group locations across the United Kingdom." },
   "contact": { title:"Contact Us | Tax Consulting Group",
     description:"Get in touch to find out more about our specialist tax services and how our team can help." },
@@ -1532,7 +1578,7 @@ class Component extends DCLogic {
     errors:{}, submitted:false, submitting:false, submitError:""
   };
 
-  _valid = ["home","our-team","articles","publications","professional-advisers","locations","contact","privacy-policy","terms-and-conditions"];
+  _valid = ["home","our-team","articles","publications","about-us","locations","contact","privacy-policy","terms-and-conditions"];
 
   // Production uses clean paths (/our-team). When the page is opened as the .dc.html
   // source file (Claude Design preview) it keeps the original #/route links.
@@ -1588,6 +1634,7 @@ class Component extends DCLogic {
       if (SERVICES.some(s => s.slug === slug)) return { route:"service-detail", slug, articleSlug:null };
       return { route:"service-detail", slug: SERVICES[0].slug, articleSlug:null };
     }
+    if (h === "professional-advisers") h = "about-us"; // page renamed; old links still work
     if (h === "services") return { route:"service-detail", slug: SERVICES[0].slug, articleSlug:null };
     if (h.indexOf("articles/") === 0) {
       const aslug = h.slice("articles/".length);
@@ -1922,18 +1969,28 @@ class Component extends DCLogic {
     const lSelId = lMatches.some(l => l.id===this.state.locSel) ? this.state.locSel : (lMatches[0] ? lMatches[0].id : null);
     const lFullName = (l) => l.headOffice ? l.name + " " + l.label : l.name;
     const locList = lMatches.map(l => {
-      const sel = l.id===lSelId, open = l.id===this.state.locOpen;
+      const sel = l.id===lSelId, open = l.id===this.state.locOpen, hasAddr = l.lines.length > 0;
       return {
-        id:l.id, name:l.name, label:l.label || "", hq:!!l.headOffice, fullName:lFullName(l),
-        summary:locSummary(l), lines:l.lines.map(t => ({ text:t })), directions:locDirections(l),
+        id:l.id, name:l.name, label:l.label || "", hq:!!l.headOffice, fullName:lFullName(l), country:l.country, region:l.region || "",
+        summary:locSummary(l), lines:l.lines.map(t => ({ text:t })), directions:hasAddr ? locDirections(l) : "",
+        hasAddress:hasAddr, noAddress:!hasAddr,
         btnId:"loc-btn-" + l.id, panelId:"loc-panel-" + l.id,
         active: lMob ? open : sel,
         ariaCurrent: (!lMob && sel) ? "true" : undefined,
-        ariaExpanded: lMob ? open : undefined,
-        ariaControls: lMob ? "loc-panel-" + l.id : undefined,
-        showPanel: lMob, panelHidden: !open,
+        ariaExpanded: lMob && hasAddr ? open : undefined,
+        ariaControls: lMob && hasAddr ? "loc-panel-" + l.id : undefined,
+        showPanel: lMob && hasAddr, panelHidden: !open,
         select:()=>this.selectLoc(l.id)
       };
+    });
+    // country > region > offices, both in LOCATIONS order; groups with no search matches drop out
+    const locGroups = [];
+    locList.forEach(l => {
+      let g = locGroups[locGroups.length - 1];
+      if (!g || g.name !== l.country) locGroups.push(g = { name:l.country, regions:[] });
+      let rg = g.regions[g.regions.length - 1];
+      if (!rg || rg.name !== l.region) g.regions.push(rg = { name:l.region, hasName:!!l.region, items:[] });
+      rg.items.push(l);
     });
     const lSel = lSelId ? LOCATIONS.find(l => l.id===lSelId) : null;
     const locDetail = lSel ? {
@@ -1941,7 +1998,8 @@ class Component extends DCLogic {
       eyebrow: lSel.headOffice ? lSel.label : "Office",
       eyebrowColor: lSel.headOffice ? "#8a6d40" : "#6b6656",
       ruleColor: lSel.headOffice ? "#B08E5A" : "#D8CFBD",
-      lines:lSel.lines.map(t => ({ text:t })), directions:locDirections(lSel)
+      lines:lSel.lines.map(t => ({ text:t })), hasAddress:lSel.lines.length > 0,
+      directions:lSel.lines.length ? locDirections(lSel) : ""
     } : null;
     const lCount = lMatches.length;
     const locCountText = !lq.trim()
@@ -1950,11 +2008,11 @@ class Component extends DCLogic {
 
     return {
       route:r,
-      isHome:r==="home", isServices:r==="services", isOurTeam:r==="our-team", isProfAdvisers:r==="professional-advisers",
+      isHome:r==="home", isServices:r==="services", isOurTeam:r==="our-team", isAboutUs:r==="about-us",
       isArticles:r==="articles", isPublications:r==="publications", isWebinars:r==="webinars",
       isTestimonials:r==="testimonials", isContact:r==="contact", isPrivacy:r==="privacy-policy", isTerms:r==="terms-and-conditions",
       isLocations:r==="locations",
-      locQuery:lq, locHasQuery:lq.length > 0, locList, locHasResults:lCount > 0, locNoResults:lCount===0,
+      locQuery:lq, locHasQuery:lq.length > 0, locGroups, locHasResults:lCount > 0, locNoResults:lCount===0,
       locDetail, locShowDetail:!lMob && !!locDetail, locCountText,
       onLocQuery:(e)=>this.setLocQuery(e.target.value),
       onLocSearchKey:(e)=>{ if (e.key==="Escape" && this.state.locQuery) { e.preventDefault(); this.setLocQuery(""); } },
@@ -1986,12 +2044,12 @@ class Component extends DCLogic {
         services: (r==="services" || r==="service-detail") ? active : off,
         ourTeam: r==="our-team" ? active : off,
         knowledge: isKnowledge ? active : off,
-        profAdvisers: r==="professional-advisers" ? active : off,
+        aboutUs: r==="about-us" ? active : off,
         locations: r==="locations" ? active : off,
         testimonials: r==="testimonials" ? active : off
       },
       goHome:this._link(()=>this.navigate("home")), goServices:this._link(()=>this.goServicesSection()),
-      goOurTeam:this._link(()=>this.navigate("our-team")), goProfAdvisers:this._link(()=>this.navigate("professional-advisers")),
+      goOurTeam:this._link(()=>this.navigate("our-team")), goAboutUs:this._link(()=>this.navigate("about-us")),
       goArticles:this._link(()=>this.navigate("articles")), goPublications:this._link(()=>this.navigate("publications")),
       goContact:this._link(()=>this.navigate("contact")),
       goLocations:this._link(()=>this.goLocations()),

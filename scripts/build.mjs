@@ -101,8 +101,15 @@ function graph(page) {
   }
   if (page.route === "locations") {
     webpage.mainEntity = { "@id": ORG_ID };
+    const country = { "United Kingdom": "GB", "United Arab Emirates": "AE" };
+    // UK addresses end in a postcode; UAE ones end in the city, optionally followed by the country
+    const address = (l) => {
+      const a = l.lines[l.lines.length - 1] === l.country ? l.lines.slice(0, -1) : l.lines;
+      if (!a.length) return { addressLocality: l.name };  // office still awaiting an address
+      return { streetAddress: a.slice(0, -1).join(", "), [l.country === "United Kingdom" ? "postalCode" : "addressLocality"]: a[a.length - 1] };
+    };
     nodes[0] = { ...organization, location: LOCATIONS.map((l) => ({ "@type": "Place", name: l.headOffice ? `${l.name} ${l.label}` : l.name,
-      address: { "@type": "PostalAddress", streetAddress: l.lines.slice(0, -1).join(", "), postalCode: l.lines[l.lines.length - 1], addressCountry: "GB" } })) };
+      address: { "@type": "PostalAddress", ...address(l), addressCountry: country[l.country] } })) };
   }
   if (page.route === "our-team") {
     nodes.push(...TEAM.map((p) => { const n = splitCredentials(p.name); return { "@type": "Person", name: n.name,
@@ -118,7 +125,7 @@ function graph(page) {
 
 // ---- routes ----
 const PAGES = [
-  { route: "home" }, { route: "our-team", pageType: "AboutPage" }, { route: "professional-advisers" },
+  { route: "home" }, { route: "our-team", pageType: "AboutPage" }, { route: "about-us" },
   { route: "articles", pageType: "CollectionPage" }, { route: "publications", pageType: "CollectionPage" },
   { route: "locations" }, { route: "contact", pageType: "ContactPage" }, { route: "privacy-policy" }, { route: "terms-and-conditions" },
   ...SERVICES.map((s) => ({ route: "service-detail", slug: s.slug, breadcrumb: [["Home", "/"], [s.title]] })),
