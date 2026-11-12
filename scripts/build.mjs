@@ -71,7 +71,7 @@ const body = src.slice(src.indexOf("<body>"));
 const FONTS_HREF = (src.match(/<link href="(https:\/\/fonts\.googleapis\.com\/css2\?[^"]+)" rel="stylesheet">/) || [])[1] || fail("Google Fonts link not found in template");
 const referenced = new Set(body.match(ASSET_RE));
 for (const rel of referenced) emit(rel);
-for (const rel of ["assets/favicon.ico", "assets/favicon-32x32.png", "assets/apple-touch-icon.png", "assets/og-image.png", "assets/tcg-logo.png"]) emit(rel);
+for (const rel of ["assets/favicon.ico", "assets/favicon.svg", "assets/favicon-96x96.png", "assets/apple-touch-icon.png", "assets/og-image.png", "assets/tcg-logo.png"]) emit(rel);
 emit("assets/favicon.ico", path.join(ROOT, "assets/favicon.ico"), "favicon.ico");
 const pageBody = leaflet.reduce((b, [from, to]) => b.split(from).join(to),
   body.replace(ASSET_RE, (m) => urls.get(m) || fail("unresolved asset " + m)));
@@ -167,8 +167,9 @@ function head(page, { notFound = false } = {}) {
     `<meta name="twitter:title" content="${esc(page.title)}">`,
     `<meta name="twitter:description" content="${esc(page.description)}">`,
     `<meta name="twitter:image" content="${esc(og)}">`,
-    `<link rel="icon" href="${urls.get("assets/favicon.ico")}" sizes="any">`,
-    `<link rel="icon" type="image/png" sizes="32x32" href="${urls.get("assets/favicon-32x32.png")}">`,
+    `<link rel="icon" href="${urls.get("assets/favicon.ico")}" sizes="16x16 32x32 48x48">`,
+    `<link rel="icon" type="image/svg+xml" href="${urls.get("assets/favicon.svg")}">`,
+    `<link rel="icon" type="image/png" sizes="96x96" href="${urls.get("assets/favicon-96x96.png")}">`,
     `<link rel="apple-touch-icon" sizes="180x180" href="${urls.get("assets/apple-touch-icon.png")}">`,
     `<link rel="preconnect" href="https://fonts.googleapis.com">`,
     `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">`,
