@@ -54,6 +54,14 @@ const vendor = [
   if (expected !== actual) fail(`${name} build does not match the SRI hash in support.js (run npm ci)`);
   return emit(file, path.join(ROOT, file), path.join("vendor", path.basename(file)));
 });
+// Leaflet (Our Locations map): the page loads it from unpkg with SRI; production serves the identical files from /vendor.
+const leaflet = [["LEAFLET_JS", "node_modules/leaflet/dist/leaflet.js"], ["LEAFLET_CSS", "node_modules/leaflet/dist/leaflet.css"]].map(([name, file]) => {
+  const url = (script.match(new RegExp(`const ${name} = "([^"]+)"`)) || [])[1] || fail(name + " not found in the page logic");
+  const sri = (script.match(new RegExp(`const ${name}_SRI = "([^"]+)"`)) || [])[1];
+  const actual = "sha384-" + crypto.createHash("sha384").update(fs.readFileSync(path.join(ROOT, file))).digest("base64");
+  if (sri !== actual) fail(`${file} does not match ${name}_SRI (run npm ci)`);
+  return [url, emit(file, path.join(ROOT, file), path.join("vendor", path.basename(file)))];
+});
 const supportUrl = emit("support.js");
 
 // Every asset the page references, plus head-only assets.
@@ -65,7 +73,8 @@ const referenced = new Set(body.match(ASSET_RE));
 for (const rel of referenced) emit(rel);
 for (const rel of ["assets/favicon.ico", "assets/favicon-32x32.png", "assets/apple-touch-icon.png", "assets/og-image.png", "assets/tcg-logo.png"]) emit(rel);
 emit("assets/favicon.ico", path.join(ROOT, "assets/favicon.ico"), "favicon.ico");
-const pageBody = body.replace(ASSET_RE, (m) => urls.get(m) || fail("unresolved asset " + m));
+const pageBody = leaflet.reduce((b, [from, to]) => b.split(from).join(to),
+  body.replace(ASSET_RE, (m) => urls.get(m) || fail("unresolved asset " + m)));
 
 // ---- structured data ----
 const abs = (p) => SITE_URL + p;
@@ -109,6 +118,8 @@ function graph(page) {
       return { streetAddress: a.slice(0, -1).join(", "), [l.country === "United Kingdom" ? "postalCode" : "addressLocality"]: a[a.length - 1] };
     };
     nodes[0] = { ...organization, location: LOCATIONS.map((l) => ({ "@type": "Place", name: l.headOffice ? `${l.name} ${l.label}` : l.name,
+      ...(l.img ? { image: abs(urls.get(l.img).split("?")[0]) } : {}),
+      ...(l.ll ? { geo: { "@type": "GeoCoordinates", latitude: l.ll[0], longitude: l.ll[1] } } : {}),
       address: { "@type": "PostalAddress", ...address(l), addressCountry: country[l.country] } })) };
   }
   if (page.route === "our-team") {
