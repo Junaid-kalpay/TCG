@@ -9,7 +9,6 @@
     { "source": "/TCG%20Website.dc.html", "destination": "/", "permanent": true },
     { "source": "/home", "destination": "/", "permanent": true },
     { "source": "/professional-advisers", "destination": "/about-us", "permanent": true },
-    { "source": "/services/tax-dispute-resolution", "destination": "/", "permanent": true },
     { "source": "/services", "destination": "/services/private-wealth-inheritance-tax-estate-planning", "permanent": false }
   ],
   "headers": [
