@@ -253,9 +253,9 @@
           </button>
           <sc-if value="{{ servicesOpen }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:14px;animation:tcgFadeIn .18s ease;z-index:6;">
-            <div style="position:relative;background:#fff;border:1px solid #ECE6DA;border-radius:4px;box-shadow:0 24px 60px -22px rgba(21,32,59,.34);padding:14px;width:1060px;max-width:83vw;">
+            <div style="position:relative;background:#fff;border:1px solid #ECE6DA;border-radius:4px;box-shadow:0 24px 60px -22px rgba(21,32,59,.34);padding:14px;width:760px;max-width:88vw;">
               <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-left:1px solid #ECE6DA;border-top:1px solid #ECE6DA;"></div>
-              <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;" data-svc-megamenu="">
+              <div style="display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,auto);grid-auto-flow:column;gap:4px;" data-svc-megamenu="">
                 <sc-for list="{{ servicesDropdown }}" as="svc" hint-placeholder-count="10">
                   <a href="/services/{{ svc.slug }}" onClick="{{ svc.go }}" style="display:flex;align-items:center;min-height:52px;padding:12px 16px;border-radius:3px;cursor:pointer;font-size:13.5px;font-weight:500;line-height:1.32;color:#2c3450;transition:background .18s,color .18s;" style-hover="background:#F6F2EA;color:#B08E5A;">{{ svc.title }}</a>
                 </sc-for>
@@ -615,10 +615,10 @@
         <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px);display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:clamp(40px,6vw,80px);align-items:start;" data-adv-grid="">
           <!-- intro content -->
           <div data-reveal="">
-            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 22px;">At TCG, our focus is on partnering with accountancy practices and wealth advisers to provide specialist tax solutions on complex tax matters, delivering tax efficient outcomes for their clients.</p>
+            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 22px;">At TCG, we are dedicated to partnering with accountancy practices and wealth advisers to provide specialist tax solutions on complex tax matters, and delivering tax efficient outcomes for their clients.</p>
             <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 22px;">Our aim is to help resolve complex tax issues for clients and support them with their tax needs. Whether you need a second opinion on a tax matter, or want to engage us to handle a complex tax advisory project, our team of experts are here to assist.</p>
             <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 22px;">We can either work behind the scenes on a white-label basis or by engaging directly with your client as your strategic tax partners.</p>
-            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 36px;">Our services are designed for accountancy practices and wealth advisers who require specialist and solutions focused tax advisory services. We will provide support and practical answers to complex tax questions, helping you serve your clients effectively and manage risk.</p>
+            <p class="tcg-just" style="font-size:clamp(16px,1.3vw,18px);line-height:1.8;color:#384058;margin:0 0 36px;">Our services are designed for accountancy practices and wealth advisers who require specialist and solution-focused tax advisory services. We will provide support and practical answers to complex tax questions, helping you serve your clients effectively and manage risk.</p>
             
           </div>
           <!-- why card -->
@@ -1325,13 +1325,13 @@ const SERVICES = [
       "We provide expert residency planning and cross-border structuring advice to internationally mobile clients and specialise in providing practical UK and international tax advice to help clients navigate the evolving tax landscape and cross-border obligations.",
       "We carry out a thorough analysis of clients’ personal and corporate tax positions, providing practical tax structuring advice which supports their long-term personal and business objectives.",
       "With a large number of overseas clients owning asset portfolios in the UK, we extensively advise international families across multiple jurisdictions on implementing tax efficient structures to help mitigate long term UK tax exposures.",
-      { text:"We also specialise in providing UAE tax, relocation and corporate services to private clients and businesses expanding to the jurisdiction (please see our ", link:"UAE and Middle Eastern Services", slug:"uae-gcc", after:" page for further details)." },
+      { text:"We also specialise in providing UAE tax, relocation and corporate services to private clients and businesses expanding to the jurisdiction (please see our ", link:"UAE and Middle East", slug:"uae-gcc", after:" page for further details)." },
       "We regularly collaborate with partner firms in other jurisdictions across Europe, Middle East, USA and Southeast Asia on cross-border tax matters."
     ],
     areasLabel:"Core areas of focus",
     areas:["Global mobility","Personal and corporate tax residency","Cross-border structuring","Foreign Income and Gains regime","Double Tax Treaties","Transfer Pricing","UK inbound and outbound investment structuring","UAE and GCC tax advisory and corporate services"] },
 
-  { n:"5", slug:"uae-gcc", title:"UAE and Middle Eastern Services", cta:"Discuss your UAE and Middle Eastern tax and corporate services requirements with our team",
+  { n:"5", slug:"uae-gcc", title:"UAE and Middle East", cta:"Discuss your UAE and Middle Eastern tax and corporate services requirements with our team",
     desc:"Holistic UAE & wider GCC tax, cross-border structuring, international mobility and corporate services for UK, Middle Eastern and global private and corporate clients.",
     intro:"Specialist UAE and GCC corporate, private wealth and real estate tax structuring and advisory services.",
     paras:[
@@ -1412,14 +1412,14 @@ const SERVICES = [
 ];
 const TEAM = [
   { name:"Zeeshan Khilji", img:"/assets/team/zeeshan-khilji.webp?v=5d8bc7ffe0", bio:[
-    `Zeeshan is a Chartered Tax Adviser and published tax author. His main areas of focus include IHT, tax efficient exit & succession planning, property tax, cross-border structuring, corporate transactions, company reorganisations and intellectual property tax.`,
+    `Zeeshan is a Chartered Tax Adviser and a published tax author. He advises high & ultra-high-net-worth private clients, families, private businesses and their owners on all aspects of their complex personal and corporate tax affairs. His main areas of focus include IHT & succession planning, property tax, corporate transactions, company reorganisations & reconstructions, cross-border structuring and share incentives.`,
+    `Zeeshan is passionate about delivering commercially driven solution-focused tax advisory services to clients across the business lifecycle, using a holistic approach with a focus on the interaction of personal and corporate taxes.`,
     `He is the author of Bloomsbury’s Property Tax Planning and co-author of Taxation of Intellectual Property publications. Prior to establishing TCG, Zeeshan spent over a decade working for Big Four, Top 10 and independent firms.`,
-    `Zeeshan is passionate about delivering holistic and solutions-focused tax advisory services to clients, using a commercial and integrated approach that recognises entrepreneurs and their businesses as a single composite client, taking into account all relevant personal and corporate taxes.`,
-    `He particularly enjoys working with other professional advisers to support them with delivering specialist tax advisory services to clients. Zeeshan has an extensive network of international specialists, who he regularly collaborates with on cross-border tax advisory matters.`
+    `Zeeshan has an extensive network of international specialists across multiple disciplines, who he regularly collaborates with on cross-border advisory matters.`
   ] },
   { name:"Cathrin Richards", img:"/assets/team/cathrin-richards.webp?v=3932883f7e", bio:[
     `Cathrin has many years' experience as a specialist tax adviser, working with a range of private clients, businesses and their owners. Prior to joining TCG, she was a tax partner at a Top 10 accountancy firm with a mixed portfolio of clients including private individuals, families and companies across a diverse range of sectors.`,
-    `Over the years, the focus of her advice has encompassed a wide range of areas including IHT planning, corporate reorganisations & reconstructions, business exit strategies, tax due diligence and structuring (including advising on private equity transactions) and aspects of international tax matters, both from corporate and personal viewpoints.`,
+    `Over the years, the focus of Cathrin's advice has encompassed a wide range of areas including IHT planning, corporate reorganisations & reconstructions, business exit strategies, tax due diligence and structuring (including advising on private equity transactions) and aspects of international tax matters.`,
     `Cathrin also has extensive practical experience of R&D tax relief and patent box, as well as dealing with share incentives and venture capital reliefs.`
   ] },
   { name:"John Kavanagh", img:"/assets/team/john-kavanagh.webp?v=9d525e291f", bio:[
@@ -1435,22 +1435,22 @@ const TEAM = [
     `Duncan is a Chartered Tax Adviser with over 30 years of specialist tax advisory experience. He trained and worked for Big 4 firms, as well as mid-tier and independent firms, with a focus on private businesses, families and high-net-worth private clients. Duncan has written many articles for the press and lectures on tax topics.`,
     `Duncan is particularly well known amongst his clients for explaining complex issues in an easily understood manner.`
   ] },
-  { name:"Andrew McKenna", img:"/assets/team/andrew-mckenna.webp?v=06af392adf", bio:[
-    `Andrew is a Chartered Tax Advisor (CTA) and member of the CIOT Taxes Administration Sub-Committee. He is also a CEDR (Centre for Effective Dispute Resolution) accredited mediator with experience of using ADR (Alternative Dispute Resolution) to move contentious HMRC cases to settlement without litigation.`,
-    `He has over 25 years' experience in dealing with tax disputes, including working for HMRC as an Investigator for 17 years and as a Tax Partner for a Top 10 firm, assisting individuals, businesses, trustees and other professionals to resolve tax disputes and enquiries.`
-  ] },
-  { name:"Tim Mallon", img:"/assets/team/tim-mallon.webp?v=ed2eb0d5c2", bio:[
-    `Tim is a Chartered Tax Adviser with over 35 years of specialist tax advisory experience covering all areas of direct taxes. Tim is a former Chair of the North East England branch of the Chartered Institute of Taxation. He is well known amongst clients and other professional advisers for his clear and practical advice.`
-  ] },
   { name:"Chris Thorpe", img:"/assets/team/chris-thorpe.webp?v=0ba2ca4bcf", bio:[
     `Chris originally qualified as a barrister and is a Fellow of the Chartered Institute of Taxation and a full member of the Society of Trust and Estate Practitioners (STEP), having qualified as a Chartered Tax Adviser with Grant Thornton in 2011.`,
     `Chris has particular expertise in private client tax matters, including inheritance tax, succession and estate planning, as well as all aspects of family and owner-managed businesses taxation. Chris is the author of "Implied Trusts and Beneficial Ownership in Modern UK Tax Law". He has published several peer-reviewed articles in academic journals and has also worked as a technical officer for the Chartered Institute of Taxation.`
   ] },
+  { name:"Andrew McKenna", img:"/assets/team/andrew-mckenna.webp?v=06af392adf", bio:[
+    `Andrew is a Chartered Tax Advisor (CTA) with over 25 years' experience in dealing with tax disputes, including working for HMRC as an Investigator for 17 years and as a Tax Partner for a Top 10 firm, assisting individuals, businesses, trustees and other professionals to resolve tax disputes and enquiries.`,
+    `Andrew is a Centre for Effective Dispute Resolution (CEDR) accredited mediator with specialist experience of using Alternative Dispute Resolution (ADR) to move contentious HMRC cases to settlement without litigation.`
+  ] },
+  { name:"Tim Mallon", img:"/assets/team/tim-mallon.webp?v=ed2eb0d5c2", bio:[
+    `Tim is a Chartered Tax Adviser with over 35 years of specialist tax advisory experience covering all areas of direct taxes. Tim is a former Chair of the North East England branch of the Chartered Institute of Taxation. He is well known amongst clients and other professional advisers for his clear and practical advice.`
+  ] },
   { name:"Susie Moore", img:"/assets/team/susie-moore.webp?v=1ee74d6be7", bio:[
-    `Susie is a Chartered Tax Advisor and legally trained international tax specialist with over 20 years of experience in cross-border tax structuring, compliance and strategic advisory.`,
+    `Susie is a Chartered Tax Advisor and legally trained international tax specialist with over 20 years of experience in cross-border tax structuring and strategic advisory.`,
     `With extensive experience in both the UK and the Middle East, Susie has developed deep regional expertise in UK–UAE taxation and a practical understanding of how international and domestic tax regimes interact. She specialises in helping business owners, multinational groups, high-net-worth individuals and family offices navigate the complexities of relocation, business expansion and corporate structuring between the UK, UAE and wider GCC region.`,
-    `Susie has held senior positions at leading global firms including PwC, BDO, and CGI in Dubai, where she advised on complex international tax planning, transfer pricing, intellectual property structuring, foundations and corporate residency across numerous jurisdictions including the UK, UAE, Europe, the US, and key GCC markets.`,
-    `Her expertise lies in designing and implementing tax-efficient, compliant and scalable structures that align with commercial objectives and support long-term growth, investment and exit strategies.`
+    `Susie has held senior positions at leading global firms including PwC, BDO, and CGI in Dubai, where she advised on complex international tax planning, transfer pricing, intellectual property structuring, foundations and corporate residency across numerous jurisdictions including the UK, UAE, wider GCC, Europe and the US.`,
+    `Susie is an expert in advising on tax-efficient, compliant and scalable structures that align with commercial objectives and support long-term growth, investment and exit strategies.`
   ] },
   { name:"Jay Doshi", img:"/assets/team/jay-doshi.webp?v=9335a11402", bio:[
     `Jay began his tax career with Coopers & Lybrand in 1981. In a career spanning 40 years, he has developed extensive experience across both private client and corporate taxation, having held senior tax roles within leading accountancy firms, as well as lecturing and presenting tax seminars for advisers and clients.`,
